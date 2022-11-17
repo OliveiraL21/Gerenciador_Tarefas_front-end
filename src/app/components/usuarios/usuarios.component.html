@@ -1,1 +1,69 @@
-<p>usuarios works!</p>
+<nz-page-header nzTitle="Lista de Usuários">
+  <nz-breadcrumb nz-page-header-breadcrumb>
+    <nz-breadcrumb-item>Usuários</nz-breadcrumb-item>
+    <nz-breadcrumb-item>Lista</nz-breadcrumb-item>
+  </nz-breadcrumb>
+</nz-page-header>
+
+<nz-card>
+  <nz-table #usuariosTable [nzData]="listOfUsuarios" nzBordered>
+    <thead>
+      <tr>
+        <th nzWidth="450px">Nome</th>
+        <th nzWidth="250px">Login</th>
+        <th>E-mail</th>
+        <th nzAlign="center" nzWidth="200px">Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let usuario of usuariosTable.data">
+        <td>{{ usuario.nome }}</td>
+        <td>{{ usuario.login }}</td>
+        <td>{{ usuario.email }}</td>
+        <td nzAlign="center">
+          <button
+            nz-button
+            nzType="primary"
+            nzSize="small"
+            nz-tooltip
+            nzTooltipTitle="Visualizar"
+            nzTooltipPlacement="top"
+          >
+            <span nz-icon nzType="eye" nzTheme="outline"></span>
+          </button>
+
+          <button
+            nz-button
+            nzType="default"
+            nzSize="small"
+            nz-tooltip
+            nzTooltipTitle="Editar"
+            nzTooltipPlacement="top"
+          >
+            <span nz-icon nzType="edit" nzTheme="outline"></span>
+          </button>
+
+          <button
+            nz-button
+            nzType="default"
+            nzSize="small"
+            nzDanger
+            nz-tooltip
+            nzTooltipTitle="Deletar"
+            nzTooltipPlacement="top"
+          >
+            <span nz-icon nzType="delete" nzTheme="outline"></span>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+
+  <div nz-row nzJustify="space-between">
+    <div nz-col nzXs="48" nzXl="24" nzSm="12" nzMd="12" nzLg="24">
+      <button nz-button nzType="primary" (click)="novoUsuario()">
+        Novo Usuário <span nz-icon nzType="plus" nzTheme="outline"></span>
+      </button>
+    </div>
+  </div>
+</nz-card>
