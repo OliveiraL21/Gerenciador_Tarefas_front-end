@@ -4,3 +4,36 @@
     <nz-breadcrumb-item>{{ breadCrumbItem }}</nz-breadcrumb-item>
   </nz-breadcrumb>
 </nz-page-header>
+
+<form [formGroup]="form">
+  <nz-card>
+    <div nz-row [nzGutter]="[12]">
+      <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
+        <nz-form-item>
+          <nz-form-control>
+            <nz-form-label nzFor="nome">Nome</nz-form-label>
+            <input
+              type="text"
+              nz-input
+              placeholder="Digite o nome do usuário"
+              formControlName="nome"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
+        <nz-form-item>
+          <nz-form-control>
+            <nz-form-label nzFor="login">Login</nz-form-label>
+            <input
+              type="text"
+              nz-input
+              placeholder="Digite o login"
+              formControlName="login"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+  </nz-card>
+</form>
