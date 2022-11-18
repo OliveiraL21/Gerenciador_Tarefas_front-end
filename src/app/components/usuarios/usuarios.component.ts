@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Usuarios } from 'src/app/models/usuarios';
+import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
   selector: 'app-usuarios',
@@ -9,18 +10,23 @@ import { Usuarios } from 'src/app/models/usuarios';
 })
 export class UsuariosComponent implements OnInit {
   listOfUsuarios: Usuarios[] = [];
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private usuarioService: UsuariosService
+  ) {}
 
   novoUsuario() {
     this.router.navigateByUrl('usuarios/cadastro');
   }
 
-  ngOnInit(): void {
-    this.listOfUsuarios.push({
-      nome: 'Lucas',
-      login: 'Lucasxpd',
-      email: 'lucas@luxfacta.com',
-      senha: 'teste',
+  listaTodos(): void {
+    this.usuarioService.listaUsuarios().subscribe({
+      next: (response) => {
+        this.listOfUsuarios = response;
+      },
     });
+  }
+  ngOnInit(): void {
+    this.listaTodos();
   }
 }

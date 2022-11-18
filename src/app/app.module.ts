@@ -28,6 +28,8 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzNotificationModule } from 'ng-zorro-antd/notification';
 
 registerLocaleData(pt);
 
@@ -59,6 +61,8 @@ registerLocaleData(pt);
     NzCardModule,
     NzButtonModule,
     NzInputModule,
+    NzFormModule,
+    NzNotificationModule,
   ],
   providers: [{ provide: NZ_I18N, useValue: pt_BR }],
   bootstrap: [AppComponent],
