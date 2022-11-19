@@ -31,4 +31,8 @@ export class UsuariosService {
   filtro(login: string, email: string, nome: string): Observable<Usuarios[]> {
     return this.http.get<Usuarios[]>(`${url}/filtro/${login}/${email}/${nome}`);
   }
+
+  delete(id: any): Observable<boolean> {
+    return this.http.delete<boolean>(`${url}/delete/${id}`);
+  }
 }

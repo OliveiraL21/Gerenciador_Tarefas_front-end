@@ -1,6 +1,8 @@
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NzModalService } from 'ng-zorro-antd/modal';
 import { Usuarios } from 'src/app/models/usuarios';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 
@@ -16,8 +18,14 @@ export class UsuariosComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private usuarioService: UsuariosService
+    private usuarioService: UsuariosService,
+    private modal: NzModalService,
+    private notification: NzNotificationService
   ) {}
+
+  createNotification(type: string, title: string, message: string) {
+    this.notification.create(type, title, message);
+  }
 
   novoUsuario() {
     this.router.navigateByUrl('usuarios/cadastro');
@@ -34,6 +42,35 @@ export class UsuariosComponent implements OnInit {
     this.usuarioService.listaUsuarios().subscribe({
       next: (response) => {
         this.listOfUsuarios = response;
+      },
+    });
+  }
+
+  deleteUsuario(id?: number) {
+    this.modal.create({
+      nzTitle: 'Excluir Usuário',
+      nzContent: 'Deseja excluir este usuario ?',
+      nzOkText: 'Sim',
+      nzOkType: 'primary',
+      nzOkDanger: true,
+      nzOnOk: () => {
+        this.usuarioService.delete(id).subscribe({
+          next: (response) => {
+            this.createNotification(
+              'success',
+              'Excluir Usuário',
+              'Usuário excluido com sucesso!'
+            );
+            this.listaTodos();
+          },
+          error: (erro) => {
+            this.createNotification(
+              'error',
+              'Excluir Usário',
+              `Erro ${erro.status} ao tentar excluir o usuário, tente novamente mais tarde"`
+            );
+          },
+        });
       },
     });
   }

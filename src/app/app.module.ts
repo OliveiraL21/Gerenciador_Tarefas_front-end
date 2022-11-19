@@ -32,6 +32,7 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzNotificationModule } from 'ng-zorro-antd/notification';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
+import { NzModalModule } from 'ng-zorro-antd/modal';
 
 registerLocaleData(pt);
 
@@ -67,6 +68,7 @@ registerLocaleData(pt);
     NzNotificationModule,
     NzSpinModule,
     NzCollapseModule,
+    NzModalModule,
   ],
   providers: [{ provide: NZ_I18N, useValue: pt_BR }],
   bootstrap: [AppComponent],
