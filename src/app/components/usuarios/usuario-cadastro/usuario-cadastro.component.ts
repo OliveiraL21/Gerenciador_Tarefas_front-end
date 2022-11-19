@@ -1,9 +1,9 @@
-import { UsuariosService } from './../../../services/usuarios.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { Usuarios } from 'src/app/models/usuarios';
+import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
   selector: 'app-usuario-cadastro',
