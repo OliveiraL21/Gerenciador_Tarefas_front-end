@@ -1,1 +1,80 @@
-<p>clientes works!</p>
+<nz-page-header [nzTitle]="pageTitle">
+  <nz-breadcrumb nz-page-header-breadcrumb>
+    <nz-breadcrumb-item>{{ breadCrumbItem }}</nz-breadcrumb-item>
+  </nz-breadcrumb>
+</nz-page-header>
+
+<form nz-form [formGroup]="form">
+  <nz-collapse nzExpandIconPosition="right">
+    <nz-collapse-panel nzHeader="Filtros" nzActive="active">
+      <div nz-row [nzGutter]="[12, 2]">
+        <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
+          <nz-form-item>
+            <nz-form-control>
+              <nz-form-label>Razão Social</nz-form-label>
+              <input
+                type="text"
+                nz-input
+                placeholder="Luxfacta"
+                formControlName="Razao_Social"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
+          <nz-form-item>
+            <nz-form-control>
+              <nz-form-label>Cnpj</nz-form-label>
+              <input
+                type="text"
+                nz-input
+                placeholder="000.000/0000-00"
+                formControlName="Cnpj"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div nz-row nzJustify="space-between" style="text-align: right">
+        <div nz-col nzXs="48" nzSm="24" nzMd="24" nzLg="24" nzXl="24">
+          <button nz-button nzType="primary">Filtrar</button>
+        </div>
+      </div>
+    </nz-collapse-panel>
+  </nz-collapse>
+</form>
+
+<br />
+<br />
+
+<nz-spin [nzSpinning]="isSpinning" nzTip="Carregando Dados...">
+  <nz-card>
+    <nz-table nzBordered [nzData]="listaClientes">
+      <thead>
+        <tr>
+          <th>Razão Social</th>
+          <th>Cnpj</th>
+          <th>Projeto</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </nz-card>
+</nz-spin>
+
+<div nz-row nzJustify="space-between" style="margin-top: 20px">
+  <div nz-col nzXs="48" nzSm="24" nzMd="24" nzLg="24" nzXl="24">
+    <button nz-button nzType="primary">
+      Novo Cliente <span nz-icon nzType="plus" nzTheme="outline"></span>
+    </button>
+  </div>
+</div>
