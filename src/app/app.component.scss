@@ -13,7 +13,7 @@
   position: relative;
   z-index: 10;
   min-height: 100vh;
-  box-shadow: 2px 0 6px rgba(0,21,41,.35);
+  box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);
 }
 
 .header-trigger {
@@ -21,7 +21,7 @@
   padding: 20px 24px;
   font-size: 20px;
   cursor: pointer;
-  transition: all .3s,padding 0s;
+  transition: all 0.3s, padding 0s;
 }
 
 .trigger:hover {
@@ -35,7 +35,7 @@
   overflow: hidden;
   line-height: 64px;
   background: #001529;
-  transition: all .3s;
+  transition: all 0.3s;
 }
 
 .sidebar-logo img {
@@ -51,7 +51,7 @@
   color: #fff;
   font-weight: 600;
   font-size: 14px;
-  font-family: Avenir,Helvetica Neue,Arial,Helvetica,sans-serif;
+  font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
   vertical-align: middle;
 }
 
@@ -66,7 +66,7 @@ nz-header {
   height: 64px;
   padding: 0;
   background: #fff;
-  box-shadow: 0 1px 4px rgba(0,21,41,.08);
+  box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
 }
 
 nz-content {
@@ -77,4 +77,62 @@ nz-content {
   padding: 24px;
   background: #fff;
   height: 100%;
+}
+
+::ng-deep .ant-input[disabled] {
+  background-color: #fff !important;
+  color: rgba(0, 0, 0, 0.85) !important;
+  border: none !important;
+  border-bottom: 1px solid rgba(209, 209, 209, 0.35) !important;
+}
+
+::ng-deep .ant-input-affix-wrapper-disabled {
+  color: rgba(0, 0, 0, 1) !important;
+  background-color: #fff !important;
+  border: none !important;
+  border-bottom: 1px solid rgba(209, 209, 209, 0.35) !important;
+}
+
+::ng-deep .ant-input-affix-wrapper-disabled .ant-input[disabled] {
+  border: none !important;
+}
+
+::ng-deep
+  .ant-select-disabled.ant-select:not(.ant-select-customize-input)
+  .ant-select-selector {
+  color: rgba(0, 0, 0, 1);
+  background: #fff !important;
+  border: none !important;
+  border-bottom: 1px solid rgba(209, 209, 209, 0.35) !important;
+}
+
+::ng-deep .ant-select-disabled.ant-select-multiple .ant-select-selection-item {
+  color: rgba(0, 0, 0, 0.85) !important;
+}
+
+::ng-deep .ant-checkbox-disabled + span {
+  color: rgba(0, 0, 0, 0.85);
+}
+
+::ng-deep .ant-checkbox-disabled {
+  border: none !important;
+  border-bottom: 1px solid rgba(209, 209, 209, 0.35) !important;
+}
+
+::ng-deep .ant-picker.ant-picker-disabled {
+  background-color: #fff !important;
+  border: none !important;
+  border-bottom: 1px solid rgba(209, 209, 209, 0.35) !important;
+}
+
+::ng-deep .ant-picker-input > input[disabled] {
+  color: rgba(0, 0, 0, 0.85) !important;
+}
+
+::ng-deep .ant-radio-button-wrapper-disabled.ant-radio-button-wrapper-checked {
+  color: rgba(0, 0, 0, 0.85) !important;
+}
+
+::ng-deep .ant-back-top {
+  right: 10px !important;
 }

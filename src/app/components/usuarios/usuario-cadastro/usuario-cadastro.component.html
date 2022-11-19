@@ -6,112 +6,132 @@
 </nz-page-header>
 
 <form nz-form [formGroup]="form" [nzLayout]="'horizontal'">
-  <nz-card>
-    <div nz-row [nzGutter]="[12]">
-      <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
-        <nz-form-item>
-          <nz-form-control [nzErrorTip]="nomeError">
-            <nz-form-label nzFor="nome" nzRequired>Nome</nz-form-label>
-            <input
-              type="text"
-              nz-input
-              placeholder="Digite o nome do usuário"
-              formControlName="nome"
-              maxlength="30"
-              required
-            />
-            <ng-template #nomeError let-control>
-              <ng-container *ngIf="control.hasError('required')"
-                >Por favor, informe o nome do usuário</ng-container
-              >
-              <ng-container *ngIf="control.hasError('maxlength')"
-                >O número máximo de caracteres é 30, informe um nome mais
-                curto!</ng-container
-              >
-            </ng-template>
-          </nz-form-control>
-        </nz-form-item>
-      </div>
+  <nz-spin nzTip="Carregando dados" [nzSpinning]="isSpinning">
+    <nz-card>
+      <div nz-row [nzGutter]="[12]">
+        <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
+          <nz-form-item>
+            <nz-form-control [nzErrorTip]="nomeError">
+              <nz-form-label nzFor="nome" nzRequired>Nome</nz-form-label>
+              <input
+                type="text"
+                nz-input
+                placeholder="Digite o nome do usuário"
+                formControlName="nome"
+                maxlength="30"
+                required
+              />
+              <ng-template #nomeError let-control>
+                <ng-container *ngIf="control.hasError('required')"
+                  >Por favor, informe o nome do usuário</ng-container
+                >
+                <ng-container *ngIf="control.hasError('maxlength')"
+                  >O número máximo de caracteres é 30, informe um nome mais
+                  curto!</ng-container
+                >
+              </ng-template>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
 
-      <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
-        <nz-form-item>
-          <nz-form-control [nzErrorTip]="emailError">
-            <nz-form-label nzFor="Email" nzRequired>E-mail</nz-form-label>
-            <input
-              type="email"
-              nz-input
-              placeholder="Informe o e-mail"
-              formControlName="email"
-              required
-            />
-            <ng-template #emailError let-control>
-              <ng-container *ngIf="control.hasError('required')"
-                >Por favor, Informe um e-mail</ng-container
-              >
-              <ng-container *ngIf="control.hasError('email')"
-                >Por favor, informe um e-mail válido</ng-container
-              >
-            </ng-template>
-          </nz-form-control>
-        </nz-form-item>
-      </div>
+        <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
+          <nz-form-item>
+            <nz-form-control [nzErrorTip]="emailError">
+              <nz-form-label nzFor="Email" nzRequired>E-mail</nz-form-label>
+              <input
+                type="email"
+                nz-input
+                placeholder="Informe o e-mail"
+                formControlName="email"
+                required
+              />
+              <ng-template #emailError let-control>
+                <ng-container *ngIf="control.hasError('required')"
+                  >Por favor, Informe um e-mail</ng-container
+                >
+                <ng-container *ngIf="control.hasError('email')"
+                  >Por favor, informe um e-mail válido</ng-container
+                >
+              </ng-template>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
 
-      <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
-        <nz-form-item>
-          <nz-form-control>
-            <nz-form-label nzFor="login" nzRequired>Login</nz-form-label>
-            <input
-              type="text"
-              nz-input
-              placeholder="Digite o login"
-              formControlName="login"
-              required
-              maxlength="20"
-            />
-            <ng-template #loginError let-control>
-              <ng-container *ngIf="control.hasError('required')"
-                >Por favor, Informe um e-mail</ng-container
-              >
-              <ng-container *ngIf="control.hasError('email')"
-                >Por favor, informe um e-mail válido</ng-container
-              >
-            </ng-template>
-          </nz-form-control>
-        </nz-form-item>
-      </div>
+        <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
+          <nz-form-item>
+            <nz-form-control>
+              <nz-form-label nzFor="login" nzRequired>Login</nz-form-label>
+              <input
+                type="text"
+                nz-input
+                placeholder="Digite o login"
+                formControlName="login"
+                required
+                maxlength="20"
+              />
+              <ng-template #loginError let-control>
+                <ng-container *ngIf="control.hasError('required')"
+                  >Por favor, Informe um e-mail</ng-container
+                >
+                <ng-container *ngIf="control.hasError('email')"
+                  >Por favor, informe um e-mail válido</ng-container
+                >
+              </ng-template>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
 
-      <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
-        <nz-form-item>
-          <nz-form-control>
-            <nz-form-label nzFor="Senha" nzRequired>Senha</nz-form-label>
-            <input
-              type="password"
-              nz-input
-              formControlName="senha"
-              placeholder="Digite a senha"
-              required
-              minlength="8"
-              maxlength="20"
-            />
-          </nz-form-control>
-        </nz-form-item>
-      </div>
-    </div>
-
-    <div nz-row nzJustify="space-between">
-      <div nz-col nzXs="48" nzSm="24" nzMd="24" nzLg="24" nzXl="24">
-        <button nz-button nzType="default" (click)="cancelar()">
-          Cancelar
-        </button>
-        <button
-          nz-button
-          nzType="primary"
-          style="float: right"
-          (click)="submitForm()"
+        <div
+          nz-col
+          nzXs="48"
+          nzSm="12"
+          nzMd="12"
+          nzLg="12"
+          nzXl="12"
+          *ngIf="isEdit"
         >
-          Salvar
-        </button>
+          <nz-form-item>
+            <nz-form-control>
+              <nz-form-label nzFor="Senha" nzRequired>Senha</nz-form-label>
+              <input
+                type="password"
+                nz-input
+                formControlName="senha"
+                placeholder="Digite a senha"
+                required
+                minlength="8"
+                maxlength="20"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
       </div>
-    </div>
-  </nz-card>
+
+      <div nz-row nzJustify="space-between">
+        <div nz-col nzXs="48" nzSm="24" nzMd="24" nzLg="24" nzXl="24">
+          <button nz-button nzType="default" (click)="cancelar()">
+            Cancelar
+          </button>
+          <button
+            nz-button
+            nzType="primary"
+            (click)="edicao()"
+            *ngIf="editButtom"
+            style="float: right"
+          >
+            Editar
+          </button>
+          <button
+            nz-button
+            nzType="primary"
+            style="float: right"
+            *ngIf="saveButtom"
+            (click)="submitForm()"
+          >
+            Salvar
+          </button>
+        </div>
+      </div>
+    </nz-card>
+  </nz-spin>
 </form>

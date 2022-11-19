@@ -5,6 +5,84 @@
   </nz-breadcrumb>
 </nz-page-header>
 
+<nz-collapse nzExpandIconPosition="right">
+  <nz-collapse-panel nzHeader="Filtros" nzActive="active">
+    <form [formGroup]="form" nz-form>
+      <div nz-row [nzGutter]="[12, 2]">
+        <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
+          <nz-form-item>
+            <nz-form-control>
+              <nz-form-label nzFor="login">Login</nz-form-label>
+              <nz-input-group [nzSuffix]="suffixIconSearch">
+                <input
+                  type="text"
+                  nz-input
+                  placeholder="Digite o login"
+                  formControlName="login"
+                />
+              </nz-input-group>
+
+              <ng-template #suffixIconSearch>
+                <span nz-icon nzType="search"></span>
+              </ng-template>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
+          <nz-form-item>
+            <nz-form-control>
+              <nz-form-label nzFor="Email">E-mail</nz-form-label>
+              <nz-input-group [nzSuffix]="suffixIconSearchEmail">
+                <input
+                  type="text"
+                  nz-input
+                  placeholder="Digite o e-mail"
+                  formControlName="email"
+                />
+              </nz-input-group>
+
+              <ng-template #suffixIconSearchEmail>
+                <span nz-icon nzType="search"></span>
+              </ng-template>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
+          <nz-form-item>
+            <nz-form-control>
+              <nz-form-label nzFor="nome">Nome</nz-form-label>
+              <input
+                type="text"
+                nz-input
+                placeholder="Digite o nome do usuário"
+                formControlName="nome"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+
+      <div
+        nz-row
+        [nzGutter]="[24]"
+        nzJustify="space-between"
+        style="text-align: right"
+      >
+        <div nz-col nzXs="48" nzSm="24" nzMd="24" nzLg="24" nzXl="24">
+          <button nz-button nzType="primary" (click)="filtrar()">
+            Filtrar
+          </button>
+        </div>
+      </div>
+    </form>
+  </nz-collapse-panel>
+</nz-collapse>
+
+<br />
+<br />
+
 <nz-card>
   <nz-table #usuariosTable [nzData]="listOfUsuarios" nzBordered>
     <thead>
@@ -28,6 +106,7 @@
             nz-tooltip
             nzTooltipTitle="Visualizar"
             nzTooltipPlacement="top"
+            (click)="visualizarUsuario(usuario.id)"
           >
             <span nz-icon nzType="eye" nzTheme="outline"></span>
           </button>
@@ -39,6 +118,7 @@
             nz-tooltip
             nzTooltipTitle="Editar"
             nzTooltipPlacement="top"
+            (click)="editarUsuario(usuario.id)"
           >
             <span nz-icon nzType="edit" nzTheme="outline"></span>
           </button>
@@ -59,7 +139,7 @@
     </tbody>
   </nz-table>
 
-  <div nz-row nzJustify="space-between">
+  <div nz-row nzJustify="space-between" style="margin-top: 20px">
     <div nz-col nzXs="48" nzXl="24" nzSm="12" nzMd="12" nzLg="24">
       <button nz-button nzType="primary" (click)="novoUsuario()">
         Novo Usuário <span nz-icon nzType="plus" nzTheme="outline"></span>

@@ -19,4 +19,16 @@ export class UsuariosService {
   listaUsuarios(): Observable<Usuarios[]> {
     return this.http.get<Usuarios[]>(`${url}/lista`);
   }
+
+  details(id: any): Observable<Usuarios> {
+    return this.http.get<Usuarios>(`${url}/details/${id}`);
+  }
+
+  update(id: any, usuario: Usuarios): Observable<Usuarios> {
+    return this.http.put<Usuarios>(`${url}/update/${id}`, usuario);
+  }
+
+  filtro(login: string, email: string, nome: string): Observable<Usuarios[]> {
+    return this.http.get<Usuarios[]>(`${url}/filtro/${login}/${email}/${nome}`);
+  }
 }
