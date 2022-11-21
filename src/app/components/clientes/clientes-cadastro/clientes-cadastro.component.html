@@ -1,0 +1,76 @@
+<nz-page-header [nzTitle]="pageTitle" nzBackIcon (nzBack)="voltar()">
+  <nz-breadcrumb nz-page-header-breadcrumb>
+    <nz-breadcrumb-item>Clientes</nz-breadcrumb-item>
+    <nz-breadcrumb-item>{{ breadCrumbItem }}</nz-breadcrumb-item>
+  </nz-breadcrumb>
+</nz-page-header>
+
+<form [formGroup]="form" nz-form nzLayout="horizontal">
+  <nz-card>
+    <div nz-row [nzGutter]="[12, 2]">
+      <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
+        <nz-form-item>
+          <nz-form-control>
+            <nz-form-label nzFor="Razao_Social" nzRequired
+              >Razão Social</nz-form-label
+            >
+            <input
+              type="text"
+              nz-input
+              formControlName="Razao_Social"
+              placeholder="Digite a razão social"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
+        <nz-form-item>
+          <nz-form-control>
+            <nz-form-label nzFor="Cnpj" nzRequired>Cnpj</nz-form-label>
+            <input
+              type="text"
+              nz-input
+              formControlName="Cnpj"
+              placeholder="000.000/0000-00"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
+        <nz-form-item>
+          <nz-form-control>
+            <nz-form-label nzRequired nzFor="Telefone">Telefone</nz-form-label>
+            <input
+              type="text"
+              nz-input
+              formControlName="Telefone"
+              placeholder="(00) 00000-000"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
+        <nz-form-item>
+          <nz-form-control>
+            <nz-form-label nzFor="Celular" nzRequired>Celular</nz-form-label>
+            <input
+              type="text"
+              nz-input
+              placeholder="(00) 0000-0000"
+              formControlName="Celular"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+    <div nz-row [nzGutter]="[12, 2]" style="text-align: right">
+      <div nz-col nzXs="48" nzSm="24" nzMd="24" nzLg="24" nzXl="24">
+        <button nz-button nzType="primary">Salvar</button>
+      </div>
+    </div>
+  </nz-card>
+</form>

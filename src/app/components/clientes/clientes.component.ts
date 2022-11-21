@@ -1,5 +1,6 @@
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-clientes',
@@ -14,7 +15,11 @@ export class ClientesComponent implements OnInit {
 
   listaClientes: any[] = [];
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private route: Router) {}
+
+  novoCliente(): void {
+    this.route.navigateByUrl('clientes/cadastro');
+  }
 
   ngOnInit(): void {
     this.form = this.fb.group({

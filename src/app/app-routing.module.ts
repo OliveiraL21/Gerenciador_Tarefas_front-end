@@ -1,3 +1,4 @@
+import { ClientesCadastroComponent } from './components/clientes/clientes-cadastro/clientes-cadastro.component';
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'usuarios/editar/:id', component: UsuarioCadastroComponent },
   { path: 'tarefas/lista', component: TarefasComponent },
   { path: 'clientes/lista', component: ClientesComponent },
+  { path: 'clientes/cadastro', component: ClientesCadastroComponent },
   { path: 'projetos/lista', component: ProjetosComponent },
 ];
 

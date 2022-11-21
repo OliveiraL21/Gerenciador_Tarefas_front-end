@@ -33,6 +33,7 @@ import { NzNotificationModule } from 'ng-zorro-antd/notification';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 import { NzModalModule } from 'ng-zorro-antd/modal';
+import { ClientesCadastroComponent } from './components/clientes/clientes-cadastro/clientes-cadastro.component';
 
 registerLocaleData(pt);
 
@@ -42,6 +43,7 @@ registerLocaleData(pt);
     UsuariosComponent,
     UsuarioCadastroComponent,
     ClientesComponent,
+    ClientesCadastroComponent,
     TarefasComponent,
     ProjetosComponent,
   ],
