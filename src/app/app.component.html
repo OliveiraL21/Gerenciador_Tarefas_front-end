@@ -19,31 +19,31 @@
       nzMode="inline"
       [nzInlineCollapsed]="isCollapsed"
     >
-      <li nz-submenu nzTitle="Usúarios" nzIcon="user">
+      <li nz-submenu nzTitle="Usuários" nzIcon="user">
         <ul>
           <li nz-menu-item nzMatchRouter>
-            <a routerLink="usuarios/lista">Usúarios</a>
+            <a routerLink="usuarios/lista">Usuarios</a>
           </li>
         </ul>
       </li>
-      <li nz-submenu nzTitle="Tarefas" nzIcon="profile">
+      <li nz-submenu nzTitle="Tarefas" nzIcon="book">
         <ul>
           <li nz-menu-item nzMatchRouter>
-            <a routerLink="tarefas/lista">Tarefas</a>
-          </li>
-        </ul>
-      </li>
-      <li nz-submenu nzTitle="Clientes" nzIcon="user">
-        <ul>
-          <li nz-menu-item nzTitle="Clientes">
-            <a routerLink="clientes/lista">Clientes</a>
+            <a>Tarefas</a>
           </li>
         </ul>
       </li>
       <li nz-submenu nzTitle="Projetos" nzIcon="project">
         <ul>
-          <li nz-menu-item nzTitle="Projetos">
-            <a routerLink="projetos/lista">Projetos</a>
+          <li nz-menu-item nzMatchRouter>
+            <a>Projetos</a>
+          </li>
+        </ul>
+      </li>
+      <li nz-submenu nzTitle="Clientes" nzIcon="user">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="clientes/lista">Clientes</a>
           </li>
         </ul>
       </li>
@@ -53,11 +53,11 @@
     <nz-header>
       <div class="app-header">
         <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
-          <i
+          <span
             class="trigger"
             nz-icon
             [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
-          ></i>
+          ></span>
         </span>
       </div>
     </nz-header>

@@ -34,11 +34,10 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { ClientesCadastroComponent } from './components/clientes/clientes-cadastro/clientes-cadastro.component';
-import { NgxMaskModule, IConfig } from 'ngx-mask';
+import { NgxMaskModule } from 'ngx-mask';
 
 registerLocaleData(pt);
 
-export const options: Partial<null | IConfig> | (() => Partial<IConfig>) = null;
 @NgModule({
   declarations: [
     AppComponent,

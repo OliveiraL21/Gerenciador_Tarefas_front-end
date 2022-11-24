@@ -33,6 +33,7 @@
               nz-input
               formControlName="Cnpj"
               placeholder="000.000/0000-00"
+              mask="CPF_CNPJ"
             />
           </nz-form-control>
         </nz-form-item>
@@ -46,7 +47,8 @@
               type="text"
               nz-input
               formControlName="Telefone"
-              placeholder="(00) 00000-000"
+              placeholder="(00) 0000-0000"
+              mask="(00) 0000-0000"
             />
           </nz-form-control>
         </nz-form-item>
@@ -59,7 +61,8 @@
             <input
               type="text"
               nz-input
-              placeholder="(00) 0000-0000"
+              placeholder="(00) 00000-0000"
+              mask="(00) 00000-0000"
               formControlName="Celular"
             />
           </nz-form-control>
@@ -69,7 +72,9 @@
 
     <div nz-row [nzGutter]="[12, 2]" style="text-align: right">
       <div nz-col nzXs="48" nzSm="24" nzMd="24" nzLg="24" nzXl="24">
-        <button nz-button nzType="primary">Salvar</button>
+        <button nz-button nzType="primary" (click)="submitForm()">
+          Salvar
+        </button>
       </div>
     </div>
   </nz-card>

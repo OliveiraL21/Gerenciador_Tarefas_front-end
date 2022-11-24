@@ -1,27 +1,17 @@
-import { ClientesCadastroComponent } from './components/clientes/clientes-cadastro/clientes-cadastro.component';
+import { UsuarioCadastroComponent } from './components/usuarios/usuario-cadastro/usuario-cadastro.component';
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
+import { ClientesCadastroComponent } from './components/clientes/clientes-cadastro/clientes-cadastro.component';
+import { ClientesComponent } from './components/clientes/clientes.component';
+import { TarefasComponent } from './components/tarefas/tarefas.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { TarefasComponent } from './components/tarefas/tarefas.component';
-import { ClientesComponent } from './components/clientes/clientes.component';
-import { ProjetosComponent } from './components/projetos/projetos.component';
-import { UsuarioCadastroComponent } from './components/usuarios/usuario-cadastro/usuario-cadastro.component';
 
 const routes: Routes = [
-  { path: '', component: UsuariosComponent },
-  // {
-  //   path: 'welcome',
-  //   loadChildren: () =>
-  //     import('./pages/welcome/welcome.module').then((m) => m.WelcomeModule),
-  // },
-  { path: 'usuarios/lista', component: UsuariosComponent },
-  { path: 'usuarios/cadastro', component: UsuarioCadastroComponent },
-  { path: 'usuarios/visualizar/:id', component: UsuarioCadastroComponent },
-  { path: 'usuarios/editar/:id', component: UsuarioCadastroComponent },
-  { path: 'tarefas/lista', component: TarefasComponent },
+  { path: '', component: TarefasComponent },
   { path: 'clientes/lista', component: ClientesComponent },
   { path: 'clientes/cadastro', component: ClientesCadastroComponent },
-  { path: 'projetos/lista', component: ProjetosComponent },
+  { path: 'usuarios/lista', component: UsuariosComponent },
+  { path: 'usuarios/cadastro', component: UsuarioCadastroComponent },
 ];
 
 @NgModule({

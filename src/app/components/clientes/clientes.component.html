@@ -56,15 +56,51 @@
           <th>Razão Social</th>
           <th>Cnpj</th>
           <th>Projeto</th>
-          <th>Ações</th>
+          <th nzWidth="150px" nzAlign="center">Ações</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
+        <tr *ngFor="let cliente of listaClientes">
+          <td>
+            {{ cliente.razao_Social }}
+          </td>
+          <td>
+            {{ cliente.cnpj | mask: "00.000.000/0000-00" }}
+          </td>
           <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td nzAlign="center">
+            <button
+              nz-button
+              nzType="primary"
+              nzSize="small"
+              nz-tooltip
+              nzTooltipTitle="Visualizar"
+              nzTooltipPlacement="top"
+            >
+              <span nz-icon nzType="eye" nzTheme="outline"></span>
+            </button>
+            <button
+              nz-button
+              nzType="default"
+              nzSize="small"
+              nz-tooltip
+              nzTooltipTitle="Editar"
+              nzTooltipPlacement="top"
+            >
+              <span nz-icon nzType="edit" nzTheme="outline"></span>
+            </button>
+            <button
+              nz-button
+              nzType="default"
+              nzSize="small"
+              nzDanger
+              nz-tooltip
+              nzTooltipTitle="Deletar"
+              nzTooltipPlacement="top"
+            >
+              <span nz-icon nzType="delete" nzTheme="outline"></span>
+            </button>
+          </td>
         </tr>
       </tbody>
     </nz-table>
