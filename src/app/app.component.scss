@@ -90,3 +90,61 @@ nz-content {
   min-height: 100vh;
   height: auto;
 }
+
+::ng-deep .ant-input[disabled] {
+  background-color: #fff !important;
+  color: rgba(0, 0, 0, 0.85) !important;
+  border: none !important;
+  border-bottom: 1px solid rgba(209, 209, 209, 0.35) !important;
+}
+
+::ng-deep .ant-input-affix-wrapper-disabled {
+  color: rgba(0, 0, 0, 1) !important;
+  background-color: #fff !important;
+  border: none !important;
+  border-bottom: 1px solid rgba(209, 209, 209, 0.35) !important;
+}
+
+::ng-deep .ant-input-affix-wrapper-disabled .ant-input[disabled] {
+  border: none !important;
+}
+
+::ng-deep
+  .ant-select-disabled.ant-select:not(.ant-select-customize-input)
+  .ant-select-selector {
+  color: rgba(0, 0, 0, 1);
+  background: #fff !important;
+  border: none !important;
+  border-bottom: 1px solid rgba(209, 209, 209, 0.35) !important;
+}
+
+::ng-deep .ant-select-disabled.ant-select-multiple .ant-select-selection-item {
+  color: rgba(0, 0, 0, 0.85) !important;
+}
+
+::ng-deep .ant-checkbox-disabled + span {
+  color: rgba(0, 0, 0, 0.85);
+}
+
+::ng-deep .ant-checkbox-disabled {
+  border: none !important;
+  border-bottom: 1px solid rgba(209, 209, 209, 0.35) !important;
+}
+
+::ng-deep .ant-picker.ant-picker-disabled {
+  background-color: #fff !important;
+  border: none !important;
+  border-bottom: 1px solid rgba(209, 209, 209, 0.35) !important;
+}
+
+::ng-deep .ant-picker-input > input[disabled] {
+  color: rgba(0, 0, 0, 0.85) !important;
+}
+
+::ng-deep .ant-radio-button-wrapper-disabled.ant-radio-button-wrapper-checked {
+  color: rgba(0, 0, 0, 0.85) !important;
+}
+
+::ng-deep .ant-back-top {
+  right: 10px !important;
+}

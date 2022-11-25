@@ -19,6 +19,7 @@ export class UsuarioCadastroComponent implements OnInit {
   usuario: Usuarios = new Usuarios();
   editButtom: boolean = false;
   saveButtom: boolean = true;
+  cancelDisable: boolean = false;
 
   form!: FormGroup;
   constructor(
@@ -47,6 +48,7 @@ export class UsuarioCadastroComponent implements OnInit {
     this.isEdit = false;
     this.editButtom = true;
     this.saveButtom = false;
+    this.cancelDisable = true;
     this.form.disable();
   }
 
@@ -56,6 +58,7 @@ export class UsuarioCadastroComponent implements OnInit {
     this.isEdit = false;
     this.editButtom = false;
     this.saveButtom = true;
+    this.cancelDisable = false;
     this.form.enable();
   }
 

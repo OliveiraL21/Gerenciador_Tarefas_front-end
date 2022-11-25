@@ -109,7 +109,12 @@
 
       <div nz-row nzJustify="space-between">
         <div nz-col nzXs="48" nzSm="24" nzMd="24" nzLg="24" nzXl="24">
-          <button nz-button nzType="default" (click)="cancelar()">
+          <button
+            nz-button
+            nzType="default"
+            (click)="cancelar()"
+            [disabled]="cancelDisable"
+          >
             Cancelar
           </button>
           <button

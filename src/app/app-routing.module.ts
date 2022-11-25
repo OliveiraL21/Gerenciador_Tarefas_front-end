@@ -10,8 +10,12 @@ const routes: Routes = [
   { path: '', component: TarefasComponent },
   { path: 'clientes/lista', component: ClientesComponent },
   { path: 'clientes/cadastro', component: ClientesCadastroComponent },
+  { path: 'clientes/visualizar/:id', component: ClientesCadastroComponent },
+  { path: 'clientes/editar/:id', component: ClientesCadastroComponent },
   { path: 'usuarios/lista', component: UsuariosComponent },
   { path: 'usuarios/cadastro', component: UsuarioCadastroComponent },
+  { path: 'usuarios/editar/:id', component: UsuarioCadastroComponent },
+  { path: 'usuarios/visualizar/:id', component: UsuarioCadastroComponent },
 ];
 
 @NgModule({
