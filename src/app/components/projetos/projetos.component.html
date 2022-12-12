@@ -1,1 +1,135 @@
-<p>projetos works!</p>
+<nz-page-header [nzTitle]="pageTitle">
+  <nz-breadcrumb nz-page-header-breadcrumb>
+    <nz-breadcrumb-item>Projetos</nz-breadcrumb-item>
+    <nz-breadcrumb-item>{{ breadCrumbItem }}</nz-breadcrumb-item>
+  </nz-breadcrumb>
+</nz-page-header>
+
+<nz-collapse nzExpandIconPosition="right">
+  <nz-collapse-panel nzHeader="Filtros" nzActive="active">
+    <form nz-from [formGroup]="form">
+      <div nz-row [nzGutter]="[12, 2]">
+        <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
+          <nz-form-item>
+            <nz-form-control>
+              <nz-form-label nzFor="projeto">Projeto</nz-form-label>
+              <input
+                type="text"
+                nz-input
+                formControlName="projeto"
+                placeholder="Digite o nome do projeto"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
+          <nz-form-item>
+            <nz-form-control>
+              <nz-form-label nzFor="cliente">Cliente</nz-form-label>
+              <nz-select
+                nzShowSearch
+                nzAllowClear
+                formControlName="cliente"
+                nzPlaceHolder="Selecione o cliente"
+              >
+                <nz-option
+                  *ngFor="let cliente of clientes"
+                  [nzLabel]="cliente.razao_Social"
+                  [nzValue]="cliente.id"
+                ></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+
+      <div nz-row nzJustify="space-between" style="text-align: right">
+        <div nz-col nzXs="48" nzSm="24" nzMd="24" nzLg="24" nzXl="24">
+          <button nz-button nzType="primary">Filtrar</button>
+        </div>
+      </div>
+    </form>
+  </nz-collapse-panel>
+</nz-collapse>
+
+<br /><br />
+
+<nz-card>
+  <nz-spin [nzSpinning]="isSpinning" nzTip="Carregando dados...">
+    <nz-table #projetos nzBordered [nzData]="listOfData">
+      <thead>
+        <tr>
+          <th nzWidth="450px">Descrição</th>
+          <th>Cliente</th>
+          <th>Data Inicio</th>
+          <th nzAlign="center" nzWidth="80px">Status</th>
+          <th nzAlign="center" nzWidth="150px">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of projetos.data">
+          <td nzWidth="450px">{{ data.descricao }}</td>
+          <td>{{ data.cliente }}</td>
+          <td>{{ data.data_inicio | date : "dd/MM/yyyy" }}</td>
+          <td nzAlign="center">
+            <nz-tag nzColor="green" *ngIf="data.status == 'Ativo'"
+              >Ativo</nz-tag
+            >
+          </td>
+          <td nzAlign="center">
+            <button
+              nz-button
+              nzType="primary"
+              nzSize="small"
+              nz-tooltip
+              nzTooltipTitle="Visualizar"
+              nzTooltipPlacement="top"
+              (click)="visualizarProjeto(data.id)"
+            >
+              <span nz-icon nzType="eye"></span>
+            </button>
+
+            <button
+              nz-button
+              nzType="default"
+              nzSize="small"
+              nz-tooltip
+              nzTooltipTitle="Editar"
+              nzTooltipPlacement="top"
+              (click)="editarProjeto(data.id)"
+            >
+              <span nz-icon nzType="edit"></span>
+            </button>
+
+            <button
+              nz-button
+              nzType="primary"
+              nzSize="small"
+              nzDanger
+              nz-tooltip
+              nzTooltipTitle="Excluir"
+              nzTooltipPlacement="top"
+              (click)="deleteProjeto(data.id)"
+            >
+              <span nz-icon nzType="delete"></span>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </nz-spin>
+
+  <div nz-row [nzGutter]="[12, 2]">
+    <div nz-col nzXs="48" nzSm="24" nzMd="24" nzLg="24" nzXl="24">
+      <button
+        nz-button
+        nzType="primary"
+        style="margin-top: 20px"
+        (click)="novoProjeto()"
+      >
+        Novo Projeto <span nz-icon nzType="plus"></span>
+      </button>
+    </div>
+  </div>
+</nz-card>

@@ -1,0 +1,102 @@
+<nz-page-header [nzTitle]="pageTitle" nzBackIcon (nzBack)="voltar()">
+  <nz-breadcrumb nz-page-header-breadcrumb>
+    <nz-breadcrumb-item>Projetos</nz-breadcrumb-item>
+    <nz-breadcrumb-item>{{ breadCrumbItem }}</nz-breadcrumb-item>
+  </nz-breadcrumb>
+</nz-page-header>
+
+<form nz-form [formGroup]="form">
+  <nz-collapse nzExpandIconPosition="right">
+    <nz-collapse-panel nzHeader="Dados Gerais" nzActive="active">
+      <div nz-row [nzGutter]="[12, 2]">
+        <div nz-col nzXs="48" nzSm="12" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
+          <nz-form-item>
+            <nz-form-control>
+              <nz-form-label nzFor="descricao" nzRequired
+                >Projeto</nz-form-label
+              >
+              <input
+                type="text"
+                nz-input
+                formControlName="descricao"
+                placeholder="Digite o nome do projeto"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
+          <nz-form-item>
+            <nz-form-control>
+              <nz-form-label nzFor="data_inico" nzRequired
+                >Data de Inicio</nz-form-label
+              >
+              <nz-date-picker
+                nzFormat="dd/MM/yyyy"
+                formControlName="data_inicio"
+              ></nz-date-picker>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="12" nzLg="12" nzXl="12">
+          <nz-form-item>
+            <nz-form-control>
+              <nz-form-label nzFor="data_fim" nzRequired
+                >Data Final Prevista</nz-form-label
+              >
+              <nz-date-picker
+                nzFormat="dd/MM/yyyy"
+                formControlName="data_fim"
+              ></nz-date-picker>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="12" nzLg="12" nzXl="12">
+          <nz-form-item>
+            <nz-form-control>
+              <nz-form-label nzFor="cliente" nzRequired>Cliente</nz-form-label>
+              <nz-select
+                nzAllowClear
+                nzShowSearch
+                formControlName="cliente"
+                nzPlaceHolder="Selecione o cliente "
+              >
+                <nz-option
+                  *ngFor="let cliente of clientes"
+                  [nzLabel]="cliente.razao_Social"
+                  [nzValue]="cliente.id"
+                ></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+    </nz-collapse-panel>
+  </nz-collapse>
+</form>
+
+<div nz-row nzJustify="space-between" style="margin-top: 30px">
+  <div nz-col nzXs="48" nzSm="24" nzMd="24" nzLg="24" nzXl="24">
+    <button nz-button nzType="default">Cancelar</button>
+    <button
+      nz-button
+      nzType="primary"
+      style="float: right"
+      *ngIf="isEdit"
+      (click)="editar()"
+    >
+      Editar
+    </button>
+    <button
+      nz-button
+      nzType="primary"
+      style="float: right"
+      *ngIf="saveButtom"
+      (click)="submitForm()"
+    >
+      Salvar
+    </button>
+  </div>
+</div>
