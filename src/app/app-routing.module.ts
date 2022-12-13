@@ -1,3 +1,4 @@
+import { TarefasCadastroComponent } from './components/tarefas/tarefas-cadastro/tarefas-cadastro.component';
 import { UsuarioCadastroComponent } from './components/usuarios/usuario-cadastro/usuario-cadastro.component';
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
 import { ClientesCadastroComponent } from './components/clientes/clientes-cadastro/clientes-cadastro.component';
@@ -22,10 +23,10 @@ const routes: Routes = [
   { path: 'projetos/cadastro', component: ProjetosCadastroComponent },
   { path: 'projetos/editar/:id', component: ProjetosCadastroComponent },
   { path: 'projetos/visualizar/:id', component: ProjetosCadastroComponent },
-  // { path: 'tarefas/listagem' },
-  // { path: 'tarefas/cadastro' },
-  // { path: 'tarefas/editar/:id' },
-  // { path: 'tarefas/visualizar/:id' },
+  { path: 'tarefas/listagem', component: TarefasComponent },
+  { path: 'tarefas/cadastro', component: TarefasCadastroComponent },
+  { path: 'tarefas/editar/:id', component: TarefasCadastroComponent },
+  { path: 'tarefas/visualizar/:id', component: TarefasCadastroComponent },
 ];
 
 @NgModule({

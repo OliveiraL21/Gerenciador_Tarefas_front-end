@@ -1,1 +1,115 @@
-<p>tarefas works!</p>
+<nz-page-header nzTitle="Listagem de Tarefas">
+  <nz-breadcrumb nz-page-header-breadcrumb>
+    <nz-breadcrumb-item>Tarefas</nz-breadcrumb-item>
+    <nz-breadcrumb-item>Listagem</nz-breadcrumb-item>
+  </nz-breadcrumb>
+</nz-page-header>
+
+<form [formGroup]="form">
+  <div nz-row [nzGutter]="[24, 2]" class="row-filter-style">
+    <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="6" nzXl="6">
+      <nz-form-item>
+        <nz-form-control>
+          <nz-form-label nzFor="descricao">Descrição</nz-form-label>
+          <input
+            type="text"
+            nz-input
+            formControlName="descricao"
+            placeholder="Digite a descrição da tarefa"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="6" nzXl="6">
+      <nz-form-item>
+        <nz-form-control>
+          <nz-form-label nzFor="periodo">Periodo</nz-form-label>
+          <nz-range-picker
+            nzFormat="dd/MM/yyyy"
+            formControlName="periodo"
+          ></nz-range-picker>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="6" nzXl="6">
+      <nz-form-item>
+        <nz-form-control>
+          <nz-form-label nzFor="horarioPeriodo">Horário</nz-form-label>
+          <nz-time-picker
+            nzFormat="HH:mm"
+            formControlName="horarioPeriodo"
+          ></nz-time-picker>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div
+      nz-col
+      nzXs="48"
+      nzSm="12"
+      nzMd="12"
+      nzLg="2"
+      nzXl="2"
+      class="button-filter"
+    >
+      <button nz-button nzType="primary">Filtrar</button>
+    </div>
+  </div>
+</form>
+
+<nz-card>
+  <nz-spin nzTip="Carregando Dados..." [nzSpinning]="isSpinning">
+    <nz-table #tarefasTable>
+      <thead>
+        <tr>
+          <th>Descrição</th>
+          <th>Horário Inicio</th>
+          <th>Horário Fim</th>
+          <th>Duração</th>
+          <th>Data</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let tarefa of tarefasTable.data">
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>
+            <button nz-button nzType="primary" nzSize="small">
+              <span nz-icon nzType="eye" nzTheme="outline"></span>
+            </button>
+
+            <button nz-button nzType="primary" nzSize="small">
+              <span nz-icon nzType="edit" nzTheme="outline"></span>
+            </button>
+
+            <button nz-button nzType="primary" nzTheme="outline">
+              <span nz-icon nzType="delete"></span>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </nz-spin>
+
+  <div nz-row>
+    <div
+      nz-col
+      nzXs="48"
+      nzSm="24"
+      nzMd="24"
+      nzLg="24"
+      nzXl="24"
+      style="margin-top: 20px"
+    >
+      <button nz-button nzType="primary" (click)="adicionarTarefa()">
+        Adicionar Tarefa <Span nz-icon nzType="plus"></Span>
+      </button>
+    </div>
+  </div>
+</nz-card>

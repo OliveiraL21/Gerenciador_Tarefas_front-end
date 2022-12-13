@@ -1,3 +1,4 @@
+import { TarefasCadastroComponent } from './components/tarefas/tarefas-cadastro/tarefas-cadastro.component';
 import { ProjetosCadastroComponent } from './components/projetos/projetos-cadastro/projetos-cadastro.component';
 import { UsuarioCadastroComponent } from './components/usuarios/usuario-cadastro/usuario-cadastro.component';
 import { RouterModule } from '@angular/router';
@@ -39,6 +40,7 @@ import { NgxMaskModule } from 'ngx-mask';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzTagModule } from 'ng-zorro-antd/tag';
+import { NzTimePickerModule } from 'ng-zorro-antd/time-picker';
 
 registerLocaleData(pt);
 
@@ -52,6 +54,8 @@ registerLocaleData(pt);
     TarefasComponent,
     ProjetosComponent,
     ProjetosCadastroComponent,
+    TarefasComponent,
+    TarefasCadastroComponent,
   ],
   imports: [
     BrowserModule,
@@ -80,6 +84,7 @@ registerLocaleData(pt);
     NzSelectModule,
     NzDatePickerModule,
     NzTagModule,
+    NzTimePickerModule,
     NgxMaskModule.forRoot(),
   ],
   providers: [{ provide: NZ_I18N, useValue: pt_BR }],

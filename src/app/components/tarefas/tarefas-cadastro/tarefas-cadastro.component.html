@@ -1,0 +1,102 @@
+<nz-page-header [nzTitle]="pageHeader">
+  <nz-breadcrumb nz-page-header-breadcrumb>
+    <nz-breadcrumb-item>Tarefas</nz-breadcrumb-item>
+    <nz-breadcrumb-item>{{ breadcrumbItem }}</nz-breadcrumb-item>
+  </nz-breadcrumb>
+</nz-page-header>
+
+<form [formGroup]="form">
+  <nz-card>
+    <div nz-row [nzGutter]="[12, 2]">
+      <div nz-col nzXs="48" nzSm="12" nzMd="12">
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Por favor informe uma descrição">
+            <nz-form-label nzFor="descricao" nzRequired
+              >Descrição</nz-form-label
+            >
+            <input
+              type="text"
+              nz-input
+              formControlName="descricao"
+              placeholder="Informe a tarefa"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Por favor informe uma data">
+            <nz-form-label nzFor="data" nzRequired>Data</nz-form-label>
+            <nz-date-picker nzFormat="dd/MM/yyyy"></nz-date-picker>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="8" nzXl="8">
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Por favor informe o horário de inicio">
+            <nz-form-label nzFor="horarioInicio" nzRequired
+              >Horário de Inicio</nz-form-label
+            >
+            <nz-time-picker
+              nzFormat="HH:mm"
+              formControlName="horarioInicio"
+            ></nz-time-picker>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="8" nzXl="8">
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Por favor informe o horário final">
+            <nz-form-label nzFor="horarioFim" nzRequired
+              >Horário final</nz-form-label
+            >
+            <nz-time-picker
+              nzFormat="HH:mm"
+              formControlName="horarioFim"
+              (ngModelChange)="calcularDuracao()"
+            ></nz-time-picker>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="8" nzXl="8">
+        <nz-form-item>
+          <nz-form-control>
+            <nz-form-label nzFor="duracao" nzRequired>Duração</nz-form-label>
+            <nz-time-picker
+              nzFormat="HH:mm"
+              formControlName="duracao"
+              nzPlaceHolder=""
+            ></nz-time-picker>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzXs="48" nzSm="24" nzMd="24" nzLg="24" nzXl="24">
+        <nz-form-item>
+          <nz-form-control>
+            <nz-form-label nzFor="observacao">Observações</nz-form-label>
+            <nz-textarea-count>
+              <textarea nz-input rows="6"></textarea>
+            </nz-textarea-count>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row nzJustify="space-between">
+      <div nz-col nzXs="48" nzSm="24" nzMd="24" nzLg="24" nzXl="24">
+        <button nz-button nzType="default">Cancelar</button>
+        <button
+          nz-button
+          nzType="primary"
+          *ngIf="saveButtom"
+          style="float: right"
+        >
+          Salvar
+        </button>
+      </div>
+    </div>
+  </nz-card>
+</form>
