@@ -17,6 +17,18 @@ export class TarefaService {
   }
 
   create(tarefa: Tarefa): Observable<Tarefa> {
-    return this.http.post(`${url}`, tarefa);
+    return this.http.post<Tarefa>(`${url}`, tarefa);
+  }
+
+  update(id: number, tarefa: Tarefa): Observable<Tarefa> {
+    return this.http.put<Tarefa>(`${url}/${id}`, tarefa);
+  }
+
+  details(id: number): Observable<Tarefa> {
+    return this.http.get<Tarefa>(`${url}/detalhes_tarefas/${id}`);
+  }
+
+  excluirTarefa(id: number): Observable<boolean> {
+    return this.http.delete<boolean>(`${url}/${id}`);
   }
 }

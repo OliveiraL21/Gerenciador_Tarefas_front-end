@@ -61,34 +61,46 @@
 
 <nz-card>
   <nz-spin nzTip="Carregando Dados..." [nzSpinning]="isSpinning">
-    <nz-table #tarefasTable>
+    <nz-table #tarefasTable [nzData]="tarefas">
       <thead>
         <tr>
           <th>Descrição</th>
-          <th>Horário Inicio</th>
-          <th>Horário Fim</th>
-          <th>Duração</th>
-          <th>Data</th>
-          <th>Ações</th>
+          <th nzAlign="center" nzWidth="150px">Horário Inicio</th>
+          <th nzAlign="center" nzWidth="150px">Horário Fim</th>
+          <th nzAlign="center" nzWidth="150px">Duração</th>
+          <th nzAlign="center" nzWidth="150px">Data</th>
+          <th nzAlign="center" nzWidth="150px">Ações</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let tarefa of tarefasTable.data">
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td>
-            <button nz-button nzType="primary" nzSize="small">
+          <td>{{ tarefa.descricao }}</td>
+          <td nzAlign="center">{{ tarefa.horarioInicio | date : "HH:mm" }}</td>
+          <td nzAlign="center">{{ tarefa.horarioFim | date : "HH:mm" }}</td>
+          <td nzAlign="center">{{ tarefa.duracao | date : "HH:mm" }}</td>
+          <td nzAlign="center">{{ tarefa.data | date : "dd/MM/yyyy" }}</td>
+          <td nzAlign="center">
+            <button
+              nz-button
+              nzType="primary"
+              nzSize="small"
+              (click)="visualizar(tarefa.id)"
+            >
               <span nz-icon nzType="eye" nzTheme="outline"></span>
             </button>
 
-            <button nz-button nzType="primary" nzSize="small">
+            <button nz-button nzType="default" nzTheme="outline" nzSize="small">
               <span nz-icon nzType="edit" nzTheme="outline"></span>
             </button>
 
-            <button nz-button nzType="primary" nzTheme="outline">
+            <button
+              nz-button
+              nzType="primary"
+              nzDanger
+              nzSize="small"
+              nzTheme="outline"
+              (click)="deletar(tarefa.id)"
+            >
               <span nz-icon nzType="delete"></span>
             </button>
           </td>

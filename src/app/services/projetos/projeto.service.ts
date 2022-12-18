@@ -14,6 +14,9 @@ export class ProjetoService {
   listaTodos(): Observable<Projeto[]> {
     return this.http.get<Projeto[]>(`${url}lista/projetos`);
   }
+  listaSimples(): Observable<any[]> {
+    return this.http.get<any[]>(`${url}/lsita_simples`);
+  }
   create(projeto: Projeto): Observable<Projeto> {
     return this.http.post<Projeto>(`${url}projeto/create`, projeto);
   }
