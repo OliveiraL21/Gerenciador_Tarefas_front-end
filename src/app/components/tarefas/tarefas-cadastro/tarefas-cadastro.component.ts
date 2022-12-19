@@ -1,7 +1,13 @@
 import { TarefaService } from './../../../services/tarefas/tarefa.service';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ValidationErrors,
+  Validators,
+} from '@angular/forms';
 import { Component } from '@angular/core';
 import { throws } from 'assert';
 import * as moment from 'moment';
@@ -49,21 +55,9 @@ export class TarefasCadastroComponent {
     this.notification.create(type, title, message);
   }
 
-  initForm(): void {
-    this.form = this.fb.group({
-      descricao: [null, [Validators.required]],
-      horarioInicio: [null, [Validators.required]],
-      horarioFim: [null, [Validators.required]],
-      duracao: [null, null],
-      data: [null, [Validators.required]],
-      projeto: [null, [Validators.required]],
-      observacao: [null, null],
-    });
-  }
-
-  calcularDuracao() {
-    let horarioInicio: Date = this.form.get('horarioInicio')?.value;
-    let horarioFim: Date = this.form.get('horarioFim')?.value;
+  calcularDuracao(control: FormControl): ValidationErrors | null {
+    let horarioInicio = control.parent?.get('horarioInicio')?.value;
+    let horarioFim = control.value;
 
     if (
       horarioInicio &&
@@ -71,14 +65,39 @@ export class TarefasCadastroComponent {
       horarioFim &&
       horarioFim !== null
     ) {
+      if (typeof horarioFim !== 'object' || typeof horarioInicio !== 'object') {
+        horarioFim = new Date(horarioFim);
+        horarioInicio = new Date(horarioInicio);
+      }
+
+      if (horarioFim < horarioInicio) {
+        control.setValue(null);
+        return { horario: true, error: true };
+      }
+
       let duracao = horarioInicio.setHours(
-        horarioFim.getHours() - horarioInicio.getHours()
+        horarioFim?.getHours() - horarioInicio?.getHours()
       );
-      this.form.get('duracao')?.setValue(duracao);
-      this.duracao = new Date(duracao);
+      control.parent
+        ?.get('duracao')
+        ?.setValue(new Date(duracao).toLocaleTimeString());
+      return {};
     } else {
-      this.form.get('duracao')?.setValue(null);
+      control.parent?.get('duracao')?.setValue(null);
+      return {};
     }
+  }
+
+  initForm(): void {
+    this.form = this.fb.group({
+      descricao: [null, [Validators.required]],
+      horarioInicio: [null, [Validators.required, this.calcularDuracao]],
+      horarioFim: [null, [Validators.required, this.calcularDuracao]],
+      duracao: [null, null],
+      data: [null, [Validators.required]],
+      projeto: [null, [Validators.required]],
+      observacao: [null, null],
+    });
   }
 
   getDetails(id: number) {
@@ -89,7 +108,7 @@ export class TarefasCadastroComponent {
         this.form.get('horarioInicio')?.setValue(tarefa.horarioInicio);
         this.form.get('horarioFim')?.setValue(tarefa.horarioFim);
         this.form.get('duracao')?.setValue(tarefa.duracao);
-        this.form.get('projeto')?.setValue(tarefa.projeto);
+        this.form.get('projeto')?.setValue(tarefa.projetoId);
         this.form.get('observacao')?.setValue(tarefa.observacao);
       },
     });
@@ -101,11 +120,15 @@ export class TarefasCadastroComponent {
     this.form.enable();
   }
 
+  cancel(): void {
+    const id: any = this.route.snapshot.paramMap.get('id');
+    this.getDetails(id);
+  }
+
   isCreate(): void {
     this.route.snapshot.url[1].path == 'cadastro'
       ? (this.saveButtom = true)
       : (this.saveButtom = false);
-    this.form.get('duracao')?.disable();
   }
 
   isDetails(): void {
@@ -138,6 +161,8 @@ export class TarefasCadastroComponent {
   }
 
   submitForm(): void {
+    const id: any = this.route.snapshot.paramMap.get('id');
+
     if (this.form.valid) {
       let date = this.form.value;
       let projeto: any;
@@ -148,41 +173,59 @@ export class TarefasCadastroComponent {
         },
       });
 
-      let horarioInicio: Date = date.horarioInicio;
-      let horarioFim: Date = date.horarioFim;
+      let horarioInicio = new Date(date.horarioInicio);
+      let horarioFim = new Date(date.horarioFim);
 
       let payload: Tarefa = {
         descricao: date.descricao,
         data: date.data,
         horarioInicio: horarioInicio,
         horarioFim: horarioFim,
-        duracao: this.duracao,
+        duracao: date.duracao,
         observacao: date.observacao,
+        projetoId: date.projeto,
         status: {
           id: 1,
           descricao: 'Ativo',
         },
-        projeto: projeto,
       };
 
-      console.log(date);
-      this.tarefaService.create(payload).subscribe({
-        next: (data) => {
-          this.createNotification(
-            'success',
-            'Cadastro de Tarefas',
-            'Tarefa cadastrada com sucesso'
-          );
-          this.form.reset();
-        },
-        error: (erro) => {
-          this.createNotification(
-            'error',
-            'Cadastro de Tarefas',
-            `Erro ${erro.status} ao tentar cadastrar a tarefa, por favor tente novamente mais tarde`
-          );
-        },
-      });
+      if (id === null || !id) {
+        this.tarefaService.create(payload).subscribe({
+          next: (data) => {
+            this.createNotification(
+              'success',
+              'Cadastro de Tarefas',
+              'Tarefa cadastrada com sucesso'
+            );
+            this.form.reset();
+          },
+          error: (erro) => {
+            this.createNotification(
+              'error',
+              'Cadastro de Tarefas',
+              `Erro ${erro.status} ao tentar cadastrar a tarefa, por favor tente novamente mais tarde`
+            );
+          },
+        });
+      } else {
+        this.tarefaService.update(id, payload).subscribe({
+          next: (tarefa) => {
+            this.createNotification(
+              'success',
+              'Editar Tarefas',
+              'Tarefa editada com sucesso !'
+            );
+          },
+          error: (erro) => {
+            this.createNotification(
+              'error',
+              'Editar Tarefa',
+              `Erro ${erro.status} ao tentar editar a tarefa, por favor tente novamente mais tarde`
+            );
+          },
+        });
+      }
     } else {
       this.createNotification(
         'error',

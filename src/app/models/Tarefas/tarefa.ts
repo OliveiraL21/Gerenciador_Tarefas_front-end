@@ -9,5 +9,5 @@ export class Tarefa {
   descricao: string = '';
   observacao: string | null = null;
   status: any;
-  projeto: Projeto | null = null;
+  projetoId: number | null = null;
 }

@@ -75,6 +75,10 @@ export class TarefasComponent implements OnInit {
     this.router.navigateByUrl(`tarefas/visualizar/${id}`);
   }
 
+  editar(id: any): void {
+    this.router.navigateByUrl(`tarefas/visualizar/${id}`);
+  }
+
   initForm(): void {
     this.form = this.fb.group({
       descricao: [null, null],

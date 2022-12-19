@@ -21,7 +21,7 @@ export class TarefaService {
   }
 
   update(id: number, tarefa: Tarefa): Observable<Tarefa> {
-    return this.http.put<Tarefa>(`${url}/${id}`, tarefa);
+    return this.http.put<Tarefa>(`${url}/update_tarefas/${id}`, tarefa);
   }
 
   details(id: number): Observable<Tarefa> {
