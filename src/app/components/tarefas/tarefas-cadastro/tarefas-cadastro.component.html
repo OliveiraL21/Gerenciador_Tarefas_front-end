@@ -43,7 +43,11 @@
             <nz-form-label nzFor="horarioInicio" nzRequired
               >Horário de Inicio</nz-form-label
             >
-            <input type="time" nz-input formControlName="horarioInicio" />
+            <nz-time-picker
+              nzFormat="HH:mm"
+              formControlName="horarioInicio"
+              nzPlaceHolder="00:00"
+            ></nz-time-picker>
           </nz-form-control>
         </nz-form-item>
       </div>
@@ -54,7 +58,11 @@
             <nz-form-label nzFor="horarioFim" nzRequired
               >Horário final</nz-form-label
             >
-            <input type="time" nz-input formControlName="horarioFim" />
+            <nz-time-picker
+              nzFormat="HH:mm"
+              formControlName="horarioFim"
+              nzPlaceHolder="00:00"
+            ></nz-time-picker>
           </nz-form-control>
 
           <ng-template #horarioFimError let-control>
@@ -73,13 +81,18 @@
         <nz-form-item>
           <nz-form-control>
             <nz-form-label nzFor="duracao">Duração</nz-form-label>
-            <input
+            <!-- <input
               class="duracao"
               type="time"
               nz-input
               [readonly]="true"
               formControlName="duracao"
-            />
+            /> -->
+            <nz-time-picker
+              nzFormat="HH:mm"
+              formControlName="duracao"
+              nzInputReadOnly
+            ></nz-time-picker>
           </nz-form-control>
         </nz-form-item>
       </div>

@@ -75,9 +75,9 @@
       <tbody>
         <tr *ngFor="let tarefa of tarefasTable.data">
           <td>{{ tarefa.descricao }}</td>
-          <td nzAlign="center">{{ tarefa.horarioInicio }}</td>
+          <td nzAlign="center">{{ tarefa.horarioInicio | date : "HH:mm" }}</td>
           <td nzAlign="center">{{ tarefa.horarioFim | date : "HH:mm" }}</td>
-          <td nzAlign="center">{{ tarefa.duracao }}</td>
+          <td nzAlign="center">{{ tarefa.duracao | date : "HH:mm" }}</td>
           <td nzAlign="center">{{ tarefa.data | date : "dd/MM/yyyy" }}</td>
           <td nzAlign="center">
             <button

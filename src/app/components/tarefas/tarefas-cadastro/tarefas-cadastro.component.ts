@@ -57,7 +57,7 @@ export class TarefasCadastroComponent {
 
   calcularDuracao(control: FormControl): ValidationErrors | null {
     let horarioInicio = control.parent?.get('horarioInicio')?.value;
-    let horarioFim = control.value;
+    let horarioFim = control.parent?.get('horarioFim')?.value;
 
     if (
       horarioInicio &&
@@ -75,12 +75,22 @@ export class TarefasCadastroComponent {
         return { horario: true, error: true };
       }
 
-      let duracao = horarioInicio.setHours(
-        horarioFim?.getHours() - horarioInicio?.getHours()
-      );
-      control.parent
-        ?.get('duracao')
-        ?.setValue(new Date(duracao).toLocaleTimeString());
+      let duracao: any;
+      this.tarefaService?.calcularDuracao(horarioInicio, horarioFim).subscribe({
+        next: (dado) => {
+          duracao = dado;
+          console.log(duracao);
+          control.parent?.get('duracao')?.setValue(duracao);
+        },
+        error: (erro) => {
+          this.createNotification(
+            'error',
+            'Calcular Duração',
+            `Erro ${erro.status} ao tentar calcular a duração, por favor tente novamente mais tarde`
+          );
+        },
+      });
+
       return {};
     } else {
       control.parent?.get('duracao')?.setValue(null);
