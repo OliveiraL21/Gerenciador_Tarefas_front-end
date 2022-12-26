@@ -27,7 +27,7 @@ export class TarefaService {
   details(id: number): Observable<Tarefa> {
     return this.http.get<Tarefa>(`${url}/detalhes_tarefas/${id}`);
   }
-  calcularDuracao(horarioInicio: number, horarioFIm: number): Observable<any> {
+  calcularDuracao(horarioInicio: string, horarioFIm: string): Observable<any> {
     return this.http.get<any>(`${url}/duracao/${horarioInicio}/${horarioFIm}`);
   }
 

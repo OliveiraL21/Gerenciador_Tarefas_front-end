@@ -31,6 +31,8 @@ export class TarefasCadastroComponent {
 
   saveButtom: boolean = false;
   editButtom: boolean = false;
+  isSpinning: boolean = false;
+  spinTip: string = 'Carregando Dados';
 
   constructor(
     private fb: FormBuilder,
@@ -55,7 +57,43 @@ export class TarefasCadastroComponent {
     this.notification.create(type, title, message);
   }
 
-  calcularDuracao(control: FormControl): ValidationErrors | null {
+  HoraGasta() {
+    let horarioInicio: Date = this.form.get('horarioInicio')?.value;
+    let horarioFim: Date = this.form.get('horarioFim')?.value;
+
+    if (
+      horarioInicio &&
+      horarioFim &&
+      horarioInicio !== null &&
+      horarioFim !== null
+    ) {
+      this.isSpinning = true;
+      this.spinTip = 'Calculando Duração';
+
+      this.tarefaService
+        .calcularDuracao(
+          horarioInicio.toLocaleTimeString(),
+          horarioFim.toLocaleTimeString()
+        )
+        .subscribe({
+          next: (duracao) => {
+            this.form.get('duracao')?.setValue(duracao);
+            console.log(duracao);
+          },
+          error: (erro) => {
+            this.createNotification(
+              'error',
+              'Calcular Duração',
+              `Erro ${erro.status} ao tentar calcular a duração, por favor tente novamente mais tarde !`
+            );
+          },
+        });
+      this.isSpinning = false;
+      this.spinTip = 'Carregando Dados';
+    }
+  }
+
+  validarHoras(control: FormControl): ValidationErrors | null {
     let horarioInicio = control.parent?.get('horarioInicio')?.value;
     let horarioFim = control.parent?.get('horarioFim')?.value;
 
@@ -75,22 +113,6 @@ export class TarefasCadastroComponent {
         return { horario: true, error: true };
       }
 
-      let duracao: any;
-      this.tarefaService?.calcularDuracao(horarioInicio, horarioFim).subscribe({
-        next: (dado) => {
-          duracao = dado;
-          console.log(duracao);
-          control.parent?.get('duracao')?.setValue(duracao);
-        },
-        error: (erro) => {
-          this.createNotification(
-            'error',
-            'Calcular Duração',
-            `Erro ${erro.status} ao tentar calcular a duração, por favor tente novamente mais tarde`
-          );
-        },
-      });
-
       return {};
     } else {
       control.parent?.get('duracao')?.setValue(null);
@@ -101,8 +123,8 @@ export class TarefasCadastroComponent {
   initForm(): void {
     this.form = this.fb.group({
       descricao: [null, [Validators.required]],
-      horarioInicio: [null, [Validators.required, this.calcularDuracao]],
-      horarioFim: [null, [Validators.required, this.calcularDuracao]],
+      horarioInicio: [null, [Validators.required, this.validarHoras]],
+      horarioFim: [null, [Validators.required, this.validarHoras]],
       duracao: [null, null],
       data: [null, [Validators.required]],
       projeto: [null, [Validators.required]],
