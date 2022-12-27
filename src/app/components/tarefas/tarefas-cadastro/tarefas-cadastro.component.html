@@ -84,18 +84,13 @@
           <nz-form-item>
             <nz-form-control>
               <nz-form-label nzFor="duracao">Duração</nz-form-label>
-              <!-- <input
-              class="duracao"
-              type="time"
-              nz-input
-              [readonly]="true"
-              formControlName="duracao"
-            /> -->
-              <nz-time-picker
-                nzFormat="HH:mm:ss"
+              <input
+                class="duracao"
+                type="text"
+                nz-input
+                [readonly]="true"
                 formControlName="duracao"
-                nzInputReadOnly
-              ></nz-time-picker>
+              />
             </nz-form-control>
           </nz-form-item>
         </div>

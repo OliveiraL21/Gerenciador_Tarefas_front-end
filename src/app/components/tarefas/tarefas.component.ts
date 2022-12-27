@@ -5,6 +5,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Tarefa } from 'src/app/models/Tarefas/tarefa';
 import { TarefaService } from 'src/app/services/tarefas/tarefa.service';
+import { ProjetoService } from 'src/app/services/projetos/projeto.service';
+import { Projeto } from 'src/app/models/Projetos/projeto';
 
 @Component({
   selector: 'app-tarefas',
@@ -15,14 +17,24 @@ export class TarefasComponent implements OnInit {
   form!: FormGroup;
   isSpinning = false;
   tarefas: Tarefa[] = [];
+  projetos: Projeto[] = [];
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private tarefasService: TarefaService,
     private modal: NzModalService,
-    private notification: NzNotificationService
+    private notification: NzNotificationService,
+    private projetoService: ProjetoService
   ) {}
+
+  listaProjetos(): void {
+    this.projetoService.listaTodos().subscribe({
+      next: (data) => {
+        this.projetos = data;
+      },
+    });
+  }
 
   createNotification(type: string, title: string, message: string) {
     this.notification.create(type, title, message);
@@ -83,7 +95,7 @@ export class TarefasComponent implements OnInit {
     this.form = this.fb.group({
       descricao: [null, null],
       periodo: [null, null],
-      horarioPeriodo: [null, null],
+      projeto: [null, null],
     });
   }
 

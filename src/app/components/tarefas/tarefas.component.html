@@ -36,11 +36,20 @@
     <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="6" nzXl="6">
       <nz-form-item>
         <nz-form-control>
-          <nz-form-label nzFor="horarioPeriodo">Horário</nz-form-label>
-          <nz-time-picker
-            nzFormat="HH:mm"
-            formControlName="horarioPeriodo"
-          ></nz-time-picker>
+          <nz-form-label nzFor="projeto">Projeto</nz-form-label>
+          <nz-select
+            formControlName="projeto"
+            nzPlaceHolder="Selecione o projeto"
+            nzShowSearch
+            nzAllowClear
+            (nzOnSearch)="listaProjetos()"
+          >
+            <nz-option
+              *ngFor="let projeto of projetos"
+              [nzLabel]="projeto.descricao"
+              [nzValue]="projeto.id"
+            ></nz-option>
+          </nz-select>
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -77,7 +86,7 @@
           <td>{{ tarefa.descricao }}</td>
           <td nzAlign="center">{{ tarefa.horarioInicio | date : "HH:mm" }}</td>
           <td nzAlign="center">{{ tarefa.horarioFim | date : "HH:mm" }}</td>
-          <td nzAlign="center">{{ tarefa.duracao | date : "HH:mm" }}</td>
+          <td nzAlign="center">{{ tarefa.duracao }}</td>
           <td nzAlign="center">{{ tarefa.data | date : "dd/MM/yyyy" }}</td>
           <td nzAlign="center">
             <button

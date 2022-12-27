@@ -69,16 +69,19 @@ export class TarefasCadastroComponent {
     ) {
       this.isSpinning = true;
       this.spinTip = 'Calculando Duração';
-
+      if (typeof horarioInicio !== 'object' || typeof horarioFim !== 'object') {
+        horarioInicio = new Date(horarioInicio);
+        horarioFim = new Date(horarioFim);
+      }
       this.tarefaService
         .calcularDuracao(
           horarioInicio.toLocaleTimeString(),
           horarioFim.toLocaleTimeString()
         )
         .subscribe({
-          next: (duracao) => {
-            this.form.get('duracao')?.setValue(duracao);
-            console.log(duracao);
+          next: (data) => {
+            this.form.get('duracao')?.setValue(data.duracao);
+            console.log(data);
           },
           error: (erro) => {
             this.createNotification(
