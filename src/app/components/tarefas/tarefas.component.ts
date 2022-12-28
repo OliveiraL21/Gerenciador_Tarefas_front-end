@@ -1,6 +1,6 @@
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Tarefa } from 'src/app/models/Tarefas/tarefa';
@@ -15,10 +15,12 @@ import { Projeto } from 'src/app/models/Projetos/projeto';
 })
 export class TarefasComponent implements OnInit {
   form!: FormGroup;
+  formHoras!: FormGroup;
   isSpinning = false;
   tarefas: Tarefa[] = [];
   projetos: Projeto[] = [];
 
+  modalVisible: boolean = false;
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -34,6 +36,14 @@ export class TarefasComponent implements OnInit {
         this.projetos = data;
       },
     });
+  }
+
+  showModal(): void {
+    this.modalVisible = true;
+  }
+
+  closeModal(): void {
+    this.modalVisible = false;
   }
 
   createNotification(type: string, title: string, message: string) {
@@ -97,6 +107,21 @@ export class TarefasComponent implements OnInit {
       periodo: [null, null],
       projeto: [null, null],
     });
+
+    this.formHoras = this.fb.group({
+      data: [null, [Validators.required]],
+      horas: [{ disabled: true, value: null }, [Validators.required]],
+    });
+  }
+  calcularHorasTrabalhadas(): void {
+    let data = this.formHoras.get('data')?.value;
+
+    if (data && data !== null) {
+      let tarefas = this.tarefas.filter(
+        (x: Tarefa) => x.data?.toLocaleDateString() == data.toLocaleDateString()
+      );
+      console.log(tarefas);
+    }
   }
 
   ngOnInit(): void {

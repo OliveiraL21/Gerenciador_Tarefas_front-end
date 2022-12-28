@@ -5,6 +5,43 @@
   </nz-breadcrumb>
 </nz-page-header>
 
+<nz-modal
+  [nzVisible]="modalVisible"
+  nzTitle="Calcular Horas Trabalhadas"
+  [nzContent]="modalContent"
+  [nzOkText]="'Calcular'"
+  (nzOnCancel)="closeModal()"
+  (nzOnOk)="calcularHorasTrabalhadas()"
+>
+  <ng-template #modalContent>
+    <form [formGroup]="formHoras" nz-form nzLayout="horizontal">
+      <div nz-row [nzGutter]="[12, 2]">
+        <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
+          <nz-form-item>
+            <nz-form-control>
+              <nz-form-label nzFor="data" nzRequired>Data</nz-form-label>
+              <nz-date-picker
+                formControlName="data"
+                nzPlaceHolder="Selecione a data"
+                nzFormat="dd/MM/yyyy"
+              ></nz-date-picker>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
+          <nz-form-item>
+            <nz-form-control>
+              <nz-form-label nzFor="horas"
+                >Total de Horas Trabalhadas</nz-form-label
+              >
+              <input type="text" nz-input formControlName="horas" />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+    </form>
+  </ng-template>
+</nz-modal>
 <form [formGroup]="form">
   <div nz-row [nzGutter]="[24, 2]" class="row-filter-style">
     <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="6" nzXl="6">
@@ -125,17 +162,17 @@
   </nz-spin>
 
   <div nz-row>
-    <div
-      nz-col
-      nzXs="48"
-      nzSm="24"
-      nzMd="24"
-      nzLg="24"
-      nzXl="24"
-      style="margin-top: 20px"
-    >
-      <button nz-button nzType="primary" (click)="adicionarTarefa()">
+    <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
+      <button
+        nz-button
+        nzType="primary"
+        style="margin-right: 10px"
+        (click)="adicionarTarefa()"
+      >
         Adicionar Tarefa <Span nz-icon nzType="plus"></Span>
+      </button>
+      <button nz-button nzType="default" (click)="showModal()">
+        Calcular Horas
       </button>
     </div>
   </div>
