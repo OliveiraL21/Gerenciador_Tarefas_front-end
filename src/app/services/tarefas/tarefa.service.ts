@@ -31,6 +31,10 @@ export class TarefaService {
     return this.http.get<any>(`${url}/duracao/${horarioInicio}/${horarioFIm}`);
   }
 
+  calcularTotaisHoras(data: string): Observable<any[]> {
+    return this.http.get<any[]>(`${url}/horasTotais/${data}`);
+  }
+
   excluirTarefa(id: number): Observable<boolean> {
     return this.http.delete<boolean>(`${url}/${id}`);
   }

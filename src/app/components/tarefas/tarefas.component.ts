@@ -114,13 +114,22 @@ export class TarefasComponent implements OnInit {
     });
   }
   calcularHorasTrabalhadas(): void {
-    let data = this.formHoras.get('data')?.value;
+    let data: Date = this.formHoras.get('data')?.value;
 
     if (data && data !== null) {
-      let tarefas = this.tarefas.filter(
-        (x: Tarefa) => x.data?.toLocaleDateString() == data.toLocaleDateString()
-      );
-      console.log(tarefas);
+      this.tarefasService.calcularTotaisHoras(data.toDateString()).subscribe({
+        next: (totais) => {
+          console.log(totais);
+          this.formHoras.get('horas')?.setValue(totais);
+        },
+        error: (erro) => {
+          this.createNotification(
+            'error',
+            'Calcular Total Horas',
+            `Erro ${erro.status} ao tentar calcular o total de horas diario, tente novamente mais tarde!`
+          );
+        },
+      });
     }
   }
 
