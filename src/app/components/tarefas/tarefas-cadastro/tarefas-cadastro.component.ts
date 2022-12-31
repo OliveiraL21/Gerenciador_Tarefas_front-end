@@ -41,7 +41,7 @@ export class TarefasCadastroComponent {
     private notification: NzNotificationService,
     private tarefaService: TarefaService,
     private projetoService: ProjetoService
-  ) {}
+  ) { }
   voltar(): void {
     this.router.navigateByUrl('tarefas/listagem');
   }
@@ -81,7 +81,7 @@ export class TarefasCadastroComponent {
         .subscribe({
           next: (data) => {
             this.form.get('duracao')?.setValue(data.duracao);
-            console.log(data);
+
           },
           error: (erro) => {
             this.createNotification(

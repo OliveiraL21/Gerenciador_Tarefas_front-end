@@ -3,7 +3,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Tarefa } from 'src/app/models/Tarefas/tarefa';
+import { Tarefa, TarefaListagem } from 'src/app/models/Tarefas/tarefa';
 import { TarefaService } from 'src/app/services/tarefas/tarefa.service';
 import { ProjetoService } from 'src/app/services/projetos/projeto.service';
 import { Projeto } from 'src/app/models/Projetos/projeto';
@@ -17,7 +17,7 @@ export class TarefasComponent implements OnInit {
   form!: FormGroup;
   formHoras!: FormGroup;
   isSpinning = false;
-  tarefas: Tarefa[] = [];
+  tarefas: TarefaListagem[] = [];
   projetos: Projeto[] = [];
 
   modalVisible: boolean = false;
@@ -28,7 +28,7 @@ export class TarefasComponent implements OnInit {
     private modal: NzModalService,
     private notification: NzNotificationService,
     private projetoService: ProjetoService
-  ) {}
+  ) { }
 
   listaProjetos(): void {
     this.projetoService.listaTodos().subscribe({
@@ -118,9 +118,9 @@ export class TarefasComponent implements OnInit {
 
     if (data && data !== null) {
       this.tarefasService.calcularTotaisHoras(data.toDateString()).subscribe({
-        next: (totais) => {
-          console.log(totais);
-          this.formHoras.get('horas')?.setValue(totais);
+        next: (data) => {
+          console.log(data);
+          this.formHoras.get('horas')?.setValue(data?.horasTotal);
         },
         error: (erro) => {
           this.createNotification(
@@ -131,6 +131,33 @@ export class TarefasComponent implements OnInit {
         },
       });
     }
+  }
+
+  filtrar(): void {
+    let descricao = this.form.get('descricao')?.value === undefined || this.form.get('descricao')?.value === null ? null : this.form.get('descricao')?.value;
+
+    let data = this.form.get('periodo')?.value === undefined ||
+      this.form.get('periodo')?.value === undefined === null ? null : this.form.get('periodo')?.value;
+
+    console.log(data);
+    let dataInicio = null;
+    let dataFim = null;
+    if (data !== null && data !== undefined) {
+      dataInicio = data[0];
+      dataFim = data[1];
+    }
+
+    let projeto = this.form.get('projeto')?.value === undefined || this.form.get('projeto')?.value === null ? 0 : this.form.get('projeto')?.value;
+
+    this.tarefasService.filtrar(descricao, dataInicio.toDateString(), dataFim.toDateString(), projeto).subscribe({
+      next: (response) => {
+        this.tarefas = response;
+        console.log(response);
+      },
+      error: (erro) => {
+        this.createNotification('error', 'Tarefas', `Erro ${erro.status} ao filtrar tarefas, tente novamente mais tarde !`);
+      }
+    })
   }
 
   ngOnInit(): void {

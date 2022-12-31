@@ -1,4 +1,4 @@
-import { Tarefa } from './../../models/Tarefas/tarefa';
+import { Tarefa, TarefaListagem } from './../../models/Tarefas/tarefa';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
@@ -10,12 +10,15 @@ const url = `${environment.api_url}/Tarefas`;
   providedIn: 'root',
 })
 export class TarefaService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  listaTodos(): Observable<Tarefa[]> {
+  listaTodos(): Observable<any[]> {
     return this.http.get<Tarefa[]>(`${url}`);
   }
 
+  filtrar(descricao?: string, dataInicio?: string, dataFim?: string, projeto?: number): Observable<TarefaListagem[]> {
+    return this.http.get<TarefaListagem[]>(`${url}/filtrar/${descricao}/${dataInicio}/${dataFim}/${projeto}`);
+  }
   create(tarefa: Tarefa): Observable<Tarefa> {
     return this.http.post<Tarefa>(`${url}`, tarefa);
   }
@@ -31,8 +34,8 @@ export class TarefaService {
     return this.http.get<any>(`${url}/duracao/${horarioInicio}/${horarioFIm}`);
   }
 
-  calcularTotaisHoras(data: string): Observable<any[]> {
-    return this.http.get<any[]>(`${url}/horasTotais/${data}`);
+  calcularTotaisHoras(data: string): Observable<any> {
+    return this.http.get<any>(`${url}/horasTotais/${data}`);
   }
 
   excluirTarefa(id: number): Observable<boolean> {
