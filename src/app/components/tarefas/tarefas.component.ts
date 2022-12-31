@@ -134,34 +134,41 @@ export class TarefasComponent implements OnInit {
   }
 
   filtrar(): void {
-    let descricao = this.form.get('descricao')?.value === undefined || this.form.get('descricao')?.value === null ? null : this.form.get('descricao')?.value;
+    this.isSpinning = true;
+    let descricao = this.form.get('descricao')?.value === undefined || this.form.get('descricao')?.value === null || this.form.get("descricao")?.value === '' ? null : this.form.get('descricao')?.value;
 
     let data = this.form.get('periodo')?.value === undefined ||
       this.form.get('periodo')?.value === undefined === null ? null : this.form.get('periodo')?.value;
 
-    console.log(data);
+
     let dataInicio = null;
     let dataFim = null;
     if (data !== null && data !== undefined) {
       dataInicio = data[0];
       dataFim = data[1];
+
+      dataInicio = dataInicio.toDateString();
+      dataFim = dataFim.toDateString();
     }
 
     let projeto = this.form.get('projeto')?.value === undefined || this.form.get('projeto')?.value === null ? 0 : this.form.get('projeto')?.value;
 
-    this.tarefasService.filtrar(descricao, dataInicio.toDateString(), dataFim.toDateString(), projeto).subscribe({
+    this.tarefasService.filtrar(descricao, dataInicio, dataFim, projeto).subscribe({
       next: (response) => {
         this.tarefas = response;
-        console.log(response);
+        this.isSpinning = false;
       },
       error: (erro) => {
         this.createNotification('error', 'Tarefas', `Erro ${erro.status} ao filtrar tarefas, tente novamente mais tarde !`);
+        this.isSpinning = false;
       }
     })
   }
 
   ngOnInit(): void {
+    this.isSpinning = true;
     this.listarTarefas();
     this.initForm();
+    this.isSpinning = false;
   }
 }
