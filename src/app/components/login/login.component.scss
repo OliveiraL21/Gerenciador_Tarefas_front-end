@@ -1,0 +1,38 @@
+nz-layout{
+  background-color: #fff;
+}
+
+.main{
+  display: flex;
+  flex-direction: row;
+}
+
+.loginImagem{
+  background-image: url('../../../assets/images/Completed\ task.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100vh;
+  width: 60vw;
+  margin-right: 40px;
+}
+
+.content{
+  width: 40vw;
+  height: 100vh;
+}
+
+.mainContent{
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loginForm{
+  max-width: 350px;
+}
+
+.loginButton{
+  width: 100%;
+}

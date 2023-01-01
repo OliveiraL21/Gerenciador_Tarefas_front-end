@@ -41,6 +41,8 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzTagModule } from 'ng-zorro-antd/tag';
 import { NzTimePickerModule } from 'ng-zorro-antd/time-picker';
+import { NzAvatarModule } from 'ng-zorro-antd/avatar';
+import { LoginComponent } from './components/login/login.component';
 
 registerLocaleData(pt);
 
@@ -56,6 +58,7 @@ registerLocaleData(pt);
     ProjetosCadastroComponent,
     TarefasComponent,
     TarefasCadastroComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -85,9 +88,10 @@ registerLocaleData(pt);
     NzDatePickerModule,
     NzTagModule,
     NzTimePickerModule,
+    NzAvatarModule,
     NgxMaskModule.forRoot(),
   ],
   providers: [{ provide: NZ_I18N, useValue: pt_BR }],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

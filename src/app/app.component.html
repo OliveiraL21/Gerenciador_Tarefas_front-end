@@ -1,24 +1,15 @@
-<nz-layout class="app-layout">
-  <nz-sider
-    class="menu-sidebar"
-    nzCollapsible
-    nzWidth="256px"
-    nzBreakpoint="md"
-    [(nzCollapsed)]="isCollapsed"
-    [nzTrigger]="null"
-  >
-    <div class="sidebar-logo">
-      <a href="#" target="_blank">
-        <img src="../assets/images/Gerenciar Tarefas.ico" alt="logo" />
-        <h1>Gerenciador de Tarefas</h1>
-      </a>
+<div *ngIf="isLogin">
+  <router-outlet></router-outlet>
+</div>
+
+<nz-layout class="app-layout" *ngIf="!isLogin">
+  <nz-sider class="menu-sidebar" nzTheme="light" nzCollapsible nzWidth="256px" nzBreakpoint="md"
+    [(nzCollapsed)]="isCollapsed" [nzTrigger]="null">
+    <div class="avatar">
+      <nz-avatar nzIcon="user" nzSize="large"></nz-avatar>
+      <p *ngIf="!isCollapsed">Lucas José Dias de Oliveira</p>
     </div>
-    <ul
-      nz-menu
-      nzTheme="dark"
-      nzMode="inline"
-      [nzInlineCollapsed]="isCollapsed"
-    >
+    <ul nz-menu nzTheme="light" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
       <li nz-submenu nzTitle="Usuários" nzIcon="user">
         <ul>
           <li nz-menu-item nzMatchRouter>
@@ -53,13 +44,13 @@
     <nz-header>
       <div class="app-header">
         <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
-          <span
-            class="trigger"
-            nz-icon
-            [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
-          ></span>
+          <span class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></span>
         </span>
+
+        <button nz-button nzType="default" class="logout"><span nz-icon nzType="logout"></span> Logout</button>
+
       </div>
+
     </nz-header>
     <nz-content>
       <div class="inner-content">

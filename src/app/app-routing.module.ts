@@ -8,9 +8,11 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ProjetosComponent } from './components/projetos/projetos.component';
 import { ProjetosCadastroComponent } from './components/projetos/projetos-cadastro/projetos-cadastro.component';
+import { LoginComponent } from './components/login/login.component';
 
 const routes: Routes = [
-  { path: '', component: TarefasComponent },
+  { path: '', component: LoginComponent },
+  { path: 'login', component: LoginComponent },
   { path: 'clientes/lista', component: ClientesComponent },
   { path: 'clientes/cadastro', component: ClientesCadastroComponent },
   { path: 'clientes/visualizar/:id', component: ClientesCadastroComponent },
@@ -33,4 +35,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
