@@ -31,7 +31,7 @@ export class TarefasComponent implements OnInit {
   ) { }
 
   listaProjetos(): void {
-    this.projetoService.listaTodos().subscribe({
+    this.projetoService.listaSimples().subscribe({
       next: (data) => {
         this.projetos = data;
       },

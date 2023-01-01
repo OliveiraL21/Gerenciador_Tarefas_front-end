@@ -20,6 +20,7 @@ export class UsuarioCadastroComponent implements OnInit {
   editButtom: boolean = false;
   saveButtom: boolean = true;
   cancelDisable: boolean = false;
+  passwordVisible: boolean = false;
 
   form!: FormGroup;
   constructor(
@@ -28,7 +29,7 @@ export class UsuarioCadastroComponent implements OnInit {
     private router: ActivatedRoute,
     private notification: NzNotificationService,
     private usuarioService: UsuariosService
-  ) {}
+  ) { }
 
   createNotification(type: string, title: string, message: string) {
     this.notification.create(type, title, message);

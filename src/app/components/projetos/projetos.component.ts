@@ -1,3 +1,4 @@
+import { ProjetoListagem } from './../../models/Projetos/projeto';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { ProjetoService } from './../../services/projetos/projeto.service';
@@ -8,6 +9,9 @@ import { Cliente } from 'src/app/models/Clientes/cliente';
 import { Projeto } from 'src/app/models/Projetos/projeto';
 import { Route, ActivatedRoute, Router } from '@angular/router';
 import { title } from 'process';
+import { StatusService } from 'src/app/services/status/status.service';
+import { Status } from 'src/app/models/status/status';
+
 
 interface IItemData {
   id: number;
@@ -28,7 +32,9 @@ export class ProjetosComponent implements OnInit {
 
   form!: FormGroup;
   clientes: Cliente[] = [];
-  listOfData: IItemData[] = [];
+  listOfData: ProjetoListagem[] = [];
+  listOfProjetos: Projeto[] = [];
+  listStatus: Status[] = [];
 
   isSpinning: boolean = false;
   constructor(
@@ -38,26 +44,46 @@ export class ProjetosComponent implements OnInit {
     private router: ActivatedRoute,
     private projetoService: ProjetoService,
     private modalService: NzModalService,
-    private notification: NzNotificationService
-  ) {}
+    private notification: NzNotificationService,
+    private statusService: StatusService
+  ) { }
 
   createNotification(type: string, title: string, message: string) {
     this.notification.create(type, title, message);
+  }
+
+  filtrar(): void {
+    this.isSpinning = true;
+    let projeto = this.form.get('projeto')?.value === undefined || this.form.get('projeto')?.value === null || this.form.get('projeto')?.value === 0 ? 0 :
+      this.form.get('projeto')?.value;
+
+    let cliente = this.form.get('cliente')?.value === undefined || this.form.get('cliente')?.value === null || this.form.get('cliente')?.value === 0 ? 0 : this.form.get('cliente')?.value;
+
+
+    let status = this.form.get('status')?.value === undefined || this.form.get('status')?.value === null || this.form.get('status')?.value === 0 ? 0 : this.form.get('status')?.value;
+
+    this.projetoService.filtrar(projeto, cliente, status).subscribe({
+      next: (projetos) => {
+        this.listOfData = projetos;
+        this.isSpinning = false;
+      }
+    });
+    this.isSpinning = false;
   }
 
   novoProjeto() {
     this.route.navigateByUrl('projetos/cadastro');
   }
 
-  visualizarProjeto(id: number) {
+  visualizarProjeto(id: number | undefined) {
     this.route.navigateByUrl(`projetos/visualizar/${id}`);
   }
 
-  editarProjeto(id: number) {
+  editarProjeto(id: number | undefined) {
     this.route.navigateByUrl(`projetos/editar/${id}`);
   }
 
-  deleteProjeto(id: number) {
+  deleteProjeto(id: number | undefined) {
     this.modalService.confirm({
       nzTitle: 'Deletar Projeto',
       nzContent:
@@ -66,23 +92,26 @@ export class ProjetosComponent implements OnInit {
         'Uma vez deletado o registro ele não pode ser recuperado.',
       nzOkDanger: true,
       nzOnOk: () => {
-        this.projetoService.delete(id).subscribe({
-          next: () => {
-            this.createNotification(
-              'success',
-              'Projeto',
-              'Projeto deletado com sucesso !'
-            );
-            this.listaProjetos();
-          },
-          error: (erro) => {
-            this.createNotification(
-              'error',
-              'Projeto',
-              `erro  ${erro.status} ao tentar deletar o registro, tente novamente mais tarde.`
-            );
-          },
-        });
+        if (id !== undefined) {
+          this.projetoService.delete(id).subscribe({
+            next: () => {
+              this.createNotification(
+                'success',
+                'Projeto',
+                'Projeto deletado com sucesso !'
+              );
+              this.listaProjetos();
+            },
+            error: (erro) => {
+              this.createNotification(
+                'error',
+                'Projeto',
+                `erro  ${erro.status} ao tentar deletar o registro, tente novamente mais tarde.`
+              );
+            },
+          });
+        }
+
       },
     });
   }
@@ -92,21 +121,17 @@ export class ProjetosComponent implements OnInit {
     this.projetoService.listaTodos().subscribe({
       next: (projetos) => {
         console.log(projetos);
-        this.listOfData = projetos.map((projeto: any, index: any) => ({
-          id: projeto.id,
-          descricao: projeto.descricao,
-          data_inicio: projeto.data_Inicio,
-          data_fim: projeto.data_Fim,
-          cliente:
-            this.clientes.find((x) => x.id == projeto.clienteId) !== undefined
-              ? this.clientes.find((x) => x.id == projeto.clienteId)
-                  ?.razao_Social
-              : '',
-          clienteId: projeto.clienteId,
-          status: projeto.status?.descricao,
-        }));
+        this.listOfData = projetos;
       },
     });
+  }
+
+  listaSimplesProjeto(): void {
+    this.projetoService.listaSimples().subscribe({
+      next: (projetos) => {
+        this.listOfProjetos = projetos;
+      }
+    })
   }
 
   listaClientes(): void {
@@ -120,11 +145,22 @@ export class ProjetosComponent implements OnInit {
     });
   }
 
+  listaStatus(): void {
+    this.statusService.listaTodos().subscribe({
+      next: (status) => {
+        this.listStatus = status;
+      }
+    })
+  }
+
   ngOnInit(): void {
+    this.isSpinning = true;
     this.listaProjetos();
     this.form = this.fb.group({
       projeto: [null, null],
       cliente: [null, null],
+      status: [null, null],
     });
+    this.isSpinning = false;
   }
 }

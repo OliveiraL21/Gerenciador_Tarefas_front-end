@@ -21,7 +21,7 @@ export class ClientesCadastroComponent implements OnInit {
     private route: ActivatedRoute,
     private notification: NzNotificationService,
     private clientesService: ClientesService
-  ) {}
+  ) { }
   createNotification(type: string, title: string, message: string) {
     this.notification.create(type, title, message);
   }
@@ -34,19 +34,21 @@ export class ClientesCadastroComponent implements OnInit {
     this.form.reset();
   }
 
-  ngOnInit(): void {
-    let id: any = this.route.snapshot.paramMap.get('id');
-    id = parseInt(id);
-    console.log(id);
-    let url = this.router.url.split('/');
-    console.log(url);
-
+  initForm(): void {
     this.form = this.fb.group({
       Razao_Social: [null, [Validators.required]],
       Cnpj: [null, [Validators.required]],
       Telefone: [null, [Validators.required]],
       Celular: [null, [Validators.required]],
+      email: [null, [Validators.required, Validators.email]]
     });
+  }
+
+  ngOnInit(): void {
+    let id: any = this.route.snapshot.paramMap.get('id');
+    id = parseInt(id);
+    let url = this.router.url.split('/');
+    this.initForm();
 
     if (id !== undefined && id !== null && id !== 0) {
       if (url[2] == 'editar') {

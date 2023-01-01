@@ -5,55 +5,53 @@
   </nz-breadcrumb>
 </nz-page-header>
 
-<nz-collapse nzExpandIconPosition="right">
-  <nz-collapse-panel nzHeader="Filtros" nzActive="active">
-    <form nz-from [formGroup]="form">
-      <div nz-row [nzGutter]="[12, 2]">
-        <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
-          <nz-form-item>
-            <nz-form-control>
-              <nz-form-label nzFor="projeto">Projeto</nz-form-label>
-              <input
-                type="text"
-                nz-input
-                formControlName="projeto"
-                placeholder="Digite o nome do projeto"
-              />
-            </nz-form-control>
-          </nz-form-item>
-        </div>
+<form nz-from [formGroup]="form">
+  <div nz-row [nzGutter]="[12, 2]">
+    <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="6" nzXl="6" style="margin-left: 2rem">
+      <nz-form-item>
+        <nz-form-control>
+          <nz-form-label nzFor="projeto">Projeto</nz-form-label>
+          <nz-select nzAllowClear nzShowSearch formControlName="projeto" nzPlaceHolder="Selecione o projeto"
+            (nzOnSearch)="listaSimplesProjeto()">
+            <nz-option *ngFor="let projeto of listOfProjetos" [nzLabel]="projeto.descricao"
+              [nzValue]="projeto.id"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
 
-        <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
-          <nz-form-item>
-            <nz-form-control>
-              <nz-form-label nzFor="cliente">Cliente</nz-form-label>
-              <nz-select
-                nzShowSearch
-                nzAllowClear
-                formControlName="cliente"
-                nzPlaceHolder="Selecione o cliente"
-              >
-                <nz-option
-                  *ngFor="let cliente of clientes"
-                  [nzLabel]="cliente.razao_Social"
-                  [nzValue]="cliente.id"
-                ></nz-option>
-              </nz-select>
-            </nz-form-control>
-          </nz-form-item>
-        </div>
-      </div>
+    <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="6" nzXl="6">
+      <nz-form-item>
+        <nz-form-control>
+          <nz-form-label nzFor="cliente">Cliente</nz-form-label>
+          <nz-select nzShowSearch nzAllowClear formControlName="cliente" nzPlaceHolder="Selecione o cliente">
+            <nz-option *ngFor="let cliente of clientes" [nzLabel]="cliente.razao_Social"
+              [nzValue]="cliente.id"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
 
-      <div nz-row nzJustify="space-between" style="text-align: right">
-        <div nz-col nzXs="48" nzSm="24" nzMd="24" nzLg="24" nzXl="24">
-          <button nz-button nzType="primary">Filtrar</button>
-        </div>
-      </div>
-    </form>
-  </nz-collapse-panel>
-</nz-collapse>
+    <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="6" nzLg="6">
+      <nz-form-item>
+        <nz-form-control>
+          <nz-form-label nzFor="status">Status</nz-form-label>
+          <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Selecione o status" formControlName="status"
+            (nzOnSearch)="listaStatus()">
+            <nz-option *ngFor="let status of listStatus" [nzLabel]="status.descricao" [nzValue]="status.id"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
 
-<br /><br />
+    <div nz-col nzXs="48" nzSm="4" nzMd="4" nzLg="4" nzXl="4" style="margin-top: 30px">
+      <button nz-button nzType="primary" (click)="filtrar()">Filtrar</button>
+    </div>
+
+  </div>
+</form>
+
+<br />
 
 <nz-card>
   <nz-spin [nzSpinning]="isSpinning" nzTip="Carregando dados...">
@@ -70,48 +68,26 @@
       <tbody>
         <tr *ngFor="let data of projetos.data">
           <td nzWidth="450px">{{ data.descricao }}</td>
-          <td>{{ data.cliente }}</td>
-          <td>{{ data.data_inicio | date : "dd/MM/yyyy" }}</td>
+          <td>{{ data.cliente?.razao_Social }}</td>
+          <td>{{ data?.data_Inicio | date : "dd/MM/yyyy" }}</td>
           <td nzAlign="center">
-            <nz-tag nzColor="green" *ngIf="data.status == 'Ativo'"
-              >Ativo</nz-tag
-            >
+            <nz-tag nzColor="green" *ngIf="data.status?.id == 1">Ativo</nz-tag>
+            <nz-tag nzColor="purple" *ngIf="data.status?.id == 2">Inativo</nz-tag>
+            <nz-tag nzColor="red" *ngIf="data.status?.id == 3">Excluido</nz-tag>
           </td>
           <td nzAlign="center">
-            <button
-              nz-button
-              nzType="primary"
-              nzSize="small"
-              nz-tooltip
-              nzTooltipTitle="Visualizar"
-              nzTooltipPlacement="top"
-              (click)="visualizarProjeto(data.id)"
-            >
+            <button nz-button nzType="primary" nzSize="small" nz-tooltip nzTooltipTitle="Visualizar"
+              nzTooltipPlacement="top" (click)="visualizarProjeto(data.id)">
               <span nz-icon nzType="eye"></span>
             </button>
 
-            <button
-              nz-button
-              nzType="default"
-              nzSize="small"
-              nz-tooltip
-              nzTooltipTitle="Editar"
-              nzTooltipPlacement="top"
-              (click)="editarProjeto(data.id)"
-            >
+            <button nz-button nzType="default" nzSize="small" nz-tooltip nzTooltipTitle="Editar"
+              nzTooltipPlacement="top" (click)="editarProjeto(data.id)">
               <span nz-icon nzType="edit"></span>
             </button>
 
-            <button
-              nz-button
-              nzType="primary"
-              nzSize="small"
-              nzDanger
-              nz-tooltip
-              nzTooltipTitle="Excluir"
-              nzTooltipPlacement="top"
-              (click)="deleteProjeto(data.id)"
-            >
+            <button nz-button nzType="primary" nzSize="small" nzDanger nz-tooltip nzTooltipTitle="Excluir"
+              nzTooltipPlacement="top" (click)="deleteProjeto(data.id)">
               <span nz-icon nzType="delete"></span>
             </button>
           </td>
@@ -122,12 +98,7 @@
 
   <div nz-row [nzGutter]="[12, 2]">
     <div nz-col nzXs="48" nzSm="24" nzMd="24" nzLg="24" nzXl="24">
-      <button
-        nz-button
-        nzType="primary"
-        style="margin-top: 20px"
-        (click)="novoProjeto()"
-      >
+      <button nz-button nzType="primary" style="margin-top: 20px" (click)="novoProjeto()">
         Novo Projeto <span nz-icon nzType="plus"></span>
       </button>
     </div>

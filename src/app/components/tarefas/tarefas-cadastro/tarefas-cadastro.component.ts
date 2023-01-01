@@ -9,9 +9,6 @@ import {
   Validators,
 } from '@angular/forms';
 import { Component } from '@angular/core';
-import { throws } from 'assert';
-import * as moment from 'moment';
-import { Time } from '@angular/common';
 import { Tarefa } from 'src/app/models/Tarefas/tarefa';
 import { ProjetoService } from 'src/app/services/projetos/projeto.service';
 import { Projeto } from 'src/app/models/Projetos/projeto';
@@ -47,7 +44,7 @@ export class TarefasCadastroComponent {
   }
 
   listProjetos(): void {
-    this.projetoService.listaTodos().subscribe({
+    this.projetoService.listaSimples().subscribe({
       next: (data) => {
         this.projetos = data;
       },

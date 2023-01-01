@@ -6,48 +6,58 @@
 </nz-page-header>
 
 <form nz-form [formGroup]="form">
-  <nz-collapse nzExpandIconPosition="right">
-    <nz-collapse-panel nzHeader="Filtros" nzActive="active">
-      <div nz-row [nzGutter]="[12, 2]">
-        <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
-          <nz-form-item>
-            <nz-form-control>
-              <nz-form-label>Razão Social</nz-form-label>
-              <input
-                type="text"
-                nz-input
-                placeholder="Luxfacta"
-                formControlName="Razao_Social"
-              />
-            </nz-form-control>
-          </nz-form-item>
-        </div>
+  <div nz-row [nzGutter]="[12, 2]">
+    <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="8" nzXl="8">
+      <nz-form-item style="margin-left: 20px">
+        <nz-form-control>
+          <nz-form-label>Razão Social</nz-form-label>
+          <nz-input-group [nzSuffix]="razaoSocialSuffix">
+            <input type="text" nz-input formControlName="Razao_Social" />
+          </nz-input-group>
 
-        <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
-          <nz-form-item>
-            <nz-form-control>
-              <nz-form-label>Cnpj</nz-form-label>
-              <input
-                type="text"
-                nz-input
-                placeholder="000.000/0000-00"
-                formControlName="Cnpj"
-              />
-            </nz-form-control>
-          </nz-form-item>
-        </div>
-      </div>
-      <div nz-row nzJustify="space-between" style="text-align: right">
-        <div nz-col nzXs="48" nzSm="24" nzMd="24" nzLg="24" nzXl="24">
-          <button nz-button nzType="primary">Filtrar</button>
-        </div>
-      </div>
-    </nz-collapse-panel>
-  </nz-collapse>
+          <ng-template #razaoSocialSuffix>
+            <span nz-icon nzType="info-circle" nz-tooltip nzTooltipTitle="Exemplo Ltda"></span>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="6" nzXl="6">
+      <nz-form-item>
+        <nz-form-control>
+          <nz-form-label>Cnpj</nz-form-label>
+          <nz-input-group [nzSuffix]="cnpjSuffix">
+            <input type="text" nz-input formControlName="Cnpj" />
+          </nz-input-group>
+
+          <ng-template #cnpjSuffix>
+            <span nz-icon nzType="info-circle" nz-tooltip nzTooltipTitle="000.000/0000-00"></span>
+          </ng-template>
+
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-col nzSm="12" nzMd="12" nzLg="6" nzXl="6">
+      <nz-form-item>
+        <nz-form-control>
+          <nz-form-label nzFor="email">E-mail</nz-form-label>
+          <nz-input-group [nzSuffix]="emailSuffix">
+            <input nz-input type="email" formControlName="email">
+          </nz-input-group>
+
+          <ng-template #emailSuffix>
+            <span nz-icon nzType="mail" nz-tooltip nzTooltipTitle="exemplo@exemplo"></span>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="4" nzXl="4" style="margin-top: 30px">
+      <button nz-button nzType="primary" (click)="filtrar()">Filtrar</button>
+    </div>
+  </div>
 </form>
-
-<br />
-<br />
 
 <nz-spin [nzSpinning]="isSpinning" nzTip="Carregando Dados...">
   <nz-card>
@@ -56,7 +66,8 @@
         <tr>
           <th>Razão Social</th>
           <th>Cnpj</th>
-          <th>Telefone</th>
+          <th nzWidth="250px">E-mail</th>
+          <th nzWidth="150px" nzAlign="center">Telefone</th>
           <th nzWidth="150px" nzAlign="center">Ações</th>
         </tr>
       </thead>
@@ -68,40 +79,19 @@
           <td>
             {{ cliente.cnpj | mask: "00.000.000/0000-00" }}
           </td>
-          <td>{{ cliente.telefone | mask: "(00) 0000-0000" }}</td>
+          <td>{{cliente.email}}</td>
+          <td nzAlign="center">{{ cliente.telefone | mask: "(00) 0000-0000" }}</td>
           <td nzAlign="center">
-            <button
-              nz-button
-              nzType="primary"
-              nzSize="small"
-              nz-tooltip
-              nzTooltipTitle="Visualizar"
-              nzTooltipPlacement="top"
-              (click)="visualizarCliente(cliente.id)"
-            >
+            <button nz-button nzType="primary" nzSize="small" nz-tooltip nzTooltipTitle="Visualizar"
+              nzTooltipPlacement="top" (click)="visualizarCliente(cliente.id)">
               <span nz-icon nzType="eye" nzTheme="outline"></span>
             </button>
-            <button
-              nz-button
-              nzType="default"
-              nzSize="small"
-              nz-tooltip
-              nzTooltipTitle="Editar"
-              nzTooltipPlacement="top"
-              (click)="editarCliente(cliente.id)"
-            >
+            <button nz-button nzType="default" nzSize="small" nz-tooltip nzTooltipTitle="Editar"
+              nzTooltipPlacement="top" (click)="editarCliente(cliente.id)">
               <span nz-icon nzType="edit" nzTheme="outline"></span>
             </button>
-            <button
-              nz-button
-              nzType="default"
-              nzSize="small"
-              nzDanger
-              nz-tooltip
-              nzTooltipTitle="Deletar"
-              nzTooltipPlacement="top"
-              (click)="deletarCliente(cliente.id)"
-            >
+            <button nz-button nzType="default" nzSize="small" nzDanger nz-tooltip nzTooltipTitle="Deletar"
+              nzTooltipPlacement="top" (click)="deletarCliente(cliente.id)">
               <span nz-icon nzType="delete" nzTheme="outline"></span>
             </button>
           </td>

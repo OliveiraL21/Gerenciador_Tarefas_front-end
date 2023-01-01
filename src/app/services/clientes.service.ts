@@ -10,7 +10,11 @@ const url = `${environment.api_url}`;
   providedIn: 'root',
 })
 export class ClientesService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
+
+  filtrar(razaoSocial: string, cnpj: string, email: string): Observable<Cliente[]> {
+    return this.http.get<Cliente[]>(`${url}/filtrar/${razaoSocial}/${cnpj}/${email}`);
+  }
 
   listarTodos(): Observable<Cliente[]> {
     return this.http.get<Cliente[]>(`${url}/lista`);

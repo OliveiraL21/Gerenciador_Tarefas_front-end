@@ -25,7 +25,7 @@ export class ClientesComponent implements OnInit {
     private clienteService: ClientesService,
     private modal: NzModalService,
     private notification: NzNotificationService
-  ) {}
+  ) { }
 
   createNotification(type: string, title: string, message: string) {
     this.notification.create(type, title, message);
@@ -82,11 +82,39 @@ export class ClientesComponent implements OnInit {
       },
     });
   }
-  ngOnInit(): void {
-    this.listar();
+
+  filtrar(): void {
+    this.isSpinning = true;
+    let razaoSocial = this.form.get('Razao_Social')?.value === null || this.form.get('Razao_Social')?.value === undefined || this.form.get('Razao_Social')?.value === '' ? null : this.form.get('Razao_Social')?.value;
+
+    let cnpj = this.form.get('Cnpj')?.value === null || this.form.get('Cnpj')?.value === undefined || this.form.get('Cnpj')?.value === '' ? null : this.form.get('Cnpj')?.value.replace('/', '').replace('.', '').replace('-', '').replace('.', '');
+
+    let email = this.form.get('email')?.value === null || this.form.get('email')?.value === undefined || this.form.get('email')?.value === '' ? null : this.form.get('email')?.value;
+
+
+    this.clienteService.filtrar(razaoSocial, cnpj, email).subscribe({
+      next: (clientes) => {
+        this.listaClientes = clientes;
+      },
+      error: (erro) => {
+        this.createNotification('error', 'Clientes', `Erro ${erro.status} ao tentar filtrar, tente novamente mais tarde`);
+      }
+    });
+    this.isSpinning = false;
+  }
+
+  initForm(): void {
     this.form = this.fb.group({
       Razao_Social: [null, null],
       Cnpj: [null, null],
+      email: [null, null]
     });
+  }
+
+  ngOnInit(): void {
+    this.isSpinning = true;
+    this.listar();
+    this.initForm();
+    this.isSpinning = false;
   }
 }

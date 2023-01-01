@@ -14,6 +14,7 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
 export class UsuariosComponent implements OnInit {
   listOfUsuarios: Usuarios[] = [];
   form!: FormGroup;
+  isSpinning: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -21,7 +22,7 @@ export class UsuariosComponent implements OnInit {
     private usuarioService: UsuariosService,
     private modal: NzModalService,
     private notification: NzNotificationService
-  ) {}
+  ) { }
 
   createNotification(type: string, title: string, message: string) {
     this.notification.create(type, title, message);
@@ -85,6 +86,7 @@ export class UsuariosComponent implements OnInit {
   }
 
   filtrar(): void {
+    this.isSpinning = true;
     if (this.form.valid) {
       let data = this.form.value;
 
@@ -109,8 +111,13 @@ export class UsuariosComponent implements OnInit {
           this.listOfUsuarios = usuarios.sort((a: any, b: any) =>
             a.nome < b.nome ? -1 : 1
           );
+          this.isSpinning = false;
         },
+        error: (erro) => {
+          this.createNotification('erro', 'Usuários', `Erro ${erro.status} ao tentar filtrar os dados, por favor tente novamente mais tarde!`);
+        }
       });
+      this.isSpinning = false;
     }
   }
 }

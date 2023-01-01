@@ -12,3 +12,12 @@ export class Projeto {
   clienteId: number | null = null;
   status: Status | null = null;
 }
+
+export class ProjetoListagem {
+  id: number | undefined;
+  descricao: string | null = null;
+  data_Inicio: Date | undefined;
+  data_Fim: Date | undefined;
+  cliente: Cliente | null = null;
+  status: Status | null = null;
+}

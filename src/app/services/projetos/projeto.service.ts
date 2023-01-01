@@ -2,21 +2,26 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Injectable } from '@angular/core';
-import { Projeto } from 'src/app/models/Projetos/projeto';
+import { Projeto, ProjetoListagem } from 'src/app/models/Projetos/projeto';
 
 const url = `${environment.api_url}/`;
 @Injectable({
   providedIn: 'root',
 })
 export class ProjetoService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  listaTodos(): Observable<Projeto[]> {
-    return this.http.get<Projeto[]>(`${url}lista/projetos`);
+  listaTodos(): Observable<ProjetoListagem[]> {
+    return this.http.get<ProjetoListagem[]>(`${url}lista/projetos`);
   }
   listaSimples(): Observable<any[]> {
-    return this.http.get<any[]>(`${url}/lsita_simples`);
+    return this.http.get<any[]>(`${url}lista_simples`);
   }
+
+  filtrar(projeto?: number, cliente?: number, status?: number): Observable<ProjetoListagem[]> {
+    return this.http.get<ProjetoListagem[]>(`${url}Projetos/filtrar_projetos/${projeto}/${cliente}/${status}`);
+  }
+
   create(projeto: Projeto): Observable<Projeto> {
     return this.http.post<Projeto>(`${url}projeto/create`, projeto);
   }
