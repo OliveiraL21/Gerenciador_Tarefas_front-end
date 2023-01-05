@@ -1,4 +1,4 @@
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Component } from '@angular/core';
 
 @Component({
@@ -8,6 +8,8 @@ import { Component } from '@angular/core';
 })
 export class LoginComponent {
   form!: FormGroup;
+  passwordVisible: boolean = false;
+  isSpinning: boolean = false;
 
   constructor(private fb: FormBuilder) {
 
@@ -19,6 +21,21 @@ export class LoginComponent {
       login: [null, Validators.required],
       senha: [null, Validators.required]
     })
+  }
+
+  login(): void {
+    if (this.form.valid) {
+      const login = this.form.value;
+      console.log(login);
+    }
+    else {
+      Object.values(this.form.controls).forEach(control => {
+        if (control.invalid) {
+          control.markAsDirty();
+          control.updateValueAndValidity();
+        }
+      })
+    }
   }
 
   ngOnInit() {

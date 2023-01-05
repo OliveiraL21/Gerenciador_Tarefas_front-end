@@ -2,30 +2,45 @@
   <div class="main">
     <nz-content class="content">
       <div class="mainContent">
-        <nz-card class="loginForm">
-          <form nz-form [formGroup]="form" class="loginForm">
-            <h1>Gerenciador de Tarefas </h1>
-            <nz-form-item>
-              <nz-form-control>
-                <nz-input-group>
-                  <input nz-input type="text" placeholder="Login" formControlName="login">
-                </nz-input-group>
-              </nz-form-control>
-            </nz-form-item>
+        <nz-card class=" loginForm">
+          <nz-spin [nzSpinning]="isSpinning" nzTip="Efetuando Login...">
+            <form nz-form [formGroup]="form" (ngSubmit)="login()" class="loginForm">
+              <h1>Gerenciador de Tarefas </h1>
+              <nz-form-item style="margin-bottom: 10px">
+                <nz-form-control nzErrorTip="Informe o nome de usuário">
+                  <nz-input-group nzPrefixIcon="user">
+                    <input nz-input type="text" placeholder="Login" formControlName="login">
+                  </nz-input-group>
+                </nz-form-control>
+              </nz-form-item>
 
-            <nz-form-item>
-              <nz-form-control>
-                <nz-input-group>
-                  <input nz-input type="password" formControlName="senha" placeholder="password" />
-                </nz-input-group>
-              </nz-form-control>
-            </nz-form-item>
-            <button nz-button nzType="primary" class="loginButton">Login</button>
-          </form>
+              <nz-form-item style="margin-bottom: 10px">
+                <nz-form-control nzErrorTip="Informe a senha ">
+                  <nz-input-group nzPrefixIcon="lock" [nzSuffix]="suffixTemplate">
+                    <input nz-input [type]="passwordVisible ? 'text' : 'password'" formControlName="senha"
+                      placeholder="password" />
+                  </nz-input-group>
+                </nz-form-control>
+
+                <ng-template #suffixTemplate>
+                  <span nz-icon [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
+                    (click)="passwordVisible = !passwordVisible"></span>
+                </ng-template>
+
+                <!-- <div>
+                  <label nz-checkbox>Remember</label>
+                </div> -->
+              </nz-form-item>
+              <button nz-button nzType="primary" class="loginButton">Login</button>
+            </form>
+            <a class="cadastrar" routerLink="">Cadastre-se</a>
+          </nz-spin>
         </nz-card>
       </div>
     </nz-content>
     <div class="loginImagem">
+      <img class="relogio" src="../../../assets/images/clock red.png" alt="Relógio">
+      <h1 class="app_name">Gerenciador de Tarefas Dias</h1>
     </div>
   </div>
 

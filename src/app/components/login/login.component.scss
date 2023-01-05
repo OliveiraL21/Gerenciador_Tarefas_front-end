@@ -1,5 +1,5 @@
 nz-layout{
-  background-color: #fff;
+  background-color: #fafafa;
 }
 
 .main{
@@ -8,13 +8,17 @@ nz-layout{
 }
 
 .loginImagem{
-  background-image: url('../../../assets/images/Completed\ task.svg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
   height: 100vh;
   width: 60vw;
-  margin-right: 40px;
+  display: flex;
+  align-items: center;
+  background-color: #3d405b;
+}
+
+.relogio{
+  width: 100px;
+  height: 100px;
+  margin-left: 15rem;
 }
 
 .content{
@@ -27,7 +31,10 @@ nz-layout{
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
 }
+
+
 
 .loginForm{
   max-width: 350px;
@@ -35,4 +42,14 @@ nz-layout{
 
 .loginButton{
   width: 100%;
+  margin-bottom: 10px;
 }
+
+.app_name{
+  font-weight: bold;
+  color: #fff;
+  margin-top: 20px;
+  margin-left: 10px;
+}
+
+

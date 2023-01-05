@@ -43,6 +43,7 @@ import { NzTagModule } from 'ng-zorro-antd/tag';
 import { NzTimePickerModule } from 'ng-zorro-antd/time-picker';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { LoginComponent } from './components/login/login.component';
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 
 registerLocaleData(pt);
 
@@ -89,6 +90,7 @@ registerLocaleData(pt);
     NzTagModule,
     NzTimePickerModule,
     NzAvatarModule,
+    NzCheckboxModule,
     NgxMaskModule.forRoot(),
   ],
   providers: [{ provide: NZ_I18N, useValue: pt_BR }],
