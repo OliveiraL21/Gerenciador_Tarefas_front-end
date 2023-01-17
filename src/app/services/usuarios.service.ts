@@ -1,38 +1,18 @@
-import { Usuarios } from './../models/usuarios';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
+import { Usuario } from '../models/Usuario/usuario';
 
-const url = `${environment.api_url}/Usuarios`;
+const url = `https://localhost:44336/Usuario`;
 
 @Injectable({
   providedIn: 'root',
 })
 export class UsuariosService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  create(usuario: Usuarios): Observable<Usuarios> {
-    return this.http.post<Usuarios>(`${url}/create`, usuario);
-  }
-
-  listaUsuarios(): Observable<Usuarios[]> {
-    return this.http.get<Usuarios[]>(`${url}/lista`);
-  }
-
-  details(id: any): Observable<Usuarios> {
-    return this.http.get<Usuarios>(`${url}/details/${id}`);
-  }
-
-  update(id: any, usuario: Usuarios): Observable<Usuarios> {
-    return this.http.put<Usuarios>(`${url}/update/${id}`, usuario);
-  }
-
-  filtro(login: string, email: string, nome: string): Observable<Usuarios[]> {
-    return this.http.get<Usuarios[]>(`${url}/filtro/${login}/${email}/${nome}`);
-  }
-
-  delete(id: any): Observable<boolean> {
-    return this.http.delete<boolean>(`${url}/delete/${id}`);
+  create(usuario: Usuario): Observable<any> {
+    return this.http.post<any>(`${url}`, usuario);
   }
 }

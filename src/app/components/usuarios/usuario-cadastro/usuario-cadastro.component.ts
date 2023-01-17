@@ -1,157 +1,72 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { Usuarios } from 'src/app/models/usuarios';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
+import { Usuario } from 'src/app/models/Usuario/usuario';
 import { UsuariosService } from 'src/app/services/usuarios.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-usuario-cadastro',
   templateUrl: './usuario-cadastro.component.html',
-  styleUrls: ['./usuario-cadastro.component.scss'],
+  styleUrls: ['./usuario-cadastro.component.scss']
 })
-export class UsuarioCadastroComponent implements OnInit {
-  pageTitle: string = 'Cadastro de Usuários';
-  breadCrumbItem: string = 'Cadastro';
-  isEdit: boolean = true;
+export class UsuarioCadastroComponent {
+  form!: FormGroup;
   isSpinning: boolean = false;
-
-  usuario: Usuarios = new Usuarios();
-  editButtom: boolean = false;
-  saveButtom: boolean = true;
-  cancelDisable: boolean = false;
   passwordVisible: boolean = false;
 
-  form!: FormGroup;
-  constructor(
-    private fb: FormBuilder,
-    private route: Router,
-    private router: ActivatedRoute,
-    private notification: NzNotificationService,
-    private usuarioService: UsuariosService
-  ) { }
 
-  createNotification(type: string, title: string, message: string) {
+  constructor(private fb: FormBuilder, private usuarioService: UsuariosService, private notification: NzNotificationService, private router: Router) { }
+
+  createNotification(type: string, title: string, message: string): void {
     this.notification.create(type, title, message);
   }
 
-  voltar(): void {
-    this.route.navigateByUrl('usuarios/lista');
-  }
-
-  cancelar(): void {
-    this.form.reset();
-  }
-
-  visualizar() {
-    this.breadCrumbItem = 'Visualizar';
-    this.pageTitle = 'Visualizar Usuário';
-    this.isEdit = false;
-    this.editButtom = true;
-    this.saveButtom = false;
-    this.cancelDisable = true;
-    this.form.disable();
-  }
-
-  edicao() {
-    this.breadCrumbItem = 'Edição';
-    this.pageTitle = 'Ediçao de Usuário';
-    this.isEdit = false;
-    this.editButtom = false;
-    this.saveButtom = true;
-    this.cancelDisable = false;
-    this.form.enable();
-  }
-
-  ngOnInit(): void {
-    let id: any = this.router.snapshot.paramMap.get('id');
-    let url = this.route.url.split('/');
-
+  initForm(): void {
     this.form = this.fb.group({
-      id: [null, null],
-      nome: [null, [Validators.required, Validators.maxLength(30)]],
-      login: [null, [Validators.required, Validators.maxLength(20)]],
-      senha: [
-        null,
-        [
-          Validators.required,
-          Validators.maxLength(20),
-          Validators.minLength(8),
-        ],
-      ],
-      email: [null, [Validators.required, Validators.email]],
+      username: [null, [Validators.required]],
+      password: [null, [Validators.required]],
+      email: [null, [Validators.required, Validators.email]]
     });
+  }
 
-    if (id !== null && id) {
-      if (url[2] == 'visualizar') {
-        this.visualizar();
-      } else {
-        this.edicao();
-      }
+  redirectToLogin(): void {
+    this.router.navigate(['/login']);
+  }
 
-      this.isSpinning = true;
-      this.usuarioService.details(id).subscribe({
-        next: (usuario) => {
-          this.form.get('nome')?.setValue(usuario.nome);
-          this.form.get('email')?.setValue(usuario.email);
-          this.form.get('login')?.setValue(usuario.login);
-
-          this.usuario.senha = usuario.senha;
-        },
-      });
-      this.isSpinning = false;
-    }
+  ngOnInit() {
+    this.initForm();
   }
 
   submitForm() {
-    let id: any = this.router.snapshot.paramMap.get('id');
+    if (this.form.valid) {
+      this.isSpinning = true;
+      let usuario: Usuario = new Usuario();
 
-    if (id === null || id === undefined || id === 0) {
-      if (this.form.valid) {
-        let data = this.form.value;
-        this.usuarioService.create(data).subscribe({
-          next: (response) => {
-            console.log(response);
-            this.createNotification(
-              'success',
-              'Cadastro de Usuário',
-              'Usuário cadastrado com sucesso!'
-            );
-          },
-          error: (erro) => {
-            this.createNotification(
-              'error',
-              'Cadastro de Usuário',
-              `Erro ${erro.status} ao tentar cadastrar um usuário, tente novamente mais tarde !`
-            );
-          },
-        });
-      }
-    } else {
-      this.form.get('senha')?.removeValidators(Validators.required);
-      let dataUpdate = this.form.value;
-      // debugger;
-
-      dataUpdate.id = parseInt(id);
-      dataUpdate.senha = this.usuario.senha;
-
-      this.usuarioService.update(dataUpdate.id, dataUpdate).subscribe({
-        next: (response) => {
-          this.createNotification(
-            'success',
-            'Edição de Usuário',
-            'Usuário editado com sucesso!'
-          );
+      usuario = this.form.value;
+      this.usuarioService.create(usuario).subscribe({
+        next: (result) => {
+          if (result.isSuccess) {
+            this.createNotification('success', 'Cadastro de Usuário', 'Cadastro realizado com sucesso !');
+            this.redirectToLogin();
+          } else {
+            this.createNotification('error', 'Cadastro de Usuário', `Erro ${result.status} - ${result.reasons.message}`);
+          }
         },
         error: (erro) => {
-          this.createNotification(
-            'error',
-            'Edição de Usuário',
-            `Erro ${erro.status} ao tentar editar um usuário, tente novamente mais tarde !`
-          );
-        },
+          this.createNotification('error', 'Cadastro de Usuários', `Erro ${erro.status} ao tentar cadastrar`)
+        }
       });
-      console.log(dataUpdate);
+      this.isSpinning = false;
+    } else {
+      this.isSpinning = false;
+      Object.values(this.form.controls).forEach(control => {
+        if (!control.valid && control.hasError('required')) {
+          control.markAsDirty();
+          control.updateValueAndValidity();
+        }
+      })
     }
   }
 }

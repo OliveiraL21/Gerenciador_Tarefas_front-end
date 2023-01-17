@@ -1,6 +1,6 @@
+import { UsuarioCadastroComponent } from './components/usuarios/usuario-cadastro/usuario-cadastro.component';
 import { TarefasCadastroComponent } from './components/tarefas/tarefas-cadastro/tarefas-cadastro.component';
 import { ProjetosCadastroComponent } from './components/projetos/projetos-cadastro/projetos-cadastro.component';
-import { UsuarioCadastroComponent } from './components/usuarios/usuario-cadastro/usuario-cadastro.component';
 import { RouterModule } from '@angular/router';
 import { ProjetosComponent } from './components/projetos/projetos.component';
 import { TarefasComponent } from './components/tarefas/tarefas.component';
@@ -24,7 +24,6 @@ import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
-import { UsuariosComponent } from './components/usuarios/usuarios.component';
 import { ClientesComponent } from './components/clientes/clientes.component';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzCardModule } from 'ng-zorro-antd/card';
@@ -50,9 +49,8 @@ registerLocaleData(pt);
 @NgModule({
   declarations: [
     AppComponent,
-    UsuariosComponent,
-    UsuarioCadastroComponent,
     ClientesComponent,
+    UsuarioCadastroComponent,
     ClientesCadastroComponent,
     TarefasComponent,
     ProjetosComponent,

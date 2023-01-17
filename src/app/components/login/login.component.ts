@@ -1,5 +1,7 @@
 import { FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Component } from '@angular/core';
+import { LoginService } from 'src/app/services/login/login.service';
+import { UsuarioLogin } from 'src/app/models/login/usuario-login';
 
 @Component({
   selector: 'app-login',
@@ -11,22 +13,36 @@ export class LoginComponent {
   passwordVisible: boolean = false;
   isSpinning: boolean = false;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private loginService: LoginService) {
 
 
   }
 
   initForm() {
     this.form = this.fb.group({
-      login: [null, Validators.required],
-      senha: [null, Validators.required]
+      username: [null, Validators.required],
+      password: [null, Validators.required]
     })
   }
 
   login(): void {
     if (this.form.valid) {
       const login = this.form.value;
+
+      const user: UsuarioLogin = new UsuarioLogin();
+      user.Username = login.username;
+      user.Password = login.password;
+
       console.log(login);
+      this.loginService.login(user).subscribe({
+        next: (data) => {
+          console.log(data);
+        },
+        error: (erro) => {
+          console.log(erro);
+        }
+      })
+
     }
     else {
       Object.values(this.form.controls).forEach(control => {

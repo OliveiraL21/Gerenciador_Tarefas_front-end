@@ -5,6 +5,7 @@ nz-layout{
 .main{
   display: flex;
   flex-direction: row;
+
 }
 
 .loginImagem{
@@ -32,12 +33,21 @@ nz-layout{
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
+
 }
 
 
+.formCard{
+  border-radius: 20px;
+}
 
 .loginForm{
   max-width: 350px;
+  max-height: 300px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
 .loginButton{

@@ -1,6 +1,5 @@
 import { TarefasCadastroComponent } from './components/tarefas/tarefas-cadastro/tarefas-cadastro.component';
 import { UsuarioCadastroComponent } from './components/usuarios/usuario-cadastro/usuario-cadastro.component';
-import { UsuariosComponent } from './components/usuarios/usuarios.component';
 import { ClientesCadastroComponent } from './components/clientes/clientes-cadastro/clientes-cadastro.component';
 import { ClientesComponent } from './components/clientes/clientes.component';
 import { TarefasComponent } from './components/tarefas/tarefas.component';
@@ -17,7 +16,6 @@ const routes: Routes = [
   { path: 'clientes/cadastro', component: ClientesCadastroComponent },
   { path: 'clientes/visualizar/:id', component: ClientesCadastroComponent },
   { path: 'clientes/editar/:id', component: ClientesCadastroComponent },
-  { path: 'usuarios/lista', component: UsuariosComponent },
   { path: 'usuarios/cadastro', component: UsuarioCadastroComponent },
   { path: 'usuarios/editar/:id', component: UsuarioCadastroComponent },
   { path: 'usuarios/visualizar/:id', component: UsuarioCadastroComponent },
