@@ -25,7 +25,7 @@
         <nz-form-control>
           <nz-form-label nzFor="cliente">Cliente</nz-form-label>
           <nz-select nzShowSearch nzAllowClear formControlName="cliente" nzPlaceHolder="Selecione o cliente">
-            <nz-option *ngFor="let cliente of clientes" [nzLabel]="cliente.razao_Social"
+            <nz-option *ngFor="let cliente of clientes" [nzLabel]="cliente.razaoSocial"
               [nzValue]="cliente.id"></nz-option>
           </nz-select>
         </nz-form-control>
@@ -68,12 +68,12 @@
       <tbody>
         <tr *ngFor="let data of projetos.data">
           <td nzWidth="450px">{{ data.descricao }}</td>
-          <td>{{ data.cliente?.razao_Social }}</td>
+          <td>{{ data.cliente }}</td>
           <td>{{ data?.data_Inicio | date : "dd/MM/yyyy" }}</td>
           <td nzAlign="center">
-            <nz-tag nzColor="green" *ngIf="data.status?.id == 1">Ativo</nz-tag>
-            <nz-tag nzColor="purple" *ngIf="data.status?.id == 2">Inativo</nz-tag>
-            <nz-tag nzColor="red" *ngIf="data.status?.id == 3">Excluido</nz-tag>
+            <nz-tag nzColor="green" *ngIf="data.status == 'Em Andamento'">Ativo</nz-tag>
+            <nz-tag nzColor="purple" *ngIf="data.status == 'Inativo'">Inativo</nz-tag>
+            <nz-tag nzColor="red" *ngIf="data.status == 'Excluido'">Excluido</nz-tag>
           </td>
           <td nzAlign="center">
             <button nz-button nzType="primary" nzSize="small" nz-tooltip nzTooltipTitle="Visualizar"

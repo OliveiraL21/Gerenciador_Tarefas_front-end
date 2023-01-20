@@ -5,7 +5,7 @@ import { environment } from 'src/environments/environment';
 import { UsuarioLogin } from 'src/app/models/login/usuario-login';
 
 
-const url = `${environment.api_url}/login`;
+const url = `${environment.api_usuario_url}/login`;
 
 @Injectable({
   providedIn: 'root'

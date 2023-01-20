@@ -16,7 +16,8 @@ export class AppComponent {
 
   ngOnInit() {
     let url = this.router.url.split('/');
-    if (url[0] == '' || url[0] == 'login') {
+    console.log(url);
+    if (url[0] == 'login') {
       this.isLogin = true;
     }
     else {

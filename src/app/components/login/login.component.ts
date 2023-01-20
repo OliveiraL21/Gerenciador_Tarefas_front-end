@@ -2,6 +2,7 @@ import { FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } fro
 import { Component } from '@angular/core';
 import { LoginService } from 'src/app/services/login/login.service';
 import { UsuarioLogin } from 'src/app/models/login/usuario-login';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,7 @@ export class LoginComponent {
   passwordVisible: boolean = false;
   isSpinning: boolean = false;
 
-  constructor(private fb: FormBuilder, private loginService: LoginService) {
+  constructor(private fb: FormBuilder, private loginService: LoginService, private router: Router) {
 
 
   }
@@ -37,6 +38,7 @@ export class LoginComponent {
       this.loginService.login(user).subscribe({
         next: (data) => {
           console.log(data);
+          this.router.navigate(['/tarefas/listagem']);
         },
         error: (erro) => {
           console.log(erro);

@@ -1,15 +1,15 @@
 <div *ngIf="isLogin">
-  <router-outlet></router-outlet>
+  <app-login></app-login>
 </div>
 
-<nz-layout class="app-layout" *ngIf="!isLogin">
-  <nz-sider class="menu-sidebar" nzTheme="light" nzCollapsible nzWidth="256px" nzBreakpoint="md"
+<nz-layout class="app-layout" *ngIf="isLogin == false">
+  <nz-sider class="menu-sidebar" nzTheme="dark" nzCollapsible nzWidth="256px" nzBreakpoint="md"
     [(nzCollapsed)]="isCollapsed" [nzTrigger]="null">
     <div class="avatar">
       <nz-avatar nzIcon="user" nzSize="large"></nz-avatar>
-      <p *ngIf="!isCollapsed">Lucas José Dias de Oliveira</p>
+      <p style="color: #fff" *ngIf="!isCollapsed">Lucas José Dias de Oliveira</p>
     </div>
-    <ul nz-menu nzTheme="light" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+    <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
       <li nz-submenu nzTitle="Usuários" nzIcon="user">
         <ul>
           <li nz-menu-item nzMatchRouter>

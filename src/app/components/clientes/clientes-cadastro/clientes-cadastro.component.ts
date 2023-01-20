@@ -36,7 +36,7 @@ export class ClientesCadastroComponent implements OnInit {
 
   initForm(): void {
     this.form = this.fb.group({
-      Razao_Social: [null, [Validators.required]],
+      RazaoSocial: [null, [Validators.required]],
       Cnpj: [null, [Validators.required]],
       Telefone: [null, [Validators.required]],
       Celular: [null, [Validators.required]],
@@ -63,10 +63,11 @@ export class ClientesCadastroComponent implements OnInit {
       this.clientesService.details(id).subscribe({
         next: (cliente) => {
           console.log(cliente);
-          this.form.get('Razao_Social')?.setValue(cliente.razao_Social);
+          this.form.get('RazaoSocial')?.setValue(cliente.razaoSocial);
           this.form.get('Cnpj')?.setValue(cliente.cnpj);
           this.form.get('Telefone')?.setValue(cliente.telefone);
           this.form.get('Celular')?.setValue(cliente.celular);
+          this.form.get('email')?.setValue(cliente.email);
         },
       });
     }

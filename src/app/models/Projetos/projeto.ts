@@ -19,5 +19,5 @@ export class ProjetoListagem {
   data_Inicio: Date | undefined;
   data_Fim: Date | undefined;
   cliente: Cliente | null = null;
-  status: Status | null = null;
+  status: string | null = null;
 }
