@@ -98,7 +98,7 @@ export class TarefasComponent implements OnInit {
   }
 
   editar(id: any): void {
-    this.router.navigateByUrl(`tarefas/visualizar/${id}`);
+    this.router.navigateByUrl(`tarefas/editar/${id}`);
   }
 
   initForm(): void {

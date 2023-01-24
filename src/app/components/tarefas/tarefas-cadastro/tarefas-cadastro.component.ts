@@ -12,6 +12,8 @@ import { Component } from '@angular/core';
 import { Tarefa } from 'src/app/models/Tarefas/tarefa';
 import { ProjetoService } from 'src/app/services/projetos/projeto.service';
 import { Projeto } from 'src/app/models/Projetos/projeto';
+import { StatusService } from 'src/app/services/status/status.service';
+import { Status } from 'src/app/models/status/status';
 
 @Component({
   selector: 'app-tarefas-cadastro',
@@ -30,6 +32,7 @@ export class TarefasCadastroComponent {
   editButtom: boolean = false;
   isSpinning: boolean = false;
   spinTip: string = 'Carregando Dados';
+  status: Status[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -37,8 +40,10 @@ export class TarefasCadastroComponent {
     private route: ActivatedRoute,
     private notification: NzNotificationService,
     private tarefaService: TarefaService,
-    private projetoService: ProjetoService
+    private projetoService: ProjetoService,
+    private statusService: StatusService
   ) { }
+
   voltar(): void {
     this.router.navigateByUrl('tarefas/listagem');
   }
@@ -50,6 +55,15 @@ export class TarefasCadastroComponent {
       },
     });
   }
+
+  listaStatus(): void {
+    this.statusService.listaTodos().subscribe({
+      next: (data) => {
+        this.status = data;
+      }
+    })
+  }
+
   createNotification(type: string, title: string, message: string): void {
     this.notification.create(type, title, message);
   }
@@ -129,19 +143,28 @@ export class TarefasCadastroComponent {
       data: [null, [Validators.required]],
       projeto: [null, [Validators.required]],
       observacao: [null, null],
+      status: [null, null]
     });
   }
 
   getDetails(id: number) {
     this.tarefaService.details(id).subscribe({
       next: (tarefa) => {
+        let horarioInicio = tarefa.horarioInicio.split(':');
+        let horarioFinal = tarefa.horarioFim.split(':');
+        let horarioFim = new Date(2023, 1, 1, horarioFinal[0], horarioFinal[1], horarioFinal[2]);
+        let horaInicio = new Date(2023, 1, 1, horarioInicio[0], horarioInicio[1], horarioInicio[2]);
+
+
+        console.log(horarioInicio);
         this.form.get('descricao')?.setValue(tarefa.descricao);
         this.form.get('data')?.setValue(tarefa.data);
-        this.form.get('horarioInicio')?.setValue(tarefa.horarioInicio);
-        this.form.get('horarioFim')?.setValue(tarefa.horarioFim);
+
         this.form.get('duracao')?.setValue(tarefa.duracao);
         this.form.get('projeto')?.setValue(tarefa.projetoId);
         this.form.get('observacao')?.setValue(tarefa.observacao);
+        this.form.get('horarioInicio')?.setValue(horaInicio);
+        this.form.get('horarioFim')?.setValue(horarioFim);
       },
     });
   }
@@ -169,6 +192,7 @@ export class TarefasCadastroComponent {
       this.pageHeader = 'Visualizar Tarefa';
       this.breadcrumbItem = 'Visualizar';
       this.editButtom = true;
+      this.saveButtom = false;
       this.form.disable();
       this.getDetails(id);
     }
@@ -179,6 +203,7 @@ export class TarefasCadastroComponent {
       let id: any = this.route.snapshot.paramMap.get('id');
       this.pageHeader = 'Editar Tarefa';
       this.breadcrumbItem = 'Editar';
+      this.saveButtom = true;
       this.form.enable();
       this.getDetails(id);
     }
@@ -187,9 +212,11 @@ export class TarefasCadastroComponent {
   ngOnInit() {
     this.initForm();
     this.listProjetos();
+    this.listaStatus();
     this.isCreate();
     this.isUpdate();
     this.isDetails();
+    this.form.get('status')?.setValue(1);
   }
 
   submitForm(): void {
@@ -197,16 +224,10 @@ export class TarefasCadastroComponent {
 
     if (this.form.valid) {
       let date = this.form.value;
-      let projeto: any;
-
-      this.projetoService.details(date.projeto).subscribe({
-        next: (project) => {
-          projeto = project;
-        },
-      });
 
       let horarioInicio = new Date(date.horarioInicio);
       let horarioFim = new Date(date.horarioFim);
+      let status = this.status.find(x => x.id == date.status);
 
       let payload: Tarefa = {
         descricao: date.descricao,
@@ -216,10 +237,7 @@ export class TarefasCadastroComponent {
         duracao: date.duracao,
         observacao: date.observacao,
         projetoId: date.projeto,
-        status: {
-          id: 1,
-          descricao: 'Ativo',
-        },
+        status: status
       };
 
       if (id === null || !id) {

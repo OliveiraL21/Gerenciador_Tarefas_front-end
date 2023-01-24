@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { environment } from 'src/environments/environment';
 
-const url = `${environment.api_url}/Tarefas`;
+const url = `${environment.api_url}/Tarefa`;
 
 @Injectable({
   providedIn: 'root',

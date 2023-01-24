@@ -9,18 +9,11 @@
   <nz-spin [nzSpinning]="isSpinning" [nzTip]="spinTip">
     <nz-card>
       <div nz-row [nzGutter]="[12, 2]">
-        <div nz-col nzXs="48" nzSm="12" nzMd="12">
+        <div nz-col nzXs="48" nzSm="8" nzMd="8" nzlg="12" nzXl="12">
           <nz-form-item>
             <nz-form-control nzErrorTip="Por favor informe uma descrição">
-              <nz-form-label nzFor="descricao" nzRequired
-                >Descrição</nz-form-label
-              >
-              <input
-                type="text"
-                nz-input
-                formControlName="descricao"
-                placeholder="Informe a tarefa"
-              />
+              <nz-form-label nzFor="descricao" nzRequired>Descrição</nz-form-label>
+              <input type="text" nz-input formControlName="descricao" placeholder="Informe a tarefa" />
             </nz-form-control>
           </nz-form-item>
         </div>
@@ -29,27 +22,18 @@
           <nz-form-item>
             <nz-form-control nzErrorTip="Por favor informe uma data">
               <nz-form-label nzFor="data" nzRequired>Data</nz-form-label>
-              <nz-date-picker
-                nzFormat="dd/MM/yyyy"
-                required
-                formControlName="data"
-              ></nz-date-picker>
+              <nz-date-picker nzFormat="dd/MM/yyyy" required formControlName="data"></nz-date-picker>
             </nz-form-control>
           </nz-form-item>
         </div>
 
+
         <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="6" nzXl="6">
           <nz-form-item>
             <nz-form-control nzErrorTip="Por favor informe o horário de inicio">
-              <nz-form-label nzFor="horarioInicio" nzRequired
-                >Horário de Inicio</nz-form-label
-              >
-              <nz-time-picker
-                nzFormat="HH:mm"
-                formControlName="horarioInicio"
-                nzPlaceHolder="00:00"
-                (ngModelChange)="HoraGasta()"
-              ></nz-time-picker>
+              <nz-form-label nzFor="horarioInicio" nzRequired>Horário de Inicio</nz-form-label>
+              <nz-time-picker nzFormat="HH:mm" formControlName="horarioInicio" nzPlaceHolder="00:00"
+                (ngModelChange)="HoraGasta()"></nz-time-picker>
             </nz-form-control>
           </nz-form-item>
         </div>
@@ -57,59 +41,48 @@
         <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="6" nzXl="6">
           <nz-form-item>
             <nz-form-control [nzErrorTip]="horarioFimError">
-              <nz-form-label nzFor="horarioFim" nzRequired
-                >Horário final</nz-form-label
-              >
-              <nz-time-picker
-                nzFormat="HH:mm"
-                formControlName="horarioFim"
-                nzPlaceHolder="00:00"
-                (ngModelChange)="HoraGasta()"
-              ></nz-time-picker>
+              <nz-form-label nzFor="horarioFim" nzRequired>Horário final</nz-form-label>
+              <nz-time-picker nzFormat="HH:mm" formControlName="horarioFim" nzPlaceHolder="00:00"
+                (ngModelChange)="HoraGasta()"></nz-time-picker>
             </nz-form-control>
 
             <ng-template #horarioFimError let-control>
-              <ng-container *ngIf="control.hasError('required')"
-                >Informe o horario final</ng-container
-              >
-              <ng-container *ngIf="control.hasError('horario')"
-                >O horário final não pode ser menor que o horário
-                inicial</ng-container
-              >
+              <ng-container *ngIf="control.hasError('required')">Informe o horario final</ng-container>
+              <ng-container *ngIf="control.hasError('horario')">O horário final não pode ser menor que o horário
+                inicial</ng-container>
             </ng-template>
           </nz-form-item>
         </div>
 
-        <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="6" nzXl="6">
+        <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="4" nzXl="4">
           <nz-form-item>
             <nz-form-control>
               <nz-form-label nzFor="duracao">Duração</nz-form-label>
-              <input
-                class="duracao"
-                type="text"
-                nz-input
-                [readonly]="true"
-                formControlName="duracao"
-              />
+              <input class="duracao" type="text" nz-input [readonly]="true" formControlName="duracao" />
             </nz-form-control>
           </nz-form-item>
         </div>
 
-        <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="6" nzXl="6">
+        <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="4" nzXl="4">
           <nz-form-item>
             <nz-form-control>
               <nz-form-label nzFor="projeto" nzRequired>Projeto</nz-form-label>
-              <nz-select
-                nzShowSearch
-                nzAllowClear
-                formControlName="projeto"
-                nzPlaceHolder="Selecione um projeto"
-              >
-                <nz-option
-                  *ngFor="let projeto of projetos"
-                  [nzLabel]="projeto.descricao"
-                  [nzValue]="projeto.id"
-                ></nz-option>
+              <nz-select nzShowSearch nzAllowClear formControlName="projeto" nzPlaceHolder="Selecione um projeto">
+                <nz-option *ngFor="let projeto of projetos" [nzLabel]="projeto.descricao"
+                  [nzValue]="projeto.id"></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+
+
+        <div nz-col nzSx="48" nzSm="12" nzMd="12" nzLg="4" nzXl="4">
+          <nz-form-item>
+            <nz-form-control>
+              <nz-form-label nzFor="status" nzRequired>Status</nz-form-label>
+              <nz-select nzShowSearch nzAllowClear formControlName="status">
+                <nz-option *ngFor="let data of status" [nzLabel]="data.descricao" [nzValue]="data.id"></nz-option>
               </nz-select>
             </nz-form-control>
           </nz-form-item>
@@ -120,11 +93,7 @@
             <nz-form-control>
               <nz-form-label nzFor="observacao">Observações</nz-form-label>
               <nz-textarea-count>
-                <textarea
-                  nz-input
-                  rows="6"
-                  formControlName="observacao"
-                ></textarea>
+                <textarea nz-input rows="6" formControlName="observacao"></textarea>
               </nz-textarea-count>
             </nz-form-control>
           </nz-form-item>
@@ -136,22 +105,10 @@
           <button nz-button nzType="default" (click)="cancel()">
             Cancelar
           </button>
-          <button
-            nz-button
-            nzType="primary"
-            (click)="editar()"
-            style="float: right"
-            *ngIf="editButtom"
-          >
+          <button nz-button nzType="primary" (click)="editar()" style="float: right" *ngIf="editButtom">
             Editar
           </button>
-          <button
-            nz-button
-            nzType="primary"
-            *ngIf="saveButtom"
-            style="float: right"
-            (click)="submitForm()"
-          >
+          <button nz-button nzType="primary" *ngIf="saveButtom" style="float: right" (click)="submitForm()">
             Salvar
           </button>
         </div>
