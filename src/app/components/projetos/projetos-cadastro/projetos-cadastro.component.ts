@@ -1,3 +1,4 @@
+import { StatusService } from 'src/app/services/status/status.service';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { ClientesService } from 'src/app/services/clientes.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -22,14 +23,17 @@ export class ProjetosCadastroComponent {
   isEdit: boolean = false;
   saveButtom: boolean = true;
 
+  status: Status[] = [];
+
   constructor(
     private fb: FormBuilder,
     private route: Router,
     private clienteService: ClientesService,
     private projetosService: ProjetoService,
     private notification: NzNotificationService,
-    private router: ActivatedRoute
-  ) {}
+    private router: ActivatedRoute,
+    private statusService: StatusService
+  ) { }
 
   createNotification(type: string, title: string, message: string) {
     this.notification.create(type, title, message);
@@ -45,6 +49,14 @@ export class ProjetosCadastroComponent {
         this.clientes = clientes;
       },
     });
+  }
+
+  listaStatus() {
+    this.statusService.listaTodos().subscribe({
+      next: (data) => {
+        this.status = data;
+      }
+    })
   }
 
   visualizar() {
@@ -67,19 +79,22 @@ export class ProjetosCadastroComponent {
     let id: any = this.router.snapshot.paramMap.get('id');
 
     this.listaClientes();
+    this.listaStatus();
     this.form = this.fb.group({
       descricao: [null, [Validators.required]],
-      data_inicio: [null, [Validators.required]],
-      data_fim: [null, Validators.required],
+      dataInicio: [null, [Validators.required]],
+      dataFim: [null, Validators.required],
       cliente: [null, Validators.required],
+      status: [null, Validators.required]
     });
 
+    this.form.get('status')?.setValue(1);
     if (id && id !== null) {
       this.projetosService.details(id).subscribe({
         next: (projeto) => {
           this.form.get('descricao')?.setValue(projeto.descricao);
-          this.form.get('data_inicio')?.setValue(projeto.data_Inicio);
-          this.form.get('data_fim')?.setValue(projeto.data_Fim);
+          this.form.get('dataInicio')?.setValue(projeto.dataInicio);
+          this.form.get('dataFim')?.setValue(projeto.dataFim);
           this.form.get('cliente')?.setValue(projeto.clienteId);
         },
       });
@@ -97,24 +112,20 @@ export class ProjetosCadastroComponent {
   submitForm() {
     let id: any = this.router.snapshot.paramMap.get('id');
 
-    console.log(id);
-
     if (this.form.valid) {
       let data = this.form.value;
 
       let cliente = this.clientes.find((x) => x.id == data.cliente);
+      let status = this.status.find(x => x.id == data.status);
 
       let dataSubmit = {
         descricao: data.descricao,
-        data_Inicio: data.data_inicio,
-        data_Fim: data.data_fim,
+        dataInicio: data.dataInicio,
+        dataFim: data.dataFim,
         cliente: cliente !== null && cliente !== undefined ? cliente : null,
         clienteId: data.cliente,
         tarefas: [],
-        status: {
-          id: 1,
-          descricao: 'Ativo',
-        },
+        status: status !== null && status !== undefined ? status : null,
       };
 
       if (id == null || !id) {
@@ -154,6 +165,13 @@ export class ProjetosCadastroComponent {
           },
         });
       }
+    } else {
+      Object.values(this.form.controls).forEach(control => {
+        if (control.invalid) {
+          control.markAsDirty();
+          control.updateValueAndValidity();
+        }
+      })
     }
   }
 }

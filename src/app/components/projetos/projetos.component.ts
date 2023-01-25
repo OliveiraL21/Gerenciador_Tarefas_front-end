@@ -13,14 +13,6 @@ import { StatusService } from 'src/app/services/status/status.service';
 import { Status } from 'src/app/models/status/status';
 
 
-interface IItemData {
-  id: number;
-  descricao: string;
-  data_inicio: Date;
-  status: string;
-  cliente: string | undefined;
-  clienteId: number;
-}
 @Component({
   selector: 'app-projetos',
   templateUrl: './projetos.component.html',
@@ -65,6 +57,7 @@ export class ProjetosComponent implements OnInit {
     this.projetoService.filtrar(projeto, cliente, status).subscribe({
       next: (projetos) => {
         this.listOfData = projetos;
+        console.log(this.listOfData);
         this.isSpinning = false;
       }
     });

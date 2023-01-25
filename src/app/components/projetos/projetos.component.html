@@ -68,12 +68,22 @@
       <tbody>
         <tr *ngFor="let data of projetos.data">
           <td nzWidth="450px">{{ data.descricao }}</td>
-          <td>{{ data.cliente }}</td>
-          <td>{{ data?.data_Inicio | date : "dd/MM/yyyy" }}</td>
+          <td>{{ data.cliente?.razaoSocial }}</td>
+          <td>{{ data?.data_Inicio }}</td>
           <td nzAlign="center">
-            <nz-tag nzColor="green" *ngIf="data.status == 'Em Andamento'">Ativo</nz-tag>
-            <nz-tag nzColor="purple" *ngIf="data.status == 'Inativo'">Inativo</nz-tag>
-            <nz-tag nzColor="red" *ngIf="data.status == 'Excluido'">Excluido</nz-tag>
+            <nz-tag *ngIf="data.status?.descricao == 'Em Andamento'"
+              [nzColor]="'geekblue'">{{data.status?.descricao}}</nz-tag>
+            <nz-tag *ngIf="data.status?.descricao == 'A Fazer'" [nzColor]="'red'">{{data.status?.descricao}}</nz-tag>
+            <nz-tag *ngIf="data.status?.descricao == 'Finalizado'"
+              [nzColor]="'green'">{{data.status?.descricao}}</nz-tag>
+            <nz-tag *ngIf="data.status?.descricao == 'Em Atraso'"
+              [nzColor]="'magenta'">{{data.status?.descricao}}</nz-tag>
+            <nz-tag *ngIf="data.status?.descricao == 'Ativo'" [nzColor]="'cyan'">{{data.status?.descricao}}</nz-tag>
+            <nz-tag *ngIf="data.status?.descricao == 'Inativo'"
+              [nzColor]="'volcano'">{{data.status?.descricao}}</nz-tag>
+            <nz-tag *ngIf="data.status?.descricao == 'Excluido'"
+              [nzColor]="'purple'">{{data.status?.descricao}}</nz-tag>
+
           </td>
           <td nzAlign="center">
             <button nz-button nzType="primary" nzSize="small" nz-tooltip nzTooltipTitle="Visualizar"

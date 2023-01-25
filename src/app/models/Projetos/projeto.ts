@@ -5,8 +5,8 @@ import { Tarefa } from '../Tarefas/tarefa';
 export class Projeto {
   id?: number;
   descricao: string | null = null;
-  data_Inicio: Date | undefined;
-  data_Fim: Date | undefined;
+  dataInicio: Date | undefined;
+  dataFim: Date | undefined;
   tarefas: Tarefa[] = [];
   cliente: Cliente | null = null;
   clienteId: number | null = null;
@@ -19,5 +19,5 @@ export class ProjetoListagem {
   data_Inicio: Date | undefined;
   data_Fim: Date | undefined;
   cliente: Cliente | null = null;
-  status: string | null = null;
+  status: Status | null = null;
 }
