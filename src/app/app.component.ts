@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
+import { LogoutService } from './services/logout/logout.service';
 
 @Component({
   selector: 'app-root',
@@ -10,8 +11,9 @@ import { filter } from 'rxjs';
 export class AppComponent {
   isCollapsed = false;
   isLogin: boolean = false;
+  isCadastro: boolean = false;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private logoutService: LogoutService) {
 
   }
 
@@ -26,21 +28,29 @@ export class AppComponent {
         case 'login':
           this.isLogin = true;
           break;
+
+        case 'usuarios':
+          this.isCadastro = true;
+          this.isLogin = false;
+          break;
+
         case '':
           this.isLogin = true;
           break;
 
+
         default:
           this.isLogin = false;
+          this.isCadastro = false;
       }
     });
-    // let url = this.router.url.split('/');
-    // console.log(url);
-    // if (url[0] == 'login') {
-    //   this.isLogin = true;
-    // }
-    // else {
-    //   this.isLogin = false;
-    // }
+  }
+
+  logout(): void {
+    this.logoutService.logoutUsuario().subscribe({
+      next: (data) => {
+        this.router.navigate(['/login']);
+      }
+    })
   }
 }

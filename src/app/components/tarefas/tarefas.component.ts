@@ -84,6 +84,17 @@ export class TarefasComponent implements OnInit {
     this.tarefasService.listaTodos().subscribe({
       next: (tarefas) => {
         this.tarefas = tarefas;
+        this.tarefas = this.tarefas.map((tarefa: TarefaListagem, index: number) => ({
+          id: tarefa.id,
+          data: tarefa.data,
+          horarioInicio: tarefa.horarioInicio.substring(11, 16),
+          horarioFim: tarefa.horarioFim.substring(11, 16),
+          duracao: tarefa.duracao.substring(11, 16),
+          descricao: tarefa.descricao,
+          observacao: tarefa.observacao,
+          status: tarefa.status,
+          projeto: tarefa.projeto
+        }))
         console.log(tarefas);
       },
     });

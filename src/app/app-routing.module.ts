@@ -17,8 +17,6 @@ const routes: Routes = [
   { path: 'clientes/visualizar/:id', component: ClientesCadastroComponent },
   { path: 'clientes/editar/:id', component: ClientesCadastroComponent },
   { path: 'usuarios/cadastro', component: UsuarioCadastroComponent },
-  { path: 'usuarios/editar/:id', component: UsuarioCadastroComponent },
-  { path: 'usuarios/visualizar/:id', component: UsuarioCadastroComponent },
   { path: 'projetos/listagem', component: ProjetosComponent },
   { path: 'projetos/cadastro', component: ProjetosCadastroComponent },
   { path: 'projetos/editar/:id', component: ProjetosCadastroComponent },

@@ -150,21 +150,15 @@ export class TarefasCadastroComponent {
   getDetails(id: number) {
     this.tarefaService.details(id).subscribe({
       next: (tarefa) => {
-        let horarioInicio = tarefa.horarioInicio.split(':');
-        let horarioFinal = tarefa.horarioFim.split(':');
-        let horarioFim = new Date(2023, 1, 1, horarioFinal[0], horarioFinal[1], horarioFinal[2]);
-        let horaInicio = new Date(2023, 1, 1, horarioInicio[0], horarioInicio[1], horarioInicio[2]);
 
-
-        console.log(horarioInicio);
         this.form.get('descricao')?.setValue(tarefa.descricao);
         this.form.get('data')?.setValue(tarefa.data);
 
         this.form.get('duracao')?.setValue(tarefa.duracao);
         this.form.get('projeto')?.setValue(tarefa.projetoId);
         this.form.get('observacao')?.setValue(tarefa.observacao);
-        this.form.get('horarioInicio')?.setValue(horaInicio);
-        this.form.get('horarioFim')?.setValue(horarioFim);
+        this.form.get('horarioInicio')?.setValue(tarefa.horarioInicio);
+        this.form.get('horarioFim')?.setValue(tarefa.horarioFim);
       },
     });
   }
@@ -224,12 +218,13 @@ export class TarefasCadastroComponent {
 
     if (this.form.valid) {
       let date = this.form.value;
-
-      let horarioInicio = new Date(date.horarioInicio);
-      let horarioFim = new Date(date.horarioFim);
       let status = this.status.find(x => x.id == date.status);
+      let horarioInicio: Date = new Date(date.horarioInicio.toString()?.replace('/', '-'));
+      let horarioFim: Date = date.horarioFim;
+      console.log(horarioInicio);
 
-      let payload: Tarefa = {
+
+      const payload: Tarefa = {
         descricao: date.descricao,
         data: date.data,
         horarioInicio: horarioInicio,
@@ -240,6 +235,7 @@ export class TarefasCadastroComponent {
         status: status
       };
 
+      console.log(payload);
       if (id === null || !id) {
         this.tarefaService.create(payload).subscribe({
           next: (data) => {

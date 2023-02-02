@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { LoginService } from 'src/app/services/login/login.service';
 import { UsuarioLogin } from 'src/app/models/login/usuario-login';
 import { Router } from '@angular/router';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,7 @@ export class LoginComponent {
   passwordVisible: boolean = false;
   isSpinning: boolean = false;
 
-  constructor(private fb: FormBuilder, private loginService: LoginService, private router: Router) {
+  constructor(private fb: FormBuilder, private loginService: LoginService, private router: Router, private messageService: NzMessageService) {
 
 
   }
@@ -27,6 +28,7 @@ export class LoginComponent {
   }
 
   login(): void {
+    this.isSpinning = true;
     if (this.form.valid) {
       const login = this.form.value;
 
@@ -38,10 +40,12 @@ export class LoginComponent {
       this.loginService.login(user).subscribe({
         next: (data) => {
           console.log(data);
+          this.messageService.success("Login Realizado com sucesso!");
           this.router.navigate(['/tarefas/listagem']);
         },
         error: (erro) => {
           console.log(erro);
+          this.messageService.error('Erro ao tentar efetuar o login, tente novamente mais tarde!');
         }
       })
 
@@ -54,6 +58,11 @@ export class LoginComponent {
         }
       })
     }
+    this.isSpinning = false;
+  }
+
+  cadastrarUsuario(): void {
+    this.router.navigate(['/usuarios/cadastro']);
   }
 
   ngOnInit() {

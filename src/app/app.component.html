@@ -2,7 +2,11 @@
   <app-login></app-login>
 </div>
 
-<nz-layout class="app-layout" *ngIf="isLogin == false">
+<div *ngIf="isCadastro">
+  <app-usuario-cadastro></app-usuario-cadastro>
+</div>
+
+<nz-layout class="app-layout" *ngIf="isLogin == false && isCadastro == false">
   <nz-sider class="menu-sidebar" nzTheme="dark" nzCollapsible nzWidth="256px" nzBreakpoint="md"
     [(nzCollapsed)]="isCollapsed" [nzTrigger]="null">
     <div class="avatar">
@@ -40,7 +44,8 @@
           <span class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></span>
         </span>
 
-        <button nz-button nzType="default" class="logout"><span nz-icon nzType="logout"></span> Logout</button>
+        <button nz-button nzType="default" class="logout" (click)="logout()"><span nz-icon nzType="logout"></span>
+          Logout</button>
 
       </div>
 
