@@ -49,6 +49,7 @@ export class UsuarioCadastroComponent {
         next: (result) => {
           if (result.isSuccess) {
             this.createNotification('success', 'Cadastro de Usuário', 'Cadastro realizado com sucesso !');
+            this.form.reset();
             this.redirectToLogin();
           } else {
             this.createNotification('error', 'Cadastro de Usuário', `Erro ${result.status} - ${result.reasons.message}`);

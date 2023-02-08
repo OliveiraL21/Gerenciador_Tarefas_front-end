@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import { LogoutService } from './services/logout/logout.service';
+import { TokenService } from './services/token/token.service';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,7 @@ export class AppComponent {
   isLogin: boolean = false;
   isCadastro: boolean = false;
 
-  constructor(private router: Router, private logoutService: LogoutService) {
+  constructor(private router: Router, private logoutService: LogoutService, private tokenService: TokenService) {
 
   }
 
@@ -49,6 +50,9 @@ export class AppComponent {
   logout(): void {
     this.logoutService.logoutUsuario().subscribe({
       next: (data) => {
+        if (this.tokenService.possuiToken()) {
+          this.tokenService.removeToken();
+        }
         this.router.navigate(['/login']);
       }
     })

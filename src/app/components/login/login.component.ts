@@ -1,9 +1,11 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Component } from '@angular/core';
 import { LoginService } from 'src/app/services/login/login.service';
 import { UsuarioLogin } from 'src/app/models/login/usuario-login';
 import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { TokenService } from 'src/app/services/token/token.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +17,7 @@ export class LoginComponent {
   passwordVisible: boolean = false;
   isSpinning: boolean = false;
 
-  constructor(private fb: FormBuilder, private loginService: LoginService, private router: Router, private messageService: NzMessageService) {
+  constructor(private fb: FormBuilder, private loginService: LoginService, private router: Router, private messageService: NzMessageService, private tokenService: TokenService) {
 
 
   }
@@ -36,12 +38,16 @@ export class LoginComponent {
       user.Username = login.username;
       user.Password = login.password;
 
-      console.log(login);
       this.loginService.login(user).subscribe({
         next: (data) => {
-          console.log(data);
-          this.messageService.success("Login Realizado com sucesso!");
-          this.router.navigate(['/tarefas/listagem']);
+          this.tokenService.setToken(data[0].message);
+          if (this.tokenService.possuiToken()) {
+
+            this.messageService.success("Login Realizado com sucesso!");
+            this.router.navigate(['/tarefas/listagem']);
+          } else {
+            this.messageService.error('Erro ao tentar efetuar login, tente novamente!');
+          }
         },
         error: (erro) => {
           console.log(erro);
