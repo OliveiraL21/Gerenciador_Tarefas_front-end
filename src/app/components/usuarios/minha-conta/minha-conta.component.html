@@ -5,66 +5,68 @@
   </nz-breadcrumb>
 </nz-page-header>
 
+
 <div class="card">
   <nz-card>
     <form nz-form [formGroup]="form">
+      <nz-spin [nzSpinning]="isSpinning" nzTip="Carregando dados...">
+        <div nz-row [nzGutter]="[12, 2]">
+          <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="24" nzXl="24">
+            <nz-form-item>
+              <nz-form-control>
+                <nz-upload class="avatar-uploader" nzListType="picture-card" [nzShowUploadList]="false"
+                  formControlName="perfil">
+                  <ng-container *ngIf="!avatarUrl">
+                    <span class="upload-icon" nz-icon [nzType]="loading ? 'loading' : 'plus'"></span>
+                    <div class="ant-upload-text">Perfil</div>
+                  </ng-container>
+                  <img *ngIf="avatarUrl" [src]="avatarUrl" style="width: 100%" />
+                </nz-upload>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+        <div nz-row [nzGutter]="[12,2]">
+          <div nz-col nzXl="24" nzLg="24" nzSm="12" nzMd="12" nzXs="48">
+            <nz-form-item>
+              <nz-form-control>
+                <nz-form-label nzFor="username" nzRequired>Username</nz-form-label>
+                <nz-input-group nzPrefixIcon="user">
+                  <input type="text" nz-input placeholder="username" formControlName="username">
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
 
-      <div nz-row [nzGutter]="[12, 2]">
-        <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="24" nzXl="24">
-          <nz-form-item>
-            <nz-form-control>
-              <nz-upload class="avatar-uploader" nzListType="picture-card" [nzShowUploadList]="false"
-                formControlName="imagem">
-                <ng-container *ngIf="!avatarUrl">
-                  <span class="upload-icon" nz-icon [nzType]="loading ? 'loading' : 'plus'"></span>
-                  <div class="ant-upload-text">Perfil</div>
-                </ng-container>
-                <img *ngIf="avatarUrl" [src]="avatarUrl" style="width: 100%" />
-              </nz-upload>
-            </nz-form-control>
-          </nz-form-item>
-        </div>
-      </div>
-      <div nz-row [nzGutter]="[12,2]">
-        <div nz-col nzXl="24" nzLg="24" nzSm="12" nzMd="12" nzXs="48">
-          <nz-form-item>
-            <nz-form-control>
-              <nz-form-label nzFor="username" nzRequired>Username</nz-form-label>
-              <nz-input-group nzPrefixIcon="user">
-                <input type="text" nz-input placeholder="username" formControlName="username">
-              </nz-input-group>
-            </nz-form-control>
-          </nz-form-item>
-        </div>
+          <div nz-col nzSm="12" nzMd="12" nzLg="24" nzXl="24">
+            <nz-form-item>
+              <nz-form-control>
+                <nz-form-label nzFor="email" nzRequired>E-mail</nz-form-label>
+                <nz-input-group nzPrefixIcon="mail">
+                  <input type="text" nz-input formControlName="email" placeholder="exemplo@exemplo.com">
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
 
-        <div nz-col nzSm="12" nzMd="12" nzLg="24" nzXl="24">
-          <nz-form-item>
-            <nz-form-control>
-              <nz-form-label nzFor="email" nzRequired>E-mail</nz-form-label>
-              <nz-input-group nzPrefixIcon="mail">
-                <input type="text" nz-input formControlName="email" placeholder="exemplo@exemplo.com">
-              </nz-input-group>
-            </nz-form-control>
-          </nz-form-item>
-        </div>
+          <div nz-col nzSm="12" nzMd="12" nzLg="24" nzXl="24">
+            <nz-form-item>
+              <nz-form-control>
+                <nz-form-label nzFor="telefone" nzRequired>Telefone</nz-form-label>
+                <nz-input-group nzPrefixIcon="phone">
+                  <input type="text" nz-input mask="(00) 0000-0000 || (00) 00000-0000" placeholder="(00) 00000-0000"
+                    formControlName="phoneNumber">
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
 
-        <div nz-col nzSm="12" nzMd="12" nzLg="24" nzXl="24">
-          <nz-form-item>
-            <nz-form-control>
-              <nz-form-label nzFor="telefone" nzRequired>Telefone</nz-form-label>
-              <nz-input-group nzPrefixIcon="phone">
-                <input type="text" nz-input mask="(00) 0000-0000 || (00) 00000-0000" placeholder="(00) 00000-0000"
-                  formControlName="telefone">
-              </nz-input-group>
-            </nz-form-control>
-          </nz-form-item>
+          <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="24" nzXl="24">
+            <button *ngIf="!save" class="SaveEdit" nz-button nzType="primary" (click)="editar()">Editar</button>
+            <button *ngIf="save" class="SaveEdit" nz-button nzType="primary" (click)="salvar()">Salvar</button>
+          </div>
         </div>
-
-        <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="24" nzXl="24">
-          <button *ngIf="!save" class="SaveEdit" nz-button nzType="primary" (click)="editar()">Editar</button>
-          <button *ngIf="save" class="SaveEdit" nz-button nzType="primary" (click)="salvar()">Salvar</button>
-        </div>
-      </div>
+      </nz-spin>
     </form>
   </nz-card>
 </div>

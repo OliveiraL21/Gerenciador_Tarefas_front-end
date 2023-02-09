@@ -22,7 +22,7 @@ export class TokenInterceptor implements HttpInterceptor {
 
     // REQUISIÇÃO QUE ESTÁ SENDO ENVIADA
     const requestUrl: Array<any> = request.url.split("/");
-    const apiUrl: Array<any> = environment.api_url.split("/");
+    const apiUrl: Array<any> = requestUrl[3] == 'Usuario' ? environment.api_usuario_url.split('/') : environment.api_url.split("/");
 
     if (token && requestUrl[2] === apiUrl[2]) {
       request = request.clone({

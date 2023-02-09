@@ -1,6 +1,8 @@
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Route, Router } from '@angular/router';
+import { Usuario } from 'src/app/models/Usuario/usuario';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
@@ -15,17 +17,22 @@ export class MinhaContaComponent {
   loading = false;
   avatarUrl?: string;
   save: boolean = false;
+  isSpinning: boolean = false;
 
-  constructor(private fb: FormBuilder, private usuarioService: UsuariosService, private route: Router) {
+  constructor(private fb: FormBuilder, private usuarioService: UsuariosService, private route: Router, private notification: NzNotificationService) {
 
+  }
+
+  createNotification(type: string, title: string, message: string) {
+    this.notification.create(type, title, message);
   }
 
   initForm() {
     this.form = this.fb.group({
-      imagem: [null, null],
+      perfil: [null, null],
       username: [null, [Validators.required]],
       email: [null, [Validators.required, Validators.email]],
-      telefone: [null, null]
+      phoneNumber: [null, null]
     });
   }
 
@@ -39,13 +46,40 @@ export class MinhaContaComponent {
   }
 
   salvar(): void {
+    if (this.form.valid) {
+      const formValue = this.form.value;
+      let user: Usuario = formValue;
+      this.usuarioService.update(user).subscribe({
+        next: (data: Usuario) => {
+          this.createNotification('success', 'Editar dados do usuário', 'Dados de cadastro editados com sucesso !');
+        },
+        error: (err) => {
+          this.createNotification('error', 'Editar dados do usuário', `Erro ${err.status} ao tentar editar os dados do cadastro, tente novamente mais tarde !`);
+        }
+      })
 
+    }
   }
 
+  detailsUsuario(): void {
+    if (this.usuarioId) {
+      this.usuarioService.details(this.usuarioId).subscribe({
+        next: (usuario: Usuario) => {
+          this.form.get('username')?.setValue(usuario.username);
+          this.form.get('email')?.setValue(usuario.email);
+          this.form.get('phoneNumber')?.setValue(usuario.phoneNumber);
+        },
+        error: (err) => {
+          console.log(err);
+        }
+      })
+    }
+  }
 
   ngOnInit() {
     this.initForm();
     this.form.disable();
+    this.detailsUsuario();
   }
 
 }

@@ -15,4 +15,12 @@ export class UsuariosService {
   create(usuario: Usuario): Observable<any> {
     return this.http.post<any>(`${url}`, usuario);
   }
+
+  details(id: number): Observable<Usuario> {
+    return this.http.get<any>(`${url}/detalhes/${id}`);
+  }
+
+  update(usuario: Usuario): Observable<Usuario> {
+    return this.http.put<Usuario>(`${url}/update`, usuario);
+  }
 }
