@@ -14,6 +14,13 @@
       <p style="color: #fff" *ngIf="!isCollapsed">Lucas José Dias de Oliveira</p>
     </div>
     <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+      <li nz-submenu nzTitle="Conta" nzIcon="user">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a (click)="minhaConta()">Minha Conta</a>
+          </li>
+        </ul>
+      </li>
       <li nz-submenu nzTitle="Tarefas" nzIcon="book">
         <ul>
           <li nz-menu-item nzMatchRouter>

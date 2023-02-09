@@ -8,6 +8,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ProjetosComponent } from './components/projetos/projetos.component';
 import { ProjetosCadastroComponent } from './components/projetos/projetos-cadastro/projetos-cadastro.component';
 import { LoginComponent } from './components/login/login.component';
+import { MinhaContaComponent } from './components/usuarios/minha-conta/minha-conta.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'clientes/visualizar/:id', component: ClientesCadastroComponent },
   { path: 'clientes/editar/:id', component: ClientesCadastroComponent },
   { path: 'usuarios/cadastro', component: UsuarioCadastroComponent },
+  { path: 'usuario/conta/minhaConta/:id', component: MinhaContaComponent },
   { path: 'projetos/listagem', component: ProjetosComponent },
   { path: 'projetos/cadastro', component: ProjetosCadastroComponent },
   { path: 'projetos/editar/:id', component: ProjetosCadastroComponent },

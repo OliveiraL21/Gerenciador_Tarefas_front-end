@@ -45,6 +45,8 @@ import { LoginComponent } from './components/login/login.component';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 import { TokenInterceptor } from './services/interceptors/token.interceptor';
+import { MinhaContaComponent } from './components/usuarios/minha-conta/minha-conta.component';
+import { NzUploadModule } from 'ng-zorro-antd/upload';
 
 registerLocaleData(pt);
 
@@ -59,7 +61,8 @@ registerLocaleData(pt);
     ProjetosCadastroComponent,
     TarefasComponent,
     TarefasCadastroComponent,
-    LoginComponent
+    LoginComponent,
+    MinhaContaComponent
   ],
   imports: [
     BrowserModule,
@@ -92,6 +95,7 @@ registerLocaleData(pt);
     NzAvatarModule,
     NzCheckboxModule,
     NzMessageModule,
+    NzUploadModule,
     NgxMaskModule.forRoot(),
   ],
   providers: [

@@ -13,6 +13,7 @@ export class AppComponent {
   isCollapsed = false;
   isLogin: boolean = false;
   isCadastro: boolean = false;
+  usuarioId: number = Number.parseInt(localStorage.getItem('Id')?.toString() ?? '0');
 
   constructor(private router: Router, private logoutService: LogoutService, private tokenService: TokenService) {
 
@@ -56,5 +57,11 @@ export class AppComponent {
         this.router.navigate(['/login']);
       }
     })
+  }
+
+  minhaConta() {
+    if (this.usuarioId !== 0 && this.usuarioId !== undefined && this.usuarioId !== null) {
+      this.router.navigateByUrl(`usuario/conta/minhaConta/${this.usuarioId}`);
+    }
   }
 }

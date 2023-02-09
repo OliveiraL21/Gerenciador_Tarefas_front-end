@@ -40,9 +40,9 @@ export class LoginComponent {
 
       this.loginService.login(user).subscribe({
         next: (data) => {
-          this.tokenService.setToken(data[0].message);
+          this.tokenService.setToken(data.token);
           if (this.tokenService.possuiToken()) {
-
+            localStorage.setItem('Id', data.usuarioId);
             this.messageService.success("Login Realizado com sucesso!");
             this.router.navigate(['/tarefas/listagem']);
           } else {
