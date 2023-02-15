@@ -220,8 +220,8 @@ export class TarefasCadastroComponent {
       let date = this.form.value;
       let status = this.status.find(x => x.id == date.status);
       let horarioInicio: Date = new Date(date.horarioInicio.toString()?.replace('/', '-'));
-      let horarioFim: Date = date.horarioFim;
-      console.log(horarioInicio);
+      let horarioFim: Date = new Date(date.horarioFim);
+      console.log();
 
 
       const payload: Tarefa = {
