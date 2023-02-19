@@ -1,6 +1,6 @@
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { ClientesService } from 'src/app/services/clientes.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Cliente } from 'src/app/models/Clientes/cliente';
@@ -14,13 +14,13 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 export class ClientesComponent implements OnInit {
   pageTitle: string = 'Clientes';
   breadCrumbItem: string = 'Listagem';
-  form!: FormGroup;
+  form!: UntypedFormGroup;
   isSpinning: boolean = false;
 
   listaClientes: Cliente[] = [];
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private route: Router,
     private clienteService: ClientesService,
     private modal: NzModalService,

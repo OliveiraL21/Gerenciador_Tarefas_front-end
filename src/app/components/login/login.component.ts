@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { UntypedFormBuilder, FormControl, UntypedFormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Component } from '@angular/core';
 import { LoginService } from 'src/app/services/login/login.service';
 import { UsuarioLogin } from 'src/app/models/login/usuario-login';
@@ -13,11 +13,11 @@ import { TokenService } from 'src/app/services/token/token.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  form!: FormGroup;
+  form!: UntypedFormGroup;
   passwordVisible: boolean = false;
   isSpinning: boolean = false;
 
-  constructor(private fb: FormBuilder, private loginService: LoginService, private router: Router, private messageService: NzMessageService, private tokenService: TokenService) {
+  constructor(private fb: UntypedFormBuilder, private loginService: LoginService, private router: Router, private messageService: NzMessageService, private tokenService: TokenService) {
 
 
   }

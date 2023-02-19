@@ -1,6 +1,6 @@
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Tarefa, TarefaListagem } from 'src/app/models/Tarefas/tarefa';
@@ -14,15 +14,15 @@ import { Projeto } from 'src/app/models/Projetos/projeto';
   styleUrls: ['./tarefas.component.scss'],
 })
 export class TarefasComponent implements OnInit {
-  form!: FormGroup;
-  formHoras!: FormGroup;
+  form!: UntypedFormGroup;
+  formHoras!: UntypedFormGroup;
   isSpinning = false;
   tarefas: TarefaListagem[] = [];
   projetos: Projeto[] = [];
 
   modalVisible: boolean = false;
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private router: Router,
     private tarefasService: TarefaService,
     private modal: NzModalService,

@@ -1,7 +1,7 @@
 import { StatusService } from 'src/app/services/status/status.service';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { ClientesService } from 'src/app/services/clientes.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Cliente } from 'src/app/models/Clientes/cliente';
@@ -17,7 +17,7 @@ export class ProjetosCadastroComponent {
   breadCrumbItem: string = 'Cadastro';
   pageTitle: string = 'Cadastro de Projetos';
 
-  form!: FormGroup;
+  form!: UntypedFormGroup;
   clientes: Cliente[] = [];
 
   isEdit: boolean = false;
@@ -26,7 +26,7 @@ export class ProjetosCadastroComponent {
   status: Status[] = [];
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private route: Router,
     private clienteService: ClientesService,
     private projetosService: ProjetoService,

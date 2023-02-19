@@ -3,7 +3,7 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { ProjetoService } from './../../services/projetos/projeto.service';
 import { ClientesService } from './../../services/clientes.service';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Cliente } from 'src/app/models/Clientes/cliente';
 import { Projeto } from 'src/app/models/Projetos/projeto';
@@ -22,7 +22,7 @@ export class ProjetosComponent implements OnInit {
   pageTitle: string = 'Projetos';
   breadCrumbItem: string = 'Listagem';
 
-  form!: FormGroup;
+  form!: UntypedFormGroup;
   clientes: Cliente[] = [];
   listOfData: ProjetoListagem[] = [];
   listOfProjetos: Projeto[] = [];
@@ -30,7 +30,7 @@ export class ProjetosComponent implements OnInit {
 
   isSpinning: boolean = false;
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private clienteService: ClientesService,
     private route: Router,
     private router: ActivatedRoute,

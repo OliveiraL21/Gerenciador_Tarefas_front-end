@@ -1,7 +1,7 @@
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ClientesService } from 'src/app/services/clientes.service';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
@@ -14,9 +14,9 @@ export class ClientesCadastroComponent implements OnInit {
   pageTitle: string = 'Cadastro de Clientes';
   breadCrumbItem: string = 'Cadastro';
 
-  form!: FormGroup;
+  form!: UntypedFormGroup;
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private router: Router,
     private route: ActivatedRoute,
     private notification: NzNotificationService,

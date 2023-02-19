@@ -2,9 +2,9 @@ import { TarefaService } from './../../../services/tarefas/tarefa.service';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
+  UntypedFormBuilder,
+  UntypedFormControl,
+  UntypedFormGroup,
   ValidationErrors,
   Validators,
 } from '@angular/forms';
@@ -23,7 +23,7 @@ import { Status } from 'src/app/models/status/status';
 export class TarefasCadastroComponent {
   pageHeader: string = 'Cadastro de Tarefas';
   breadcrumbItem: string = 'Cadastro';
-  form!: FormGroup;
+  form!: UntypedFormGroup;
 
   projetos: any[] = [];
   duracao: any;
@@ -35,7 +35,7 @@ export class TarefasCadastroComponent {
   status: Status[] = [];
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private router: Router,
     private route: ActivatedRoute,
     private notification: NzNotificationService,
@@ -107,7 +107,7 @@ export class TarefasCadastroComponent {
     }
   }
 
-  validarHoras(control: FormControl): ValidationErrors | null {
+  validarHoras(control: UntypedFormControl): ValidationErrors | null {
     let horarioInicio = control.parent?.get('horarioInicio')?.value;
     let horarioFim = control.parent?.get('horarioFim')?.value;
 

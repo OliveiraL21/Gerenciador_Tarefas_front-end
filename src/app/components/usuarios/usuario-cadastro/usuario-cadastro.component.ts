@@ -1,5 +1,5 @@
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Component } from '@angular/core';
 import { Usuario } from 'src/app/models/Usuario/usuario';
 import { UsuariosService } from 'src/app/services/usuarios.service';
@@ -12,12 +12,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./usuario-cadastro.component.scss']
 })
 export class UsuarioCadastroComponent {
-  form!: FormGroup;
+  form!: UntypedFormGroup;
   isSpinning: boolean = false;
   passwordVisible: boolean = false;
 
 
-  constructor(private fb: FormBuilder, private usuarioService: UsuariosService, private notification: NzNotificationService, private router: Router) { }
+  constructor(private fb: UntypedFormBuilder, private usuarioService: UsuariosService, private notification: NzNotificationService, private router: Router) { }
 
   createNotification(type: string, title: string, message: string): void {
     this.notification.create(type, title, message);

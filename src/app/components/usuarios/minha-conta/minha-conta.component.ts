@@ -1,6 +1,6 @@
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Route, Router } from '@angular/router';
 import { Usuario } from 'src/app/models/Usuario/usuario';
 import { UsuariosService } from 'src/app/services/usuarios.service';
@@ -13,13 +13,13 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
 export class MinhaContaComponent {
 
   usuarioId: number = Number.parseInt(localStorage.getItem('Id')?.toString() ?? '0');
-  form!: FormGroup;
+  form!: UntypedFormGroup;
   loading = false;
   avatarUrl?: string;
   save: boolean = false;
   isSpinning: boolean = false;
 
-  constructor(private fb: FormBuilder, private usuarioService: UsuariosService, private route: Router, private notification: NzNotificationService) {
+  constructor(private fb: UntypedFormBuilder, private usuarioService: UsuariosService, private route: Router, private notification: NzNotificationService) {
 
   }
 
