@@ -14,6 +14,10 @@ import { ProjetoService } from 'src/app/services/projetos/projeto.service';
 import { Projeto } from 'src/app/models/Projetos/projeto';
 import { StatusService } from 'src/app/services/status/status.service';
 import { Status } from 'src/app/models/status/status';
+import * as moment from 'moment-timezone';
+
+
+
 
 @Component({
   selector: 'app-tarefas-cadastro',
@@ -150,7 +154,7 @@ export class TarefasCadastroComponent {
   getDetails(id: number) {
     this.tarefaService.details(id).subscribe({
       next: (tarefa) => {
-
+        console.log(tarefa);
         this.form.get('descricao')?.setValue(tarefa.descricao);
         this.form.get('data')?.setValue(tarefa.data);
 
@@ -159,6 +163,7 @@ export class TarefasCadastroComponent {
         this.form.get('observacao')?.setValue(tarefa.observacao);
         this.form.get('horarioInicio')?.setValue(tarefa.horarioInicio);
         this.form.get('horarioFim')?.setValue(tarefa.horarioFim);
+        this.form.get('status')?.setValue(tarefa.status.id);
       },
     });
   }
@@ -210,7 +215,10 @@ export class TarefasCadastroComponent {
     this.isCreate();
     this.isUpdate();
     this.isDetails();
-    this.form.get('status')?.setValue(1);
+    const url = this.router.url.split('/');
+    if (url[2] == 'cadastro') {
+      this.form.get('status')?.setValue(1);
+    }
   }
 
   submitForm(): void {
@@ -219,14 +227,15 @@ export class TarefasCadastroComponent {
     if (this.form.valid) {
       let date = this.form.value;
       let status = this.status.find(x => x.id == date.status);
-      let horarioInicio: Date = new Date(date.horarioInicio.toString()?.replace('/', '-'));
-      let horarioFim: Date = new Date(date.horarioFim);
-      console.log();
+      let horarioInicio: string = new Date(date.horarioInicio).toLocaleTimeString();
+      let horarioFim: string = new Date(date.horarioFim).toLocaleTimeString();
+
+
 
 
       const payload: Tarefa = {
         descricao: date.descricao,
-        data: date.data,
+        data: new Date(date.data).toDateString(),
         horarioInicio: horarioInicio,
         horarioFim: horarioFim,
         duracao: date.duracao,

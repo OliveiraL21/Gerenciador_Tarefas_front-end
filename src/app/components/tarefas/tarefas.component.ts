@@ -7,6 +7,7 @@ import { Tarefa, TarefaListagem } from 'src/app/models/Tarefas/tarefa';
 import { TarefaService } from 'src/app/services/tarefas/tarefa.service';
 import { ProjetoService } from 'src/app/services/projetos/projeto.service';
 import { Projeto } from 'src/app/models/Projetos/projeto';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-tarefas',
@@ -44,6 +45,7 @@ export class TarefasComponent implements OnInit {
 
   closeModal(): void {
     this.modalVisible = false;
+    this.formHoras.reset();
   }
 
   createNotification(type: string, title: string, message: string) {
@@ -127,10 +129,10 @@ export class TarefasComponent implements OnInit {
   calcularHorasTrabalhadas(): void {
     let data: Date = this.formHoras.get('data')?.value;
 
+
     if (data && data !== null) {
       this.tarefasService.calcularTotaisHoras(data.toDateString()).subscribe({
         next: (data) => {
-          console.log(data);
           this.formHoras.get('horas')?.setValue(data?.horasTotal);
         },
         error: (erro) => {

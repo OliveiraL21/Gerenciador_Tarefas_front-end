@@ -3,7 +3,7 @@ import { Status } from '../status/status';
 
 export class Tarefa {
   id?: number;
-  data: Date | null = null;
+  data: string | null = null;
   horarioInicio: any | null = null;
   horarioFim: any | null = null;
   duracao: any | null = null;
