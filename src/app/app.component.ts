@@ -61,7 +61,7 @@ export class AppComponent {
 
   minhaConta() {
     if (this.usuarioId !== 0 && this.usuarioId !== undefined && this.usuarioId !== null) {
-      this.router.navigateByUrl(`usuario/conta/minhaConta/${this.usuarioId}`);
+      this.router.navigateByUrl(`usuario/detalhes/${this.usuarioId}`);
     }
   }
 }

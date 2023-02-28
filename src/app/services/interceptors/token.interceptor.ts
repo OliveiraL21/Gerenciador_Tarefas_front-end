@@ -5,7 +5,8 @@ import {
   HttpHandler,
   HttpEvent,
   HttpInterceptor,
-  HttpErrorResponse
+  HttpErrorResponse,
+  HttpHeaders
 } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -19,23 +20,15 @@ export class TokenInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const token = this.tokenService.getToken();
-
-    // REQUISIÇÃO QUE ESTÁ SENDO ENVIADA
-    const requestUrl: Array<any> = request.url.split("/");
-    const apiUrl: Array<any> = requestUrl[3] == 'Usuario' ? environment.api_usuario_url.split('/') : environment.api_url.split("/");
-
-    if (token && requestUrl[2] === apiUrl[2]) {
+    if (this.tokenService.possuiToken()) {
+      const headers = new HttpHeaders().append('x-access-token', token);
       request = request.clone({
         setHeaders: {
           Authorization: `Bearer ${token}`,
           token: `${token}`
         }
       });
-      return next.handle(request);
     }
-    else {
-      return next.handle(request);
-    }
-
+    return next.handle(request);
   }
 }

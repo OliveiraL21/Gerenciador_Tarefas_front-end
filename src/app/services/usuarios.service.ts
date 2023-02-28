@@ -4,7 +4,7 @@ import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { Usuario } from '../models/Usuario/usuario';
 
-const url = `https://localhost:44336/Usuario`;
+const url = `${environment.api_usuario_url}/Usuario`;
 
 @Injectable({
   providedIn: 'root',
@@ -17,10 +17,14 @@ export class UsuariosService {
   }
 
   details(id: number): Observable<Usuario> {
-    return this.http.get<any>(`${url}/detalhes/${id}`);
+    return this.http.get<Usuario>(`${url}/detalhes/${id}`);
   }
 
   update(usuario: Usuario): Observable<Usuario> {
     return this.http.put<Usuario>(`${url}/update`, usuario);
+  }
+
+  recuperarUsuario(): Observable<Usuario> {
+    return this.http.get<Usuario>(`${url}/Recuperar`);
   }
 }

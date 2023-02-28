@@ -49,6 +49,7 @@ export class MinhaContaComponent {
     if (this.form.valid) {
       const formValue = this.form.value;
       let user: Usuario = formValue;
+      user.id = this.usuarioId;
       this.usuarioService.update(user).subscribe({
         next: (data: Usuario) => {
           this.createNotification('success', 'Editar dados do usuário', 'Dados de cadastro editados com sucesso !');
@@ -77,9 +78,11 @@ export class MinhaContaComponent {
   }
 
   ngOnInit() {
+    this.isSpinning = true;
     this.initForm();
     this.form.disable();
     this.detailsUsuario();
+    this.isSpinning = false;
   }
 
 }
