@@ -19,6 +19,9 @@ export class TokenInterceptor implements HttpInterceptor {
   constructor(private tokenService: TokenService, private logoutService: LogoutService) { }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+    if (request.url.split('/')[2] == environment.api_usuario_url.split('/')[2]) {
+      return next.handle(request);
+    }
     const token = this.tokenService.getToken();
     if (this.tokenService.possuiToken()) {
       const headers = new HttpHeaders().append('x-access-token', token);

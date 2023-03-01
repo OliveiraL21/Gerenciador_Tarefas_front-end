@@ -27,4 +27,12 @@ export class UsuariosService {
   recuperarUsuario(): Observable<Usuario> {
     return this.http.get<Usuario>(`${url}/Recuperar`);
   }
+
+  uploadImage(formData: FormData, id: any): Observable<any> {
+    return this.http.post<any>(`${url}/UpdateProfileImage/${id}`, formData);
+  }
+
+  getUserPerfileimg(fileName: string): Observable<any> {
+    return this.http.get<any>(`${url}/profilepicture/${fileName}`);
+  }
 }

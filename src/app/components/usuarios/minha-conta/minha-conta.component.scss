@@ -1,12 +1,19 @@
 :host ::ng-deep .avatar-uploader > .ant-upload {
   width: 100%;
-  height: 150px;
+  max-width: 350px;
+  height: 250px;
 }
 
 :host ::ng-deep .ant-upload-text{
   margin-left: 5px;
 }
 
+.perfil{
+  height: 100vh;
+  max-height: 250px;
+  width: 100%;
+
+}
 .card{
   display: flex;
   justify-content: center;
@@ -20,5 +27,5 @@
 }
 
 .SaveEdit{
-  width: 100%;
+ float: right;
 }

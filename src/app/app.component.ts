@@ -22,7 +22,6 @@ export class AppComponent {
   ngOnInit() {
     this.router.events.pipe(filter((event: any) => event instanceof NavigationEnd)).subscribe(({ url }: any) => {
       const appUrl = url.split('/')[1];
-      console.log(appUrl);
       switch (appUrl) {
         case '/':
           this.isLogin = true;

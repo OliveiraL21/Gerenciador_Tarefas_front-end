@@ -1,12 +1,8 @@
 <nz-page-header nzTitle="Minha Conta" nzBackIcon (nzBack)="back()">
-  <nz-breadcrumb nz-page-header-breadcrumb>
-    <nz-breadcrumb-item>Conta</nz-breadcrumb-item>
-    <nz-breadcrumb-item>Minha Conta</nz-breadcrumb-item>
-  </nz-breadcrumb>
 </nz-page-header>
 
 
-<div class="card">
+<div>
   <nz-card>
     <form nz-form [formGroup]="form">
       <nz-spin [nzSpinning]="isSpinning" nzTip="Carregando dados...">
@@ -14,12 +10,13 @@
           <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="24" nzXl="24">
             <nz-form-item>
               <nz-form-control>
-                <nz-upload class="avatar-uploader" nzListType="picture-card" [nzShowUploadList]="false">
+                <nz-upload class="avatar-uploader" nzListType="picture-card" [nzShowUploadList]="false"
+                  [nzBeforeUpload]="beforeUpload" [nzAction]="uploadUrl" nzAllowClear [nzDisabled]="isEdit">
                   <ng-container *ngIf="!avatarUrl">
                     <span class="upload-icon" nz-icon [nzType]="loading ? 'loading' : 'plus'"></span>
                     <div class="ant-upload-text">Perfil</div>
                   </ng-container>
-                  <img *ngIf="avatarUrl" [src]="avatarUrl" style="width: 100%" />
+                  <img *ngIf="avatarUrl" [src]="avatarUrl" class="perfil" />
                 </nz-upload>
               </nz-form-control>
             </nz-form-item>
