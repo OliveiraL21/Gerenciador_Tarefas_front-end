@@ -13,7 +13,6 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 })
 export class ClientesComponent implements OnInit {
   pageTitle: string = 'Clientes';
-  breadCrumbItem: string = 'Listagem';
   form!: UntypedFormGroup;
   isSpinning: boolean = false;
 

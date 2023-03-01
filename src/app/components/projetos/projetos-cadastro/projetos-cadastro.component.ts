@@ -14,7 +14,7 @@ import { Status } from 'src/app/models/status/status';
   styleUrls: ['./projetos-cadastro.component.scss'],
 })
 export class ProjetosCadastroComponent {
-  breadCrumbItem: string = 'Cadastro';
+
   pageTitle: string = 'Cadastro de Projetos';
 
   form!: UntypedFormGroup;
@@ -62,7 +62,6 @@ export class ProjetosCadastroComponent {
   visualizar() {
     this.form.disable();
     this.pageTitle = 'Visualizar Projeto';
-    this.breadCrumbItem = 'Visualizar';
     this.isEdit = true;
     this.saveButtom = false;
   }
@@ -70,7 +69,6 @@ export class ProjetosCadastroComponent {
   editar() {
     this.form.enable();
     this.pageTitle = 'Editar Projeto';
-    this.breadCrumbItem = 'Editar';
     this.isEdit = false;
     this.saveButtom = true;
   }

@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
+import { Usuario } from './models/Usuario/usuario';
 import { LogoutService } from './services/logout/logout.service';
 import { TokenService } from './services/token/token.service';
+import { UsuariosService } from './services/usuarios.service';
 
 @Component({
   selector: 'app-root',
@@ -14,10 +16,33 @@ export class AppComponent {
   isLogin: boolean = false;
   isCadastro: boolean = false;
   usuarioId: number = Number.parseInt(localStorage.getItem('Id')?.toString() ?? '0');
-
-  constructor(private router: Router, private logoutService: LogoutService, private tokenService: TokenService) {
+  avatarUrl: any;
+  username!: string;
+  constructor(private router: Router, private logoutService: LogoutService, private tokenService: TokenService, private usuarioService: UsuariosService) {
 
   }
+
+  detailsUsuario(): void {
+    if (this.usuarioId) {
+      this.usuarioService.details(this.usuarioId).subscribe({
+        next: (usuario: Usuario) => {
+          this.username = usuario.username ?? '';
+          let fileName = usuario.profileImageUrl?.split('\\');
+          let name = fileName![fileName!.length - 1];
+
+          this.usuarioService.getUserPerfileimg(name).subscribe({
+            next: (perfil) => {
+              this.avatarUrl = 'data:image/jpeg;base64,' + perfil.image;
+            }
+          });
+        },
+        error: (err) => {
+          console.log(err);
+        }
+      });
+    }
+  }
+
 
   ngOnInit() {
     this.router.events.pipe(filter((event: any) => event instanceof NavigationEnd)).subscribe(({ url }: any) => {
@@ -45,6 +70,8 @@ export class AppComponent {
           this.isCadastro = false;
       }
     });
+
+    this.detailsUsuario();
   }
 
   logout(): void {

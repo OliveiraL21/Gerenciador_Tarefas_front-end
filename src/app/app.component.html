@@ -7,13 +7,15 @@
 </div>
 
 <nz-layout class="app-layout" *ngIf="isLogin == false && isCadastro == false">
-  <nz-sider class="menu-sidebar" nzTheme="dark" nzCollapsible nzWidth="256px" nzBreakpoint="md"
+  <nz-sider class="menu-sidebar" nzTheme="light" nzCollapsible nzWidth="200px" nzBreakpoint="md"
     [(nzCollapsed)]="isCollapsed" [nzTrigger]="null">
     <div class="avatar">
-      <nz-avatar nzIcon="user" nzSize="large"></nz-avatar>
-      <p style="color: #fff" *ngIf="!isCollapsed">Lucas José Dias de Oliveira</p>
+      <nz-avatar nzIcon="user" [nzSrc]="avatarUrl" nzSize="large"></nz-avatar>
+      <a class="username" (click)="minhaConta()">
+        <h3 nz-typography style="color: #000" *ngIf="!isCollapsed">{{username}}</h3>
+      </a>
     </div>
-    <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+    <ul nz-menu nzTheme="light" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
       <li nz-submenu nzTitle="Conta" nzIcon="user">
         <ul>
           <li nz-menu-item nzMatchRouter>

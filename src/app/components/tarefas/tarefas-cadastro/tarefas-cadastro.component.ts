@@ -26,7 +26,6 @@ import * as moment from 'moment-timezone';
 })
 export class TarefasCadastroComponent {
   pageHeader: string = 'Cadastro de Tarefas';
-  breadcrumbItem: string = 'Cadastro';
   form!: UntypedFormGroup;
 
   projetos: any[] = [];
@@ -189,7 +188,6 @@ export class TarefasCadastroComponent {
     if (this.route.snapshot.url[1].path == 'visualizar') {
       let id: any = this.route.snapshot.paramMap.get('id');
       this.pageHeader = 'Visualizar Tarefa';
-      this.breadcrumbItem = 'Visualizar';
       this.editButtom = true;
       this.saveButtom = false;
       this.form.disable();
@@ -201,7 +199,6 @@ export class TarefasCadastroComponent {
     if (this.route.snapshot.url[1].path == 'editar') {
       let id: any = this.route.snapshot.paramMap.get('id');
       this.pageHeader = 'Editar Tarefa';
-      this.breadcrumbItem = 'Editar';
       this.saveButtom = true;
       this.form.enable();
       this.getDetails(id);

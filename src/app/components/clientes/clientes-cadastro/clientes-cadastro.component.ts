@@ -12,7 +12,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 })
 export class ClientesCadastroComponent implements OnInit {
   pageTitle: string = 'Cadastro de Clientes';
-  breadCrumbItem: string = 'Cadastro';
+
 
   form!: UntypedFormGroup;
   constructor(
@@ -52,10 +52,8 @@ export class ClientesCadastroComponent implements OnInit {
 
     if (id !== undefined && id !== null && id !== 0) {
       if (url[2] == 'editar') {
-        this.breadCrumbItem = 'Editar';
         this.pageTitle = 'Editar Clientes';
       } else if (url[2] == 'visualizar') {
-        this.breadCrumbItem = 'Visualizar';
         this.pageTitle = 'Visualizar Cliente';
         this.form.disable();
       }

@@ -20,7 +20,6 @@ import { Status } from 'src/app/models/status/status';
 })
 export class ProjetosComponent implements OnInit {
   pageTitle: string = 'Projetos';
-  breadCrumbItem: string = 'Listagem';
 
   form!: UntypedFormGroup;
   clientes: Cliente[] = [];
