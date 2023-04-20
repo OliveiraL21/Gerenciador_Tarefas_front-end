@@ -10,6 +10,7 @@
   z-index: 10;
   min-height: 100vh;
   box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);
+
 }
 
 .header-trigger {
@@ -33,7 +34,7 @@
 
 .username{
  margin-left: 10px;
- margin-top: 10px;
+  margin-top: 10px;
 
 }
 
@@ -55,11 +56,14 @@ nz-header {
   padding: 0;
   background: #fff;
   box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
+  background-color: #fa4b4b;
 }
 .logout{
   float: right;
   margin-top: 20px;
   margin-right: 30px;
+  color: #f8f8f8;
+  font-weight: bold;
 }
 nz-content {
   margin: 24px;
@@ -78,6 +82,7 @@ nz-content {
   font-size: 15px;
   cursor: pointer;
   transition: all 0.3s, padding 0s;
+  color: #f8f8f8;
 }
 
 .trigger:hover {

@@ -24,6 +24,7 @@ export class ProjetosCadastroComponent {
   saveButtom: boolean = true;
 
   status: Status[] = [];
+  isSpinning: boolean = false;
 
   constructor(
     private fb: UntypedFormBuilder,
@@ -73,6 +74,9 @@ export class ProjetosCadastroComponent {
     this.saveButtom = true;
   }
 
+  cancelar() {
+    this.route.navigateByUrl('projetos/listagem');
+  }
   ngOnInit() {
     let id: any = this.router.snapshot.paramMap.get('id');
 
@@ -88,13 +92,19 @@ export class ProjetosCadastroComponent {
 
     this.form.get('status')?.setValue(1);
     if (id && id !== null) {
+      this.isSpinning = true;
       this.projetosService.details(id).subscribe({
         next: (projeto) => {
           this.form.get('descricao')?.setValue(projeto.descricao);
           this.form.get('dataInicio')?.setValue(projeto.dataInicio);
           this.form.get('dataFim')?.setValue(projeto.dataFim);
           this.form.get('cliente')?.setValue(projeto.clienteId);
+          this.isSpinning = false;
         },
+        error: (erro) => {
+          console.log(erro);
+          this.isSpinning = false;
+        }
       });
 
       let url = this.route.url.split('/');
@@ -111,6 +121,7 @@ export class ProjetosCadastroComponent {
     let id: any = this.router.snapshot.paramMap.get('id');
 
     if (this.form.valid) {
+      this.isSpinning = true;
       let data = this.form.value;
 
       let cliente = this.clientes.find((x) => x.id == data.cliente);
@@ -135,6 +146,8 @@ export class ProjetosCadastroComponent {
               'Cadastro de Projetos',
               'O Projeto foi cadstrado com sucesso !'
             );
+            this.isSpinning = false;
+            this.route.navigateByUrl('projetos/listagem');
           },
           error: (erro) => {
             console.error(erro);
@@ -143,6 +156,7 @@ export class ProjetosCadastroComponent {
               'Cadastro de Projetos',
               `Erro ${erro.status} ao tentar cadastrar o projeto, tente novamente masi tarde !`
             );
+            this.isSpinning = false;
           },
         });
       } else {
@@ -153,6 +167,8 @@ export class ProjetosCadastroComponent {
               'Edição de Projeto',
               'Projeto editado com sucesso.'
             );
+            this.isSpinning = false;
+            this.route.navigateByUrl('projetos/listagem');
           },
           error: (erro) => {
             this.createNotification(
@@ -160,6 +176,7 @@ export class ProjetosCadastroComponent {
               'Edição de Projeto',
               `Erro ${erro.status} ao tentar editar o projeto por favor tente novamente mais tarde.`
             );
+            this.isSpinning = false;
           },
         });
       }

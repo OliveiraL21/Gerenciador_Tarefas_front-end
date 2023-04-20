@@ -12,6 +12,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 })
 export class ClientesCadastroComponent implements OnInit {
   pageTitle: string = 'Cadastro de Clientes';
+  isSpinning: boolean = false;
 
 
   form!: UntypedFormGroup;
@@ -31,7 +32,7 @@ export class ClientesCadastroComponent implements OnInit {
   }
 
   cancelar() {
-    this.form.reset();
+    this.router.navigateByUrl('clientes/lista');
   }
 
   initForm(): void {
@@ -75,6 +76,7 @@ export class ClientesCadastroComponent implements OnInit {
     let id: any = this.route.snapshot.paramMap.get('id');
 
     if (this.form.valid) {
+      this.isSpinning = true;
       let data = this.form.value;
       if (id === undefined || id === null || id === 0) {
         this.clientesService.create(data).subscribe({
@@ -84,8 +86,11 @@ export class ClientesCadastroComponent implements OnInit {
               'Cadastro de Cliente',
               'Cliente cadastrado com sucesso'
             );
+            this.isSpinning = false;
+            this.router.navigateByUrl('clientes/lista');
           },
           error: (erro) => {
+            this.isSpinning = false;
             this.createNotification(
               'error',
               'Cadastro de Clietne',
@@ -102,6 +107,8 @@ export class ClientesCadastroComponent implements OnInit {
               'Edição de Cliente',
               'Cliente Editado com sucesso'
             );
+            this.isSpinning = false;
+            this.router.navigateByUrl('clientes/lista');
           },
           error: (erro) => {
             this.createNotification(
@@ -109,6 +116,7 @@ export class ClientesCadastroComponent implements OnInit {
               'Edição de Cliente',
               `Erro ${erro.status} ao tentar editar o cliente, tente novamente mais tarde.`
             );
+            this.isSpinning = false;
           },
         });
       }

@@ -2,68 +2,70 @@
 </nz-page-header>
 
 <form nz-form [formGroup]="form">
-  <nz-collapse nzExpandIconPosition="right">
-    <nz-collapse-panel nzHeader="Dados Gerais" nzActive="active">
-      <div nz-row [nzGutter]="[12, 2]">
-        <div nz-col nzXs="48" nzSm="12" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
-          <nz-form-item>
-            <nz-form-control nzErrorTip="Campo obrigatório">
-              <nz-form-label nzFor="descricao" nzRequired>Projeto</nz-form-label>
-              <input type="text" nz-input formControlName="descricao" placeholder="Digite o nome do projeto" />
-            </nz-form-control>
-          </nz-form-item>
-        </div>
+  <nz-spin [nzSpinning]="isSpinning" nzTip="Carregando...">
+    <nz-collapse nzExpandIconPosition="right">
+      <nz-collapse-panel nzHeader="Dados Gerais" nzActive="active">
+        <div nz-row [nzGutter]="[12, 2]">
+          <div nz-col nzXs="48" nzSm="12" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
+            <nz-form-item>
+              <nz-form-control nzErrorTip="Campo obrigatório">
+                <nz-form-label nzFor="descricao" nzRequired>Projeto</nz-form-label>
+                <input type="text" nz-input formControlName="descricao" placeholder="Digite o nome do projeto" />
+              </nz-form-control>
+            </nz-form-item>
+          </div>
 
-        <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
-          <nz-form-item>
-            <nz-form-control nzErrorTip="Campo obrigatório">
-              <nz-form-label nzFor="data_inico" nzRequired>Data de Inicio</nz-form-label>
-              <nz-date-picker nzFormat="dd/MM/yyyy" formControlName="dataInicio"></nz-date-picker>
-            </nz-form-control>
-          </nz-form-item>
-        </div>
+          <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
+            <nz-form-item>
+              <nz-form-control nzErrorTip="Campo obrigatório">
+                <nz-form-label nzFor="data_inico" nzRequired>Data de Inicio</nz-form-label>
+                <nz-date-picker nzFormat="dd/MM/yyyy" formControlName="dataInicio"></nz-date-picker>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
 
-        <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="12" nzLg="8" nzXl="8">
-          <nz-form-item>
-            <nz-form-control nzErrorTip="Campo obrigatório">
-              <nz-form-label nzFor="data_fim" nzRequired>Data Final Prevista</nz-form-label>
-              <nz-date-picker nzFormat="dd/MM/yyyy" formControlName="dataFim"></nz-date-picker>
-            </nz-form-control>
-          </nz-form-item>
-        </div>
+          <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="12" nzLg="8" nzXl="8">
+            <nz-form-item>
+              <nz-form-control nzErrorTip="Campo obrigatório">
+                <nz-form-label nzFor="data_fim" nzRequired>Data Final Prevista</nz-form-label>
+                <nz-date-picker nzFormat="dd/MM/yyyy" formControlName="dataFim"></nz-date-picker>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
 
-        <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="8" nzXl="8">
-          <nz-form-item>
-            <nz-form-control nzErrorTip="Campo obrigatório">
-              <nz-form-label nzFor="cliente" nzRequired>Cliente</nz-form-label>
-              <nz-select nzAllowClear nzShowSearch formControlName="cliente" nzPlaceHolder="Selecione o cliente ">
-                <nz-option *ngFor="let cliente of clientes" [nzLabel]="cliente.razaoSocial"
-                  [nzValue]="cliente.id"></nz-option>
-              </nz-select>
-            </nz-form-control>
-          </nz-form-item>
-        </div>
+          <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="8" nzXl="8">
+            <nz-form-item>
+              <nz-form-control nzErrorTip="Campo obrigatório">
+                <nz-form-label nzFor="cliente" nzRequired>Cliente</nz-form-label>
+                <nz-select nzAllowClear nzShowSearch formControlName="cliente" nzPlaceHolder="Selecione o cliente ">
+                  <nz-option *ngFor="let cliente of clientes" [nzLabel]="cliente.razaoSocial"
+                    [nzValue]="cliente.id"></nz-option>
+                </nz-select>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
 
-        <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="8" nzXl="8">
-          <nz-form-item>
-            <nz-form-control nzErrorTip="Campo obrigatório">
-              <nz-form-label nzFor="status" nzRequired>Status</nz-form-label>
-              <nz-select nzShowSearch nzAllowClear formControlName="status">
-                <nz-option *ngFor="let option of status" [nzLabel]="option.descricao" [nzValue]="option.id">
+          <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="8" nzXl="8">
+            <nz-form-item>
+              <nz-form-control nzErrorTip="Campo obrigatório">
+                <nz-form-label nzFor="status" nzRequired>Status</nz-form-label>
+                <nz-select nzShowSearch nzAllowClear formControlName="status">
+                  <nz-option *ngFor="let option of status" [nzLabel]="option.descricao" [nzValue]="option.id">
 
-                </nz-option>
-              </nz-select>
-            </nz-form-control>
-          </nz-form-item>
+                  </nz-option>
+                </nz-select>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
         </div>
-      </div>
-    </nz-collapse-panel>
-  </nz-collapse>
+      </nz-collapse-panel>
+    </nz-collapse>
+  </nz-spin>
 </form>
 
 <div nz-row nzJustify="space-between" style="margin-top: 30px">
   <div nz-col nzXs="48" nzSm="24" nzMd="24" nzLg="24" nzXl="24">
-    <button nz-button nzType="default">Cancelar</button>
+    <button nz-button nzType="default" (click)="cancelar()">Cancelar</button>
     <button nz-button nzType="primary" style="float: right" *ngIf="isEdit" (click)="editar()">
       Editar
     </button>

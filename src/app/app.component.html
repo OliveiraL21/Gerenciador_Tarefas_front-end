@@ -10,7 +10,7 @@
   <nz-sider class="menu-sidebar" nzTheme="light" nzCollapsible nzWidth="200px" nzBreakpoint="md"
     [(nzCollapsed)]="isCollapsed" [nzTrigger]="null">
     <div class="avatar">
-      <nz-avatar nzIcon="user" [nzSrc]="avatarUrl" nzSize="large"></nz-avatar>
+      <nz-avatar class="imagem_perfil" nzIcon="user" [nzSrc]="avatarUrl" nzSize="large"></nz-avatar>
       <a class="username" (click)="minhaConta()">
         <h3 nz-typography style="color: #000" *ngIf="!isCollapsed">{{username}}</h3>
       </a>
@@ -53,7 +53,7 @@
           <span class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></span>
         </span>
 
-        <button nz-button nzType="default" class="logout" (click)="logout()"><span nz-icon nzType="logout"></span>
+        <button nz-button nzType="link" class="logout" (click)="logout()"><span nz-icon nzType="logout"></span>
           Logout</button>
 
       </div>

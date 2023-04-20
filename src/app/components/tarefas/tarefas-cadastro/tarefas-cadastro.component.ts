@@ -222,6 +222,7 @@ export class TarefasCadastroComponent {
     const id: any = this.route.snapshot.paramMap.get('id');
 
     if (this.form.valid) {
+      this.isSpinning = true;
       let date = this.form.value;
       let status = this.status.find(x => x.id == date.status);
       let horarioInicio: string = new Date(date.horarioInicio).toLocaleTimeString();
@@ -250,7 +251,8 @@ export class TarefasCadastroComponent {
               'Cadastro de Tarefas',
               'Tarefa cadastrada com sucesso'
             );
-            this.form.reset();
+            this.isSpinning = false;
+            this.router.navigateByUrl('tarefas/listagem');
           },
           error: (erro) => {
             this.createNotification(
@@ -258,6 +260,7 @@ export class TarefasCadastroComponent {
               'Cadastro de Tarefas',
               `Erro ${erro.status} ao tentar cadastrar a tarefa, por favor tente novamente mais tarde`
             );
+            this.isSpinning = false;
           },
         });
       } else {
@@ -275,6 +278,8 @@ export class TarefasCadastroComponent {
               'Editar Tarefa',
               `Erro ${erro.status} ao tentar editar a tarefa, por favor tente novamente mais tarde`
             );
+            this.isSpinning = false;
+            this.router.navigateByUrl('tarefas/listagem');
           },
         });
       }
