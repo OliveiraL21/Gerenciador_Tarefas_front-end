@@ -22,19 +22,44 @@ export class AppComponent {
 
   }
 
+  dataURItoBlob(dataURI: string) {
+    try {
+      const byteString = window.atob(dataURI);
+      const arrayBuffer = new ArrayBuffer(byteString.length);
+      const int8Array = new Uint8Array(arrayBuffer);
+      for (let i = 0; i < byteString.length; i++) {
+        int8Array[i] = byteString.charCodeAt(i);
+      }
+      const blob = new Blob([int8Array], { type: 'image/png' });
+      return blob;
+    } catch (error: any) {
+      throw (error);
+    }
+  }
+
+  getFile(base64: string): File {
+    var file = null;
+
+    var imageBlob: Blob | null = null;
+    var dataType: string = 'image/jpeg';
+    if (base64 !== null && base64.indexOf(',') > 0) {
+      imageBlob = this.dataURItoBlob(base64.substring(base64.indexOf(',') + 1));
+      dataType = base64.substring(base64.indexOf(':') + 1).split(';')[0];
+    } else {
+      imageBlob = this.dataURItoBlob(base64);
+    }
+    file = new File([imageBlob], 'imagem.png', { type: dataType });
+    return file;
+  }
+
   detailsUsuario(): void {
     if (this.usuarioId) {
       this.usuarioService.details(this.usuarioId).subscribe({
         next: (usuario: Usuario) => {
           this.username = usuario.username ?? '';
-          let fileName = usuario.profileImageUrl?.split('\\');
-          let name = fileName![fileName!.length - 1];
+          var url = this.dataURItoBlob(usuario.profileImageUrl ?? '');
+          this.avatarUrl = URL.createObjectURL(url);
 
-          this.usuarioService.getUserPerfileimg(name).subscribe({
-            next: (perfil) => {
-              this.avatarUrl = 'data:image/jpeg;base64,' + perfil.image;
-            }
-          });
         },
         error: (err) => {
           console.log(err);

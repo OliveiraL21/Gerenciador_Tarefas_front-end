@@ -47,6 +47,7 @@ import { NzMessageModule } from 'ng-zorro-antd/message';
 import { TokenInterceptor } from './services/interceptors/token.interceptor';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { MinhaContaComponent } from './components/usuarios/minha-conta/minha-conta.component';
+import { NgxDropzoneModule } from 'ngx-dropzone';
 
 registerLocaleData(pt);
 
@@ -97,6 +98,7 @@ registerLocaleData(pt);
     NzMessageModule,
     NzUploadModule,
     NgxMaskModule.forRoot(),
+    NgxDropzoneModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: pt_BR },

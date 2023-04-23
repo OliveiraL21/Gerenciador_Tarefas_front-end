@@ -10,14 +10,13 @@
           <div nz-col nzXs="48" nzSm="12" nzMd="12" nzLg="24" nzXl="24">
             <nz-form-item>
               <nz-form-control>
-                <nz-upload class="avatar-uploader" nzListType="picture-card" [nzShowUploadList]="false"
-                  [nzBeforeUpload]="beforeUpload" [nzAction]="uploadUrl" nzAllowClear [nzDisabled]="isEdit">
-                  <ng-container *ngIf="!avatarUrl">
-                    <span class="upload-icon" nz-icon [nzType]="loading ? 'loading' : 'plus'"></span>
-                    <div class="ant-upload-text">Perfil</div>
-                  </ng-container>
-                  <img *ngIf="avatarUrl" [src]="avatarUrl" class="perfil" />
-                </nz-upload>
+                <ngx-dropzone class="img_perfil" (change)="onSelect($event)" [multiple]="false"
+                  accept="image/jpeg,image/jpg,image/png" [disabled]="isEdit">
+                  <ngx-dropzone-label><span nz-icon nzType="plus"></span></ngx-dropzone-label>
+                  <ngx-dropzone-image-preview class="preview" *ngIf="imgPerfil !== null"
+                    ngProjectAs="ngx-dropzone-preview" [file]="imgPerfil" [removable]="true"
+                    (removed)="onRemove($event)"></ngx-dropzone-image-preview>
+                </ngx-dropzone>
               </nz-form-control>
             </nz-form-item>
           </div>

@@ -271,6 +271,8 @@ export class TarefasCadastroComponent {
               'Editar Tarefas',
               'Tarefa editada com sucesso !'
             );
+            this.isSpinning = false;
+            this.router.navigateByUrl('tarefas/listagem');
           },
           error: (erro) => {
             this.createNotification(
@@ -279,7 +281,6 @@ export class TarefasCadastroComponent {
               `Erro ${erro.status} ao tentar editar a tarefa, por favor tente novamente mais tarde`
             );
             this.isSpinning = false;
-            this.router.navigateByUrl('tarefas/listagem');
           },
         });
       }
@@ -289,6 +290,7 @@ export class TarefasCadastroComponent {
         'Cadastro de Tarefas',
         'Por favor preencha todos os campos obrigatórios'
       );
+      this.isSpinning = false;
       Object.values(this.form.controls).forEach((control) => {
         if (control.invalid) {
           control.markAsDirty();

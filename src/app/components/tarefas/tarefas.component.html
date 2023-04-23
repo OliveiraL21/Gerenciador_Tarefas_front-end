@@ -105,15 +105,18 @@
               [nzColor]="'purple'">{{tarefa.status?.descricao}}</nz-tag>
           </td>
           <td nzAlign="center">
-            <button nz-button nzType="primary" nzSize="small" (click)="visualizar(tarefa.id)">
+            <button nz-button nzType="primary" nzSize="small" nz-tooltip nzTooltipTitle="visualizar"
+              (click)="visualizar(tarefa.id)">
               <span nz-icon nzType="eye" nzTheme="outline"></span>
             </button>
 
-            <button nz-button nzType="default" nzTheme="outline" nzSize="small" (click)="editar(tarefa.id)">
+            <button nz-button nzType="default" nzTheme="outline" nzSize="small" nz-tooltip nzTooltipTitle="Editar"
+              (click)="editar(tarefa.id)">
               <span nz-icon nzType="edit" nzTheme="outline"></span>
             </button>
 
-            <button nz-button nzType="primary" nzDanger nzSize="small" nzTheme="outline" (click)="deletar(tarefa.id)">
+            <button nz-button nzType="primary" nzDanger nzSize="small" nzTheme="outline" nz-tooltip
+              nzTooltipTitle="Deletar" (click)="deletar(tarefa.id)">
               <span nz-icon nzType="delete"></span>
             </button>
           </td>

@@ -12,8 +12,18 @@
   height: 100vh;
   max-height: 250px;
   width: 100%;
-
 }
+
+.preview{
+  width: 100vw;
+  height: 100vh;
+}
+
+.img_perfil{
+  width: 10vw;
+  height: 20vh;
+}
+
 .card{
   display: flex;
   justify-content: center;

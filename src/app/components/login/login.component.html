@@ -3,8 +3,8 @@
     <nz-content class="content">
       <div class="mainContent">
         <nz-card class="formCard">
-          <nz-spin [nzSpinning]="isSpinning" nzTip="Efetuando Login...">
-            <form nz-form [formGroup]="form" (ngSubmit)="login()" class="loginForm">
+          <form nz-form [formGroup]="form" (ngSubmit)="login()" class="loginForm">
+            <nz-spin [nzSpinning]="isSpinning" nzTip="Efetuando Login..." [nzDelay]="2000">
               <h1>Gerenciador de Tarefas </h1>
               <nz-form-item style="margin-bottom: 10px">
                 <nz-form-control nzErrorTip="Informe o nome de usuário">
@@ -31,8 +31,9 @@
 
               <span>Ainda não possui uma conta ? <a class="cadastrar" (click)="cadastrarUsuario()">Cadastre-se
                   aqui.</a></span>
-            </form>
-          </nz-spin>
+            </nz-spin>
+          </form>
+
         </nz-card>
       </div>
     </nz-content>

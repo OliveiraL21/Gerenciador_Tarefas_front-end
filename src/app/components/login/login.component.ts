@@ -30,8 +30,8 @@ export class LoginComponent {
   }
 
   login(): void {
-    this.isSpinning = true;
     if (this.form.valid) {
+      this.isSpinning = true;
       const login = this.form.value;
 
       const user: UsuarioLogin = new UsuarioLogin();
@@ -45,13 +45,16 @@ export class LoginComponent {
             localStorage.setItem('Id', data.usuarioId);
             this.messageService.success("Login Realizado com sucesso!");
             this.router.navigate(['/tarefas/listagem']);
+            this.isSpinning = false;
           } else {
             this.messageService.error('Erro ao tentar efetuar login, tente novamente!');
+            this.isSpinning = false;
           }
         },
         error: (erro) => {
           console.log(erro);
-          this.messageService.error('Erro ao tentar efetuar o login, tente novamente mais tarde!');
+          this.messageService.error(`${erro.error.error}`);
+          this.isSpinning = false;
         }
       })
 
@@ -62,7 +65,8 @@ export class LoginComponent {
           control.markAsDirty();
           control.updateValueAndValidity();
         }
-      })
+      });
+      this.isSpinning = false;
     }
     this.isSpinning = false;
   }
