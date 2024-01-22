@@ -57,7 +57,7 @@ export class AppComponent {
       this.usuarioService.details(this.usuarioId).subscribe({
         next: (usuario: Usuario) => {
           this.username = usuario.username ?? '';
-          var url = this.dataURItoBlob(usuario.profileImageUrl ?? '');
+          var url = this.getFile(usuario.profileImageUrl ?? '');
           this.avatarUrl = URL.createObjectURL(url);
 
         },
@@ -104,6 +104,7 @@ export class AppComponent {
       next: (data) => {
         if (this.tokenService.possuiToken()) {
           this.tokenService.removeToken();
+          localStorage.clear();
         }
         this.router.navigate(['/login']);
       }

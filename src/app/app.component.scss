@@ -10,35 +10,47 @@
   z-index: 10;
   min-height: 100vh;
   box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);
+  background-color: #101a32;
+  color: #fff
+}
 
+::ng-deep .ant-menu-submenu .ant-menu-submenu-inline .ant-menu-submenu-open {
+  background: #101a32 !important;
 }
 
 .header-trigger {
-  height: 64px;
-  padding: 20px 24px;
   font-size: 20px;
   cursor: pointer;
   transition: all 0.3s, padding 0s;
+  color: #2c2b2b;
 }
 
 .trigger:hover {
   color: #1890ff;
 }
 
-.avatar{
+.avatar {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   margin-top: 1rem;
   margin-bottom: 1rem;
-  margin-left: 20px;
 }
 
-.username{
- margin-left: 10px;
+.imagem_perfil {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+}
+
+.username {
+  margin-left: 10px;
   margin-top: 10px;
 
 }
 
-.avatar > p{
+.avatar>p {
   margin-top: 10px;
   margin-left: 10px;
   font-weight: 500;
@@ -51,20 +63,22 @@ nz-header {
 }
 
 .app-header {
-  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   height: 64px;
   padding: 0;
-  background: #fff;
-  box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
-  background-color: #fa4b4b;
+  background-color: #fff;
+  color: #2c2b2b;
 }
-.logout{
+
+.logout {
   float: right;
-  margin-top: 20px;
   margin-right: 30px;
-  color: #f8f8f8;
+  color: #2c2b2b;
   font-weight: bold;
 }
+
 nz-content {
   margin: 24px;
   overflow: hidden;
@@ -82,7 +96,7 @@ nz-content {
   font-size: 15px;
   cursor: pointer;
   transition: all 0.3s, padding 0s;
-  color: #f8f8f8;
+  color: #2c2b2b;
 }
 
 .trigger:hover {
@@ -112,9 +126,7 @@ nz-content {
   border: none !important;
 }
 
-::ng-deep
-  .ant-select-disabled.ant-select:not(.ant-select-customize-input)
-  .ant-select-selector {
+::ng-deep .ant-select-disabled.ant-select:not(.ant-select-customize-input) .ant-select-selector {
   color: rgba(0, 0, 0, 1);
   background: #fff !important;
   border: none !important;
@@ -125,7 +137,7 @@ nz-content {
   color: rgba(0, 0, 0, 0.85) !important;
 }
 
-::ng-deep .ant-checkbox-disabled + span {
+::ng-deep .ant-checkbox-disabled+span {
   color: rgba(0, 0, 0, 0.85);
 }
 
@@ -140,7 +152,7 @@ nz-content {
   border-bottom: 1px solid rgba(209, 209, 209, 0.35) !important;
 }
 
-::ng-deep .ant-picker-input > input[disabled] {
+::ng-deep .ant-picker-input>input[disabled] {
   color: rgba(0, 0, 0, 0.85) !important;
 }
 
